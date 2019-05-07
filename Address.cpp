@@ -1,7 +1,33 @@
 #include "Address.h"
-
-Address::Address()
+Address::Address() {}
+Address::Address(string line)
 {
+    vector<string> addres_vec;
+    tokenize(line, '/', addres_vec);
+    for (int i = 0; i < addres_vec.size(); i++)
+    {
+        if (i == 0)
+        {
+            this->street = addres_vec.at(0);
+        }
+        else if (i == 1)
+        {
+            istringstream teste(addres_vec.at(1));
+            teste >> this->doorNumber;
+        }
+        else if (i == 2)
+        {
+            this->floor = addres_vec.at(2);
+        }
+        else if (i == 3)
+        {
+            this->zipCode = addres_vec.at(3);
+        }
+        else if (i == 4)
+        {
+            this->location = addres_vec.at(4);
+        }
+    }
 }
 
 Address::Address(string street, int doorNumber, string floor, string zipCode, string location) : street(street), doorNumber(doorNumber), floor(floor), zipCode(zipCode), location(location)
@@ -71,41 +97,12 @@ void Address::setLocation(string location)
     this->location = location;
 }
 
+void Address::setAddress(string address){
+    
+}
+
 //other functions
 //function that process my addresses removing the '/', making a plan line with spaces, so i can use it with my stringstream
-Address address_handler(string line)
-{   
-    Address address;
-    vector<string> addres_vec;
-    tokenize(line, '/', addres_vec);
-    for (int i = 0; i < addres_vec.size(); i++)
-    {
-        if (i == 0)
-        {
-           address.setStreet(addres_vec.at(0));
-        }
-        else if (i == 1)
-        {   
-            int number;
-            istringstream teste(addres_vec.at(1));
-            teste >>  number;
-            address.setDoorNumber(number);
-        }
-        else if (i == 2)
-        {   
-            address.setFloor(addres_vec.at(2));
-        }
-        else if (i == 3)
-        {
-            address.setZipCode(addres_vec.at(3));
-        }
-        else if (i == 4)
-        {
-             address.setLocation(addres_vec.at(4));
-        }
-    }
-    return address;
-}
 
 //fill a string vector with informations separated by a certain delimiter
 void tokenize(string const &str, const char delim, vector<string> &out)

@@ -119,7 +119,6 @@ vector<Packet> packData(string packFile)
     data_of_pack.push_back(newPack);
     //cout << data_of_pack.at(0).start_date.ano << endl; // test to verify if i'm gettin the right values to my vector of Packets
     data.close();
-    cout << "Ive done it sucessfully!" << endl;
     return data_of_pack;
 }
 

@@ -10,16 +10,18 @@
 
 using namespace std;
 
-class Address{
- private:
-  string street; // street name
-  int doorNumber; // dor number
-  string floor; // floor number ("-" is not applicable)
-  string zipCode; // postal code
+class Address
+{
+private:
+  string street;   // street name
+  int doorNumber;  // dor number
+  string floor;    // floor number ("-" is not applicable)
+  string zipCode;  // postal code
   string location; // site
 
- public:
+public:
   Address();
+  Address(string line);
   Address(string street, int doorNumber, string floor, string postalCode, string location);
 
   // metodos GET
@@ -28,18 +30,17 @@ class Address{
   string getFloor() const;
   string getZipCode() const;
   string getLocation() const;
-  
+  string getAddress() const;
+
   // metodos SET
   void setStreet(string street);
   void setDoorNumber(int doorNumber);
   void setFloor(string floor);
   void setZipCode(string postalCode);
-  void setLocation(string  location);
+  void setLocation(string location);
+  void setAddress(string address);
 
   // outros
-  friend ostream& operator<<(ostream& out, const Address & address);
-
+  friend void tokenize(string const &str, const char delim, vector<string> &out);
+  friend ostream &operator<<(ostream &out, const Address &address);
 };
-
-void tokenize(string const &str, const char delim, vector<string> &out);
-Address address_handler(string line);

@@ -1,7 +1,7 @@
 #pragma once
 #include "Menus.h"
-#include "Packet.h"
 #include "Packet.cpp"
+#include "Client.cpp"
 
 //function that will read all my integers instead of a simple cin
 
@@ -66,6 +66,105 @@ int agency_operations(Agency &agency)
   return op;
 }
 
+/*//To implement the operations with my clients 
+void clients_operations(Agency &agency, vector<Cliente> &clients)
+{
+    ifstream clientsFile;
+    clientsFile.open(agency.clientes);
+    if (clientsFile.good())
+    {
+        cout << "Clients database up to date. file " << agency.clientes << " successfully readed from the current directory" << endl;
+    }
+    else
+    {
+        cout << "Can't open the clients database file" << agency.clientes << "it's not on the current directory " << endl;
+    }
+
+    cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
+    cout << "                             Clients                                  " << endl;
+    cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
+    cout << endl;
+    vector<string> menu = {"Create new Client", "Remove existing Client", "Update Client Information", "Print a specif client", "Print agency clients"};
+    int op = readOptions(menu);
+
+    if (op == 1)
+    {
+        add_client(clients);
+        while (op == 1)
+        {
+            cout << "Do you want to add another client? \n1 - Yes \n0 - No \n"
+                 << endl;
+            op = readInteger();
+            if (op == 0)
+            {
+                print_all_clients(clients);
+            }
+            else
+            {
+                add_client(clients);
+            }
+        }
+    }
+
+    if (op == 2)
+    {
+        remove_client(clients);
+        while (op > 0)
+        {
+            cout << "Do you want to remove another client? \n1 - Yes \n0 - No \n"
+                 << endl;
+            op = readInteger();
+            if (op == 0)
+            {
+                print_all_clients(clients);
+            }
+            else
+            {
+                remove_client(clients);
+            }
+        }
+    }
+    if (op == 3)
+    {
+        update_client(clients);
+        while (op > 0)
+        {
+            cout << "Do you want to update another client? \n1 - Yes \n0 - No \n"
+                 << endl;
+            op = readInteger();
+            if (op == 0)
+            {
+                print_all_clients(clients);
+            }
+            else
+            {
+                update_client(clients);
+            }
+        }
+    }
+    if (op == 4)
+    {
+        printClient(clients);
+        while (op > 0)
+        {
+            cout << "Do you want to see the information of other client? \n1 - Yes \n0 - No \n"
+                 << endl;
+            op = readInteger();
+            if (op == 1)
+            {
+                printClient(clients);
+            }
+        }
+    }
+    if (op == 5)
+    {
+        print_all_clients(clients);
+    }
+    clientsFile.close();
+}
+*/
+
+//Operates alongside my vector of packets
 void packs_operation(Agency &agency, vector<Packet> &packs)
 {
   ifstream packsFile;
@@ -154,10 +253,11 @@ unsigned mainMenu(Agency agency)
 {
   int op;
   op = agency_operations(agency);
-  vector<Packet> packages;
-  packages = packData(agency.getPackets());
+  vector<Packet> packages = packData(agency.getPackets());
+  vector<Client> clients = clientData(agency.getClients());
   while (op != 0)
   {
+    
     if (op == 2)
     {
       packs_operation(agency, packages);
