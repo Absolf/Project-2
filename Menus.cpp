@@ -99,7 +99,7 @@ void packs_operation(Agency &agency, vector<Packet> &packs)
       cin >> op;
       if (op == 0)
       {
-        //print_all_packs(packs);
+        print_all_packs(packs);
       }
       else
       {

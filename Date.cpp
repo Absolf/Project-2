@@ -57,14 +57,17 @@ void Date::setDateString(string linha){
 }
 
 //Verify if this is needed as i have return date function
+
 string Date::getDateString(){
     string year = to_string(getYear());
     string month = to_string(getMonth());
     string day = to_string(getDay());
     string oneLine = year+"/"+month+"/"+day;
     Date date(oneLine);
+    cout << "getDate test: "<<date.getYear()<<endl;
     return returnDate(date);
 }
+
 string Date::returnDate(Date date){
     stringstream ss;
     string date_output;

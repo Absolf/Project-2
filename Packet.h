@@ -51,6 +51,7 @@ public:
     friend vector<string> packQuestionHandler(vector<string> vec);
     friend vector<string> packs_questions(vector<Packet> &vec);
     friend void add_packs(vector<Packet> &vec);
+    friend void print_all_packs(vector<Packet> &vec);
 
     //outputh method
     friend ostream &operator<<(ostream &out, const Packet &packet);

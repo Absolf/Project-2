@@ -36,7 +36,7 @@ Date Packet::getBeginDate() const
 }
 
 Date Packet::getEndDate() const
-{
+{   
     return endDate;
 }
 
@@ -93,9 +93,6 @@ void Packet::setSoldPlaces(int soldPlaces)
 /*********************************
  * Other functions
  ********************************/
-
-//function responsible to understand wich components of the file is a Travel Package.
-
 //function that creates a vector containing all the multiple Travel Packages provided by the agency.
 vector<Packet> packData(string packFile)
 {
@@ -174,22 +171,22 @@ vector<string> packs_questions(vector<Packet> &vec)
     return new_pack;
 }
 
-/*
+
 void print_all_packs(vector<Packet> &vec)
 {
     vector<Packet>::iterator it;
     it = vec.begin();
     int i = 0;
     for (auto it = vec.begin(); it != vec.end(); it++)
-    {
+    {   
         cout << "::::::::::::::::::" << endl;
-        cout << "Unique id: " << vec.at(i).getId() << "\nLocal: " << vec.at(i).getLocal() << "\nDate of start: " << returnDate(vec.at(i).getBeginDate()) << "\nDate of end: " << returnDate(vec.at(i).getEndDate())
+        cout << "Unique id: " << vec.at(i).getId() << "\nLocal: " << vec.at(i).getLocal() << "\nDate of start: " << vec.at(i).getBeginDate().getDateString() << "\nDate of end: " <<  vec.at(i).getEndDate().getDateString()
              << "\nPrice per person: " << vec.at(i).getPricePerPerson() << "\nAmmount of places: " << vec.at(i).getMaxPlaces() << "\nSold places: " << vec.at(i).getSoldPlaces() << endl;
         cout << ":::::::::::::::::::::::::::::::";
         i++;
     }
 }
-*/
+
 
 void add_packs(vector<Packet> &vec)
 {
