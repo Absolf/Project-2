@@ -187,6 +187,78 @@ void print_all_packs(vector<Packet> &vec)
     }
 }
 
+void update_packs(vector<Packet> &vec)
+{
+    vector<Packet>::iterator it;
+    it = vec.begin();
+    int update_id;
+    cout << "What's the ID of the package you would like to update?" << endl;
+    cin >> update_id;
+    int i = 0;
+    int op;
+
+    string line;
+    for (auto it = vec.begin(); it != vec.end(); it++)
+    {
+        if (vec.at(i).id == update_id)
+        {
+            cout << "The id[" << vec.at(i).id << "] have been found" << endl;
+            cout << "proceeding to update into my package " << endl;
+            cout << "::::::::::::::::::::" << endl;
+            cout << "options: " << endl;
+            cout << "1 - Local \n2 - start date \n3 - End date \n4 - Price per person \n5 - Ammount of places \n6 - Sold places" << endl;
+            cin >> op;
+
+            if (op == 1)
+            {
+                cout << "New data?: " << endl;
+                cin.ignore();
+                getline(cin, line);
+                vec.at(i).local = line;
+            }
+            if (op == 2)
+            {
+                cout << "New data?: " << endl;
+                cin.ignore();
+                getline(cin, line);
+                vec.at(i).startDate.setDateString(line);
+            }
+            if (op == 3)
+            {
+                cout << "New data?: " << endl;
+                cin.ignore();
+                getline(cin, line);
+                vec.at(i).endDate.setDateString(line);
+            }
+            if (op == 4)
+            {
+                cout << "New data?: " << endl;
+                cin.ignore();
+                getline(cin, line);
+                istringstream price_converter(line);
+                price_converter >> vec.at(i).pricePerPerson;
+            }
+            if (op == 5)
+            {
+                cout << "New data?: " << endl;
+                cin.ignore();
+                getline(cin, line);
+                istringstream start_place_converter(line);
+                start_place_converter >> vec.at(i).maxPlaces;
+            }
+            if (op == 6)
+            {
+                cout << "New data?: " << endl;
+                cin.ignore();
+                getline(cin, line);
+                istringstream sold_places_converter(line);
+                sold_places_converter >> vec.at(i).soldPlaces;
+            }
+        }
+        i++;
+    }
+}
+
 //Manage to add a new Packet to my current vector of packs
 void add_packs(vector<Packet> &vec)
 {

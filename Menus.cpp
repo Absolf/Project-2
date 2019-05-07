@@ -129,6 +129,24 @@ void packs_operation(Agency &agency, vector<Packet> &packs)
       }
     }
   }
+  //Agency Manager will update the data of an existing Package
+  if (op == 3)
+  {
+    update_packs(packs);
+    while (op > 0)
+    {
+      cout << "Do you want to update another pack? \n0 - No\n1 - Yes \nAnswer: ";
+      cin >> op;
+      if (op == 0)
+      {
+        print_all_packs(packs);
+      }
+      else
+      {
+        update_packs(packs);
+      }
+    }
+  }
   packsFile.close();
 }
 

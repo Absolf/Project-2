@@ -19,8 +19,6 @@ private:
     double pricePerPerson;   // price per person
     int maxPlaces;  // number of persons still available in the packet (updated whenever the packet is sold to a new client)
     int soldPlaces; //number of places that have been sold.
-    Date begin;              // begin date
-    Date end;                // end date
 public:
     Packet();
     Packet(int id, string local, Date startDate, Date endDate, double pricePerPerson, int startPlaces, int SoldPlaces);
@@ -53,6 +51,7 @@ public:
     friend void add_packs(vector<Packet> &vec);
     friend void print_all_packs(vector<Packet> &vec);
     friend void remove_packs(vector<Packet> &vec);
+    friend void update_packs(vector<Packet> &vec);
 
     //outputh method
     friend ostream &operator<<(ostream &out, const Packet &packet);
