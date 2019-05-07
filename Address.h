@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>
 #include <string>
 #include <vector>
@@ -40,7 +39,9 @@ public:
   void setLocation(string location);
   void setAddress(string address);
 
+
   // outros
-  friend void tokenize(string const &str, const char delim, vector<string> &out);
+  void tokenize(string const &str, const char delim, vector<string> &out);
   friend ostream &operator<<(ostream &out, const Address &address);
 };
+

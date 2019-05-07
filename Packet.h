@@ -3,14 +3,16 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <sstream>
 #include "defs.h"
 #include "Date.h"
+#include "Address.h"
 
 using namespace std;
 
 class Packet
 {
+    friend class Address;
 private:
     int id;                // packet unique identifier
     string local;          // touristic places to visit
@@ -52,7 +54,9 @@ public:
     friend void print_all_packs(vector<Packet> &vec);
     friend void remove_packs(vector<Packet> &vec);
     friend void update_packs(vector<Packet> &vec);
-
+    friend void Address::tokenize(string const &str, const char delim, vector<string> &out);
+    friend void printDestinyPack(vector<Packet> &vec);
     //outputh method
     friend ostream &operator<<(ostream &out, const Packet &packet);
 };
+

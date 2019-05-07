@@ -2,7 +2,7 @@
 #include "Agency.h"
 #include "Address.cpp"
 //construtor da classe
-Agency::Agency(){}
+Agency::Agency() {}
 Agency::Agency(string fileName)
 {
     vector<string> linesInfo;
@@ -21,10 +21,12 @@ Agency::Agency(string fileName)
     {
         linesInfo.push_back(lines);
     }
+
     setName(linesInfo.at(0));
     setNif(linesInfo.at(1));
     setUrl(linesInfo.at(2));
-    setAddress(address_handler(linesInfo.at(3)));
+    Address address(linesInfo.at(3));
+    this->address = address;
     setClients(linesInfo.at(4));
     setPackets(linesInfo.at(5));
 }
@@ -80,7 +82,6 @@ void Agency::setPackets(string packets)
 {
     this->packets = packets;
 }
-
 
 /*********************************
  * Mostrar Loja

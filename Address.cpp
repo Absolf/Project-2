@@ -1,4 +1,6 @@
+#pragma once
 #include "Address.h"
+
 Address::Address() {}
 Address::Address(string line)
 {
@@ -87,7 +89,6 @@ void Address::setFloor(string floor)
 
 void Address::setZipCode(string postalCode)
 {
-
     this->zipCode = zipCode;
 }
 
@@ -97,15 +98,11 @@ void Address::setLocation(string location)
     this->location = location;
 }
 
-void Address::setAddress(string address){
-    
-}
-
 //other functions
 //function that process my addresses removing the '/', making a plan line with spaces, so i can use it with my stringstream
 
 //fill a string vector with informations separated by a certain delimiter
-void tokenize(string const &str, const char delim, vector<string> &out)
+void Address::tokenize(string const &str, const char delim, vector<string> &out)
 {
     stringstream ss(str);
     string s;

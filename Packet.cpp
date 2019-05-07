@@ -1,5 +1,6 @@
+#pragma once
 #include "Packet.h"
-#include <sstream>
+#include "Address.h"
 
 Packet::Packet() {}
 Packet::Packet(int id, string local, Date startDate, Date endDate, double pricePerPerson, int maxPlaces, int soldPlaces) : id(id), local(local), startDate(startDate), endDate(endDate), pricePerPerson(pricePerPerson), maxPlaces(maxPlaces), soldPlaces(soldPlaces)
@@ -101,7 +102,7 @@ vector<Packet> packData(string packFile)
     string lines;
     vector<string> pack_temp;
     data.open(packFile);
-    getline(data, lines); // Eliminates the first line IDK what to do with it yet.
+    getline(data, lines); // Eliminates the first line;
     while (getline(data, lines, '\n'))
     {
         if (lines == "::::::::::")
@@ -117,8 +118,9 @@ vector<Packet> packData(string packFile)
     }
     Packet newPack(pack_temp);
     data_of_pack.push_back(newPack);
-    //cout << data_of_pack.at(0).start_date.ano << endl; // test to verify if i'm gettin the right values to my vector of Packets
     data.close();
+    cout << "data pack working" << endl;
+
     return data_of_pack;
 }
 
@@ -178,11 +180,9 @@ void print_all_packs(vector<Packet> &vec)
     int i = 0;
     for (auto it = vec.begin(); it != vec.end(); it++)
     {
-        cout << "::::::::::::::::::" << endl;
-        cout << "Unique id: " << vec.at(i).getId() << "\nLocal: " << vec.at(i).getLocal() << "\nDate of start: " << vec.at(i).getBeginDate().getDateString() << "\nDate of end: " << vec.at(i).getEndDate().getDateString()
-             << "\nPrice per person: " << vec.at(i).getPricePerPerson() << "\nAmmount of places: " << vec.at(i).getMaxPlaces() << "\nSold places: " << vec.at(i).getSoldPlaces() << endl;
-        cout << ":::::::::::::::::::::::::::::::";
-        i++;
+        cout << "::::::::::::::::::::::::::::::::" << endl;
+        cout << vec.at(i) << endl;
+        cout << ":::::::::::::::::::::::::::::::" << endl;
     }
 }
 
@@ -257,6 +257,41 @@ void update_packs(vector<Packet> &vec)
         i++;
     }
 }
+//fill a string vector with informations separated by a certain delimiter
+void tokenize(string const &str, const char delim, vector<string> &out)
+{
+    stringstream ss(str);
+    string s;
+    while (getline(ss, s, delim))
+    {
+        out.push_back(s);
+    }
+}
+
+//Function to visualize packs data within a specific destiny
+void printDestinyPack(vector<Packet> &vec)
+{
+    string destiny;
+    cout << "What's the destiny you would like to access?" << endl;
+    cin >> destiny;
+    int cont;
+    for (size_t i = 0; i < vec.size(); i++)
+    {
+        string vec_source = vec.at(i).local;
+        vector<string> vec_dest;
+        tokenize(vec_source, ' ', vec_dest);
+        if (destiny == vec_dest.at(0))
+        {
+            cout << endl;
+            cout << vec.at(i);
+            cont++;
+            if (cont > 1 && i < (vec.size() - 1))
+            {
+                cout << ":::::::::::::::::::::::::::::::";
+            }
+        }
+    }
+}
 
 //Manage to add a new Packet to my current vector of packs
 void add_packs(vector<Packet> &vec)
@@ -300,10 +335,10 @@ void writePacks(string file_name, vector<Packet> &vec)
     {
         for (size_t i = 0; i < vec.size(); i++)
         {
-            operator<<(file, vec.at(i));
+            file << vec.at(i);
             if (i < vec.size() - 1)
             {
-                file << "::::::::::";
+                file << "::::::::::"<<endl;
             }
         }
     }
@@ -312,14 +347,11 @@ void writePacks(string file_name, vector<Packet> &vec)
 */
 ostream &operator<<(ostream &out, const Packet &packet)
 {
-    /*
-    file << endl;
-    file << packet.id << endl;
-    file << packet.local << endl;
-    file << return_date(packet.startDate) << endl;
-    file << return_date(packet.endDate) << endl;
-    file << packet.pricePerPerson << endl;
-    file << packet.startPlaces << endl;
-    file << packet.soldPlaces << endl;
-    */
+    out << packet.id << endl;
+    out << packet.local << endl;
+    out << packet.getBeginDate().getDateString() << endl;
+    out << packet.getEndDate().getDateString() << endl;
+    out << packet.pricePerPerson << endl;
+    out << packet.maxPlaces << endl;
+    out << packet.soldPlaces << endl;
 }

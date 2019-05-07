@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>
 #include <string>
 #include <vector>
@@ -17,12 +16,12 @@ class Client{
   unsigned nif; // VAT number of client
   unsigned short familySize;  // number of family members
   Address address; // client's address
-  vector<int> packets; // vector to store client's packets bought
+  string packets; // vector to store client's packets bought
   unsigned  totalPurchased; // total value spent by the client
 
  public:
   Client(vector<string> clients);  // for a new client
-  Client(string name, unsigned nif, unsigned short familySize, Address address, vector<Packet> & packets, unsigned totalPurchased);  // client read from file
+  Client(string name, unsigned nif, unsigned short familySize, Address address, string packets, unsigned totalPurchased);  // client read from file
 
   // GET methods
   
@@ -30,7 +29,7 @@ class Client{
   unsigned getNifNumber() const;
   unsigned short getFamilySize() const;
   Address getAddress() const;
-  vector<Packet> getPacketList() const;
+  string getPacketList() const;
   unsigned getTotalPurchased() const;
   
   // SET methods
@@ -39,7 +38,7 @@ class Client{
   void setNifNumber(unsigned nif);
   void setFamilySize(unsigned short familySize);
   void setAddress(Address address);
-  void setPacketList(vector<Packet> & packets);
+  void setPacketList(string packets);
   unsigned setTotalPurchased(unsigned totalPurchased);
   
   // other methods

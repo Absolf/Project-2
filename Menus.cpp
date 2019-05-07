@@ -57,36 +57,34 @@ int agency_operations(Agency &agency)
   int op;
   cout << "What would you like to manage?: " << endl;
   vector<string> menu = {"Clients", "Package"};
-  cout << "teste 1" << endl;
   op = readOptions(menu);
-
-  cout << " so far i'm working here" << endl;
   //attempt to fill the  services & clients structs with data from the files.
+  cout << "Agency created" << endl;
   cout << endl;
   return op;
 }
 
-/*//To implement the operations with my clients 
-void clients_operations(Agency &agency, vector<Cliente> &clients)
+//To implement the operations with my clients
+void clients_operations(Agency &agency, vector<Client> &clients)
 {
-    ifstream clientsFile;
-    clientsFile.open(agency.clientes);
-    if (clientsFile.good())
-    {
-        cout << "Clients database up to date. file " << agency.clientes << " successfully readed from the current directory" << endl;
-    }
-    else
-    {
-        cout << "Can't open the clients database file" << agency.clientes << "it's not on the current directory " << endl;
-    }
+  ifstream clientsFile;
+  clientsFile.open(agency.getClients());
+  if (clientsFile.good())
+  {
+    cout << "Clients database up to date. file " << agency.getClients() << " successfully readed from the current directory" << endl;
+  }
+  else
+  {
+    cout << "Can't open the clients database file" << agency.getClients() << "it's not on the current directory " << endl;
+  }
 
-    cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
-    cout << "                             Clients                                  " << endl;
-    cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
-    cout << endl;
-    vector<string> menu = {"Create new Client", "Remove existing Client", "Update Client Information", "Print a specif client", "Print agency clients"};
-    int op = readOptions(menu);
-
+  cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
+  cout << "                             Clients                                  " << endl;
+  cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
+  cout << endl;
+  vector<string> menu = {"Create new Client", "Remove existing Client", "Update Client Information", "Print a specif client", "Print agency clients"};
+  int op = readOptions(menu);
+  /*
     if (op == 1)
     {
         add_client(clients);
@@ -160,12 +158,12 @@ void clients_operations(Agency &agency, vector<Cliente> &clients)
     {
         print_all_clients(clients);
     }
-    clientsFile.close();
+    */
+  clientsFile.close();
 }
-*/
 
 //Operates alongside my vector of packets
-void packs_operation(Agency &agency, vector<Packet> &packs)
+void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clients)
 {
   ifstream packsFile;
   packsFile.open(agency.getPackets());
@@ -246,6 +244,29 @@ void packs_operation(Agency &agency, vector<Packet> &packs)
       }
     }
   }
+  if (op == 4)
+  {
+    cout << "How would you like to search for Travel Packs?" << endl;
+    vector<string> packsVisualizationOptions = {"All Travel Packs", "Related to a destiny", "Between dates", "Related to a destiny and between dates", "Sold to a client", "Sold to all clients"};
+    op = readOptions(packsVisualizationOptions);
+    if (op == 1)
+    {
+      print_all_packs(packs);
+    }
+    if (op == 2)
+    {
+      printDestinyPack(packs);
+      while (op > 0)
+      {
+        cout << "\nWould you like to verify the packs of another destiny? \n1 - Yes \n0 - No" << endl;
+        cin >> op;
+        if (op == 1)
+        {
+          printDestinyPack(packs);
+        }
+      }
+    }
+  }
   packsFile.close();
 }
 
@@ -253,19 +274,34 @@ unsigned mainMenu(Agency agency)
 {
   int op;
   op = agency_operations(agency);
+  cout << "preparing to create packets" << endl;
   vector<Packet> packages = packData(agency.getPackets());
-  vector<Client> clients = clientData(agency.getClients());
+  cout << "preparing to create clients" << endl;
+  vector<Client> clients;
   while (op != 0)
   {
-    
+    if (op == 1)
+    {
+      cout << "i'm here at clients";
+      clients_operations(agency, clients);
+      cout << "\nWould you like to keep managing the clients? \n1-Yes \n0-No" << endl;
+      cin >> op;
+      while (op != 0)
+      {
+        clients_operations(agency, clients);
+        cout << "\nWould you like to keep managing the clients? \n1-Yes \n0-No" << endl;
+        cin >> op;
+      }
+    }
+
     if (op == 2)
     {
-      packs_operation(agency, packages);
+      packs_operation(agency, packages, clients);
       cout << "\nWould you like to keep managing the Packages? \n1-Yes \n0-No" << endl;
       cin >> op;
       while (op != 0)
       {
-        packs_operation(agency, packages);
+        packs_operation(agency, packages, clients);
         cout << "\nWould you like to keep managing the Packages? \n1-Yes \n0-No" << endl;
         cin >> op;
       }
