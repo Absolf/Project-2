@@ -59,7 +59,6 @@ int agency_operations(Agency &agency)
   vector<string> menu = {"Clients", "Package"};
   op = readOptions(menu);
   //attempt to fill the  services & clients structs with data from the files.
-  cout << "Agency created" << endl;
   cout << endl;
   return op;
 }
@@ -274,15 +273,12 @@ unsigned mainMenu(Agency agency)
 {
   int op;
   op = agency_operations(agency);
-  cout << "preparing to create packets" << endl;
   vector<Packet> packages = packData(agency.getPackets());
-  cout << "preparing to create clients" << endl;
-  vector<Client> clients;
+  vector<Client> clients = clientData(agency.getClients());
   while (op != 0)
   {
     if (op == 1)
     {
-      cout << "i'm here at clients";
       clients_operations(agency, clients);
       cout << "\nWould you like to keep managing the clients? \n1-Yes \n0-No" << endl;
       cin >> op;

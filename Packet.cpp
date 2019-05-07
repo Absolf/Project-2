@@ -119,7 +119,6 @@ vector<Packet> packData(string packFile)
     Packet newPack(pack_temp);
     data_of_pack.push_back(newPack);
     data.close();
-    cout << "data pack working" << endl;
 
     return data_of_pack;
 }

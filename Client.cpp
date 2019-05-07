@@ -14,7 +14,6 @@ void clients_packs(string line, vector<int> &aux)
 
 Client::Client(vector<string> clients)
 {
-  vector<int> packets;
   this->name = clients.at(0);
   stringstream nif(clients.at(1));
   nif >> this->nif;
@@ -126,14 +125,8 @@ vector<Client> clientData(string clientFile)
   Client newClient(client_temp);
   client_info.push_back(newClient);
   file.close();
-  for (size_t i = 0; i < client_info.size(); i++)
-  {
-    cout << client_info.at(i).getName();
-  }
-  cout << "Clients vector working" << endl;
   return client_info;
 }
-
 
 ostream &operator<<(ostream &out, const Client &client)
 {
