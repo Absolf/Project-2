@@ -12,13 +12,13 @@ using namespace std;
 class Packet
 {
 private:
-    int id;                  // packet unique identifier
-    string local;            // touristic places to visit
-    Date startDate;          // the start of the travel packet trip
-    Date endDate;            // the ending date of the trip
-    double pricePerPerson;   // price per person
-    int maxPlaces;  // number of persons still available in the packet (updated whenever the packet is sold to a new client)
-    int soldPlaces; //number of places that have been sold.
+    int id;                // packet unique identifier
+    string local;          // touristic places to visit
+    Date startDate;        // the start of the travel packet trip
+    Date endDate;          // the ending date of the trip
+    double pricePerPerson; // price per person
+    int maxPlaces;         // number of persons still available in the packet (updated whenever the packet is sold to a new client)
+    int soldPlaces;        //number of places that have been sold.
 public:
     Packet();
     Packet(int id, string local, Date startDate, Date endDate, double pricePerPerson, int startPlaces, int SoldPlaces);

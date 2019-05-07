@@ -6,8 +6,8 @@ Packet::Packet(int id, string local, Date startDate, Date endDate, double priceP
 {
 }
 Packet::Packet(vector<string> pack_vec)
-{   
-    
+{
+
     stringstream teste(pack_vec.at(0));
     teste >> this->id;
     //this->id = stoi((pack_vec.at(0)));
@@ -36,7 +36,7 @@ Date Packet::getBeginDate() const
 }
 
 Date Packet::getEndDate() const
-{   
+{
     return endDate;
 }
 
@@ -105,7 +105,7 @@ vector<Packet> packData(string packFile)
     while (getline(data, lines, '\n'))
     {
         if (lines == "::::::::::")
-        {   
+        {
             Packet newPack(pack_temp);
             data_of_pack.push_back(newPack);
             pack_temp.clear();
@@ -165,12 +165,12 @@ vector<string> packs_questions(vector<Packet> &vec)
     vector<string> new_pack;
     new_pack.push_back(to_string(id));
     vector<string> aux = packQuestionHandler(nPacks_questions);
-    for (size_t i = 0; i<aux.size(); i++) {
+    for (size_t i = 0; i < aux.size(); i++)
+    {
         new_pack.push_back(aux.at(i));
     }
     return new_pack;
 }
-
 
 void print_all_packs(vector<Packet> &vec)
 {
@@ -178,9 +178,9 @@ void print_all_packs(vector<Packet> &vec)
     it = vec.begin();
     int i = 0;
     for (auto it = vec.begin(); it != vec.end(); it++)
-    {   
+    {
         cout << "::::::::::::::::::" << endl;
-        cout << "Unique id: " << vec.at(i).getId() << "\nLocal: " << vec.at(i).getLocal() << "\nDate of start: " << vec.at(i).getBeginDate().getDateString() << "\nDate of end: " <<  vec.at(i).getEndDate().getDateString()
+        cout << "Unique id: " << vec.at(i).getId() << "\nLocal: " << vec.at(i).getLocal() << "\nDate of start: " << vec.at(i).getBeginDate().getDateString() << "\nDate of end: " << vec.at(i).getEndDate().getDateString()
              << "\nPrice per person: " << vec.at(i).getPricePerPerson() << "\nAmmount of places: " << vec.at(i).getMaxPlaces() << "\nSold places: " << vec.at(i).getSoldPlaces() << endl;
         cout << ":::::::::::::::::::::::::::::::";
         i++;
