@@ -64,7 +64,6 @@ string Date::getDateString(){
     string day = to_string(getDay());
     string oneLine = year+"/"+month+"/"+day;
     Date date(oneLine);
-    cout << "getDate test: "<<date.getYear()<<endl;
     return returnDate(date);
 }
 

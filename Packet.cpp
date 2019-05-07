@@ -187,13 +187,30 @@ void print_all_packs(vector<Packet> &vec)
     }
 }
 
-
+//Manage to add a new Packet to my current vector of packs
 void add_packs(vector<Packet> &vec)
 {
     vector<string> new_pack = packs_questions(vec);
     Packet test(new_pack);
     vec.push_back(test);
     //return vec;
+}
+//Remove a pack from my vector.
+void remove_packs(vector<Packet> &vec)
+{
+    int id;
+    cout << "What's the ID of the package you would like to remove?" << endl;
+    cin >> id;
+    for (size_t i = 0; i < vec.size(); i++)
+    {
+        if (vec.at(i).id == id)
+        {
+            auto it = vec.begin() + i;
+            rotate(it, it + 1, vec.end());
+            cout << "The Package of id[" << vec.back().id << "] it's being deleted!" << endl;
+            vec.pop_back();
+        }
+    }
 }
 
 /*********************************

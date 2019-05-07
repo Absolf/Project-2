@@ -95,7 +95,8 @@ void packs_operation(Agency &agency, vector<Packet> &packs)
     add_packs(packs);
     while (op > 0)
     {
-      cout << "Do you want to add another travel pack? \n1 - Yes \n0 - No \n"<< endl;
+      cout << "Do you want to add another travel pack? \n1 - Yes \n0 - No \n"
+           << endl;
       cin >> op;
       if (op == 0)
       {
@@ -104,6 +105,27 @@ void packs_operation(Agency &agency, vector<Packet> &packs)
       else
       {
         add_packs(packs);
+      }
+    }
+  }
+  //The manager wants to remove an existing package.
+  if (op == 2)
+  {
+    remove_packs(packs);
+    while (op > 0)
+    {
+      cout << "Do you want to remove another travel pack? \n1 - Yes \n0 - No \n"
+           << endl;
+      cin >> op;
+      if (op == 0)
+      {
+        print_all_packs(packs);
+      }
+      else
+      {
+        {
+          remove_packs(packs);
+        }
       }
     }
   }
