@@ -1,17 +1,6 @@
 #pragma once
 #include "Client.h"
 
-void clients_packs(string line, vector<int> &aux)
-{
-  line = regex_replace(line, regex(";"), " ");
-  istringstream test(line);
-  int i;
-  while (test >> i)
-  {
-    aux.push_back(i);
-  }
-}
-
 Client::Client(vector<string> clients)
 {
   this->name = clients.at(0);
@@ -133,3 +122,16 @@ ostream &operator<<(ostream &out, const Client &client)
 
   // REQUIRES IMPLEMENTATION
 }
+
+//creates a vector of packets id
+void clients_packs(string line, vector<int> &aux)
+{
+  line = regex_replace(line, regex(";"), " ");
+  istringstream test(line);
+  int i;
+  while (test >> i)
+  {
+    aux.push_back(i);
+  }
+}
+

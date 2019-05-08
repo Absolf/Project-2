@@ -2,6 +2,7 @@
 #include "Packet.h"
 #include "Address.h"
 
+
 Packet::Packet() {}
 Packet::Packet(int id, string local, Date startDate, Date endDate, double pricePerPerson, int maxPlaces, int soldPlaces) : id(id), local(local), startDate(startDate), endDate(endDate), pricePerPerson(pricePerPerson), maxPlaces(maxPlaces), soldPlaces(soldPlaces)
 {
@@ -273,7 +274,7 @@ void printDestinyPack(vector<Packet> &vec)
     string destiny;
     cout << "What's the destiny you would like to access?" << endl;
     cin >> destiny;
-    int cont;
+    int cont = 0;
     for (size_t i = 0; i < vec.size(); i++)
     {
         string vec_source = vec.at(i).local;
@@ -286,7 +287,135 @@ void printDestinyPack(vector<Packet> &vec)
             cont++;
             if (cont > 1 && i < (vec.size() - 1))
             {
-                cout << ":::::::::::::::::::::::::::::::";
+                cout << "::::::::::";
+            }
+        }
+    }
+}
+
+//Visualize information of a pack between dates
+void printFromDates(vector<Packet> &vec)
+{
+    string start_date;
+    string end_date;
+    cin.clear();
+    cin.ignore();
+    cout << "What is the start date? \n*Input exemple '2019/05/21'" << endl;
+    getline(cin, start_date);
+    Date startDate(start_date);
+    cout << "What is the end date? \n*Input exemple '2019/05/26'" << endl;
+    getline(cin, end_date);
+    Date endDate(end_date);
+    /*
+    cout <<"NOVO START DATE ANO: " <<startDate.getYear() << " MES " << startDate.getMonth() << " DIA " << startDate.getDay() << endl;
+    cout <<"NOVO END DATE ANO: " <<endDate.getYear() << " MES " << endDate.getMonth() << " DIA " << endDate.getDay() << endl;
+    cout <<"VALOR START DATE  DO PRIMEIRO OBJETO PACKET ANO: " <<vec.at(1).startDate.getYear() << " MES " << vec.at(1).startDate.getMonth() << " DIA " << vec.at(1).startDate.getDay() << endl;
+    cout <<"VALOR END DATE  DO PRIMEIRO OBJETO PACKET ANO: " <<vec.at(1).endDate.getYear() << " MES " << vec.at(1).endDate.getMonth() << " DIA " << vec.at(1).endDate.getDay() << endl;
+    */
+    cout << endl;
+    int cont = 0;
+    for (size_t i = 0; i < vec.size(); i++)
+    {
+        if (((vec.at(i).startDate.getMonth() >= startDate.getMonth()) && (vec.at(i).endDate.getMonth() <= endDate.getMonth())) && ((vec.at(i).startDate.getDay() >= startDate.getDay()) && (vec.at(i).endDate.getDay() <= endDate.getDay())))
+        //if i get here it mean we have any travel trip within the year specified
+        {
+            cout << endl;
+            cout << vec.at(i);
+            cont++;
+            if (cont > 1 && i < (vec.size() - 1))
+            {
+                cout << "::::::::::" << endl;
+            }
+        }
+    }
+}
+
+void printDestinyAndDates(vector<Packet> &vec)
+{
+    string destiny;
+    cout << "What's the destiny you would like to access?\n"
+         << endl;
+    cin >> destiny;
+    int cont;
+    string start_date;
+    string end_date;
+    cin.clear();
+    cin.ignore();
+    cout << "What is the start date? \n*Input exemple '2019/05/21'" << endl;
+    getline(cin, start_date);
+    Date startDate(start_date);
+    cout << "What is the end date? \n*Input exemple '2019/05/26'" << endl;
+    getline(cin, end_date);
+    Date endDate(end_date);
+    /*
+    cout <<"NOVO START DATE ANO: " <<startDate.getYear() << " MES " << startDate.getMonth() << " DIA " << startDate.getDay() << endl;
+    cout <<"NOVO END DATE ANO: " <<endDate.getYear() << " MES " << endDate.getMonth() << " DIA " << endDate.getDay() << endl;
+    cout <<"VALOR START DATE  DO SEGUNDO OBJETO PACKET ANO: " <<vec.at(1).startDate.getYear() << " MES " << vec.at(1).startDate.getMonth() << " DIA " << vec.at(1).startDate.getDay() << endl;
+    cout <<"VALOR END DATE  DO SEGUNDO OBJETO PACKET ANO: " <<vec.at(1).endDate.getYear() << " MES " << vec.at(1).endDate.getMonth() << " DIA " << vec.at(1).endDate.getDay() << endl;
+    */
+    cout << endl;
+    for (size_t i = 0; i < vec.size(); i++)
+    {
+        string vec_dest = vec.at(i).local;
+        vector<string> dest_vec;
+        tokenize(vec_dest, ' ', dest_vec);
+        if (destiny == dest_vec.at(0) && (((vec.at(i).startDate.getMonth() >= startDate.getMonth()) && (vec.at(i).endDate.getMonth() <= endDate.getMonth())) && ((vec.at(i).startDate.getDay() >= startDate.getDay()) && (vec.at(i).endDate.getDay() <= endDate.getDay()))))
+        {
+            cout << endl;
+            cout << vec.at(i);
+            cont++;
+            if (cont > 1 && i < (vec.size() - 1))
+            {
+                cout << "::::::::::::";
+            }
+        }
+    }
+}
+
+//print a certain package sold to a client
+void printToClient(vector<Packet> &vec, vector<Client> &client)
+{
+    string clientNif;
+    cin.ignore();
+    cout << "What's the nif of the client you want to verify?" << endl;
+    getline(cin, clientNif);
+    vector<int> clientPacks;
+    for (size_t i = 0; i < client.size(); i++)
+    {
+        if (to_string(client.at(i).getNifNumber()) == clientNif)
+        {
+            clients_packs(client.at(i).getPacketList(), clientPacks);
+            for (size_t j = 0; j < vec.size(); j++)
+            {
+                if (find(clientPacks.begin(), clientPacks.end(), vec.at(j).getId()) != clientPacks.end())
+                {
+                    cout << "\nClient: " << client.at(i).getName() << endl;
+                    cout << "Has the packages:" << endl;
+                    cout << "Unique id: " << vec.at(j).getId() << "\nLocal: " << vec.at(j).getLocal() << "\nDate of start: " << vec.at(j).getBeginDate().getDateString() << "\nDate of end: " << vec.at(j).getEndDate().getDateString()
+                         << "\nPrice per person: " << vec.at(j).getPricePerPerson() << "\nAmmount of places: " << vec.at(j).getMaxPlaces() << "\nSold places: " << vec.at(j).getSoldPlaces() << endl;
+                    cout << ":::::::::::::" << endl;
+                }
+            }
+        }
+    }
+}
+
+//print packages sold to all clients
+void printPackageAllClients(vector<Packet> &packs, vector<Client> &client)
+{
+    vector<int> clientPacks;
+    for (size_t i = 0; i < client.size(); i++)
+    {
+        clients_packs(client.at(i).getPacketList(), clientPacks);
+        for (size_t j = 0; j < packs.size(); j++)
+        {
+            if (find(clientPacks.begin(), clientPacks.end(), packs.at(j).getId()) != clientPacks.end())
+            {
+                cout << "\nClient: " << client.at(i).getName() << endl;
+                cout << "Has the packages:" << endl;
+                cout << "Unique id: " << packs.at(j).getId() << "\nLocal: " << packs.at(j).getLocal() << "\nDate of start: " << packs.at(j).getBeginDate().getDateString() << "\nDate of end: " << packs.at(j).getEndDate().getDateString()
+                     << "\nPrice per person: " << packs.at(j).getPricePerPerson()<< "\nAmmount of places: " << packs.at(j).getMaxPlaces() << "\nSold places: " << packs.at(j).getSoldPlaces() << endl;
+                cout << ":::::::::::::" << endl;
             }
         }
     }
@@ -354,3 +483,5 @@ ostream &operator<<(ostream &out, const Packet &packet)
     out << packet.maxPlaces << endl;
     out << packet.soldPlaces << endl;
 }
+
+

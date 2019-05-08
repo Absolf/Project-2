@@ -265,6 +265,58 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
         }
       }
     }
+    if (op == 3)
+    {
+      printFromDates(packs);
+      while (op > 0)
+      {
+        cout << "\nWould you like to verify the packs from another date? \n1 - Yes \n0 - No" << endl;
+        cin >> op;
+        if (op == 1)
+        {
+          printFromDates(packs);
+        }
+      }
+    }
+    if (op == 4)
+    {
+      printDestinyAndDates(packs);
+      while (op > 0)
+      {
+        cout << "\nWould you like to verify the packs from another destiny & date? \n1 - Yes \n0 - No" << endl;
+        cin >> op;
+        if (op == 1)
+        {
+          printDestinyAndDates(packs);
+        }
+      }
+    }
+    if (op == 5)
+    {
+      printToClient(packs, clients);
+      while (op > 0)
+      {
+        cout << "\nWould you like to verify the packs sold to another client? \n1 - Yes \n0 - No" << endl;
+        cin >> op;
+        if (op == 1)
+        {
+          printToClient(packs, clients);
+        }
+      }
+    }
+    if (op == 6)
+    {
+      printPackageAllClients(packs, clients);
+      while (op > 0)
+      {
+        cout << "\nWould you like to verify the packs sold to the Clients? \n1 - Yes \n0 - No" << endl;
+        cin >> op;
+        if (op > 0)
+        {
+          printPackageAllClients(packs, clients);
+        }
+      }
+    }
   }
   packsFile.close();
 }

@@ -43,7 +43,7 @@ class Client{
   
   // other methods
   friend vector<Client> clientData(string clientFile);
-  friend void clients_packs(string line, vector<int> &aux);
-
   friend ostream& operator<<(ostream& out, const Client & client);
 };
+
+void clients_packs(string line, vector<int> &aux);

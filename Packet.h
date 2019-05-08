@@ -7,8 +7,10 @@
 #include "defs.h"
 #include "Date.h"
 #include "Address.h"
+#include "Client.h"
 
 using namespace std;
+class Client;
 
 class Packet
 {
@@ -56,6 +58,11 @@ public:
     friend void update_packs(vector<Packet> &vec);
     friend void Address::tokenize(string const &str, const char delim, vector<string> &out);
     friend void printDestinyPack(vector<Packet> &vec);
+    friend void printFromDates(vector<Packet> &vec);
+    friend void printDestinyAndDates(vector<Packet> &vec);
+    friend void printToClient(vector<Packet> &vec, vector<Client> &client);
+    friend void printPackageAllClients(vector<Packet> &packs, vector<Client> &client);
+    //friend void clients_packs(string line, vector<int> &aux);
     //outputh method
     friend ostream &operator<<(ostream &out, const Packet &packet);
 };
