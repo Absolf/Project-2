@@ -62,6 +62,7 @@ public:
     friend void printDestinyAndDates(vector<Packet> &vec);
     friend void printToClient(vector<Packet> &vec, vector<Client> &client);
     friend void printPackageAllClients(vector<Packet> &packs, vector<Client> &client);
+    friend void sellToClient(vector<Packet> &packs, vector<Client> &client);
     //friend void clients_packs(string line, vector<int> &aux);
     //outputh method
     friend ostream &operator<<(ostream &out, const Packet &packet);

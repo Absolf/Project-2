@@ -243,6 +243,7 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
       }
     }
   }
+  //All kinds of package visualization
   if (op == 4)
   {
     cout << "How would you like to search for Travel Packs?" << endl;
@@ -251,6 +252,15 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
     if (op == 1)
     {
       print_all_packs(packs);
+      while (op > 0)
+      {
+        cout << "\nWould you like to see all packets again?\n1 - Yes \n0 - No" << endl;
+        cin >> op;
+        if (op == 1)
+        {
+          print_all_packs(packs);
+        }
+      }
     }
     if (op == 2)
     {
@@ -315,6 +325,20 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
         {
           printPackageAllClients(packs, clients);
         }
+      }
+    }
+  }
+  //Sell a package to a client
+  if (op == 5)
+  {
+    sellToClient(packs, clients);
+    while (op > 0)
+    {
+      cout << "Do you want to sell another pack? \n0 - No\n1 - Yes \nAnswer: ";
+      cin >> op;
+      if (op > 0)
+      {
+        sellToClient(packs, clients);
       }
     }
   }

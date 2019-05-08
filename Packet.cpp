@@ -175,10 +175,7 @@ vector<string> packs_questions(vector<Packet> &vec)
 
 void print_all_packs(vector<Packet> &vec)
 {
-    vector<Packet>::iterator it;
-    it = vec.begin();
-    int i = 0;
-    for (auto it = vec.begin(); it != vec.end(); it++)
+    for (size_t i = 0;i< vec.size(); i++)
     {
         cout << "::::::::::::::::::::::::::::::::" << endl;
         cout << vec.at(i) << endl;
@@ -306,12 +303,6 @@ void printFromDates(vector<Packet> &vec)
     cout << "What is the end date? \n*Input exemple '2019/05/26'" << endl;
     getline(cin, end_date);
     Date endDate(end_date);
-    /*
-    cout <<"NOVO START DATE ANO: " <<startDate.getYear() << " MES " << startDate.getMonth() << " DIA " << startDate.getDay() << endl;
-    cout <<"NOVO END DATE ANO: " <<endDate.getYear() << " MES " << endDate.getMonth() << " DIA " << endDate.getDay() << endl;
-    cout <<"VALOR START DATE  DO PRIMEIRO OBJETO PACKET ANO: " <<vec.at(1).startDate.getYear() << " MES " << vec.at(1).startDate.getMonth() << " DIA " << vec.at(1).startDate.getDay() << endl;
-    cout <<"VALOR END DATE  DO PRIMEIRO OBJETO PACKET ANO: " <<vec.at(1).endDate.getYear() << " MES " << vec.at(1).endDate.getMonth() << " DIA " << vec.at(1).endDate.getDay() << endl;
-    */
     cout << endl;
     int cont = 0;
     for (size_t i = 0; i < vec.size(); i++)
@@ -400,6 +391,61 @@ void printToClient(vector<Packet> &vec, vector<Client> &client)
     }
 }
 
+//Manage to sell a package to a certain client
+void sellToClient(vector<Packet> &packs, vector<Client> &client)
+{
+    string clientNif;
+    int id;
+    vector<int> clientPacks;
+    cout << "Type the NIF of the client you would like to sel the package" << endl;
+    cin.ignore();
+    getline(cin, clientNif);
+    cout << "Type the ID of the package you would like to sell to the client" << endl;
+    cin >> id;
+    for (size_t i = 0; i < client.size(); i++)
+    {
+        if (to_string(client.at(i).getNifNumber()) == clientNif)
+        {
+            clients_packs(client.at(i).getPacketList(), clientPacks);
+            if (find(clientPacks.begin(), clientPacks.end(), id) != clientPacks.end())
+            {
+                cout << "Client already have that package! " << endl;
+            }
+            else
+            {
+                for (size_t j = 0; j < packs.size(); j++)
+                {
+                    if (packs.at(j).id == id)
+                    {
+                        //This chunk of the code, before the next if, adds 1 to the sold places and add to the client vector the new id sold to that client
+                        istringstream sold(to_string(packs.at(j).getSoldPlaces()));
+                        int addi;
+                        sold >> addi;
+                        addi += 1;
+                        packs.at(j).setSoldPlaces(addi);
+                        clientPacks.push_back(id);
+                        //This bit transform the ID into a negative number if sold places = to start places
+                        if (packs.at(j).getSoldPlaces() == packs.at(j).getMaxPlaces())
+                        {
+                            packs.at(j).id *= -1;
+                        }
+                        //this bit of the code will puth the new packs at the client packs parameter
+                        stringstream newPacks;
+                        copy(clientPacks.begin(), clientPacks.end(), ostream_iterator<int>(newPacks, ";"));
+                        string substitute = newPacks.str();
+                        substitute = substitute.substr(0, substitute.length() - 1);
+                        client.at(i).setPacketList(substitute);
+                        cout << "\nSold!\n";
+                    }
+                    if (packs.at(j).id == (id * -1) && (packs.at(j).getMaxPlaces() == packs.at(j).getSoldPlaces()))
+                    {
+                        cout << "\n*Warning!*\n*Sorry! Travel Package not available, reached it's maximum capacity!" << endl;
+                    }
+                }
+            }
+        }
+    }
+}
 //print packages sold to all clients
 void printPackageAllClients(vector<Packet> &packs, vector<Client> &client)
 {
