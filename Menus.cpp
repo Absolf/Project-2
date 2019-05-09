@@ -342,6 +342,21 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
       }
     }
   }
+  //Total Value and number of sold packages
+  if (op == 6)
+  {
+    totalPackageSold(packs, clients);
+    while (op > 0)
+    {
+      cout << "\nWould you like to verify again? \n1 - Yes \n0 - No" << endl;
+      cin >> op;
+      if (op > 0)
+      {
+        totalPackageSold(packs, clients);
+      }
+    }
+  }
+
   packsFile.close();
 }
 

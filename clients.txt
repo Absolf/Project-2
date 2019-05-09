@@ -9,5 +9,5 @@ Belmiro Miguel
 111987666
 2
 Avenida dos Grilos / 100 / ‐ /2300‐101 / Coimbra
-1 ; 136 ; 20
-1300
+1 ; 126 ; 50
+1600

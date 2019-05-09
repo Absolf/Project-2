@@ -2,7 +2,6 @@
 #include "Packet.h"
 #include "Address.h"
 
-
 Packet::Packet() {}
 Packet::Packet(int id, string local, Date startDate, Date endDate, double pricePerPerson, int maxPlaces, int soldPlaces) : id(id), local(local), startDate(startDate), endDate(endDate), pricePerPerson(pricePerPerson), maxPlaces(maxPlaces), soldPlaces(soldPlaces)
 {
@@ -95,6 +94,7 @@ void Packet::setSoldPlaces(int soldPlaces)
 /*********************************
  * Other functions
  ********************************/
+
 //function that creates a vector containing all the multiple Travel Packages provided by the agency.
 vector<Packet> packData(string packFile)
 {
@@ -140,7 +140,7 @@ int lastID(vector<Packet> &vec)
     return id;
 }
 
-//Other functions
+//Handle the questions that i have to output to the user when creating a new packet
 vector<string> packQuestionHandler(vector<string> vec)
 {
     string line;
@@ -173,9 +173,10 @@ vector<string> packs_questions(vector<Packet> &vec)
     return new_pack;
 }
 
+//print all the packs i have in my vector of packets
 void print_all_packs(vector<Packet> &vec)
 {
-    for (size_t i = 0;i< vec.size(); i++)
+    for (size_t i = 0; i < vec.size(); i++)
     {
         cout << "::::::::::::::::::::::::::::::::" << endl;
         cout << vec.at(i) << endl;
@@ -183,6 +184,7 @@ void print_all_packs(vector<Packet> &vec)
     }
 }
 
+//atualize the data inside a packet
 void update_packs(vector<Packet> &vec)
 {
     vector<Packet>::iterator it;
@@ -321,6 +323,7 @@ void printFromDates(vector<Packet> &vec)
     }
 }
 
+//Visualize information of a pack within a destiny and between dates
 void printDestinyAndDates(vector<Packet> &vec)
 {
     string destiny;
@@ -460,7 +463,7 @@ void printPackageAllClients(vector<Packet> &packs, vector<Client> &client)
                 cout << "\nClient: " << client.at(i).getName() << endl;
                 cout << "Has the packages:" << endl;
                 cout << "Unique id: " << packs.at(j).getId() << "\nLocal: " << packs.at(j).getLocal() << "\nDate of start: " << packs.at(j).getBeginDate().getDateString() << "\nDate of end: " << packs.at(j).getEndDate().getDateString()
-                     << "\nPrice per person: " << packs.at(j).getPricePerPerson()<< "\nAmmount of places: " << packs.at(j).getMaxPlaces() << "\nSold places: " << packs.at(j).getSoldPlaces() << endl;
+                     << "\nPrice per person: " << packs.at(j).getPricePerPerson() << "\nAmmount of places: " << packs.at(j).getMaxPlaces() << "\nSold places: " << packs.at(j).getSoldPlaces() << endl;
                 cout << ":::::::::::::" << endl;
             }
         }
@@ -491,6 +494,37 @@ void remove_packs(vector<Packet> &vec)
             vec.pop_back();
         }
     }
+}
+
+//Calculates and visualize the number and the total value of sold packages
+void totalPackageSold(vector<Packet> &packs, vector<Client> &client)
+{
+    int cont = 0, value = 0;
+   
+    for (size_t i = 0; i < client.size(); i++)
+    {
+
+        
+
+        for (size_t j = 0; j < packs.size(); j++)
+        {
+            vector<int> clientPacks;
+            clients_packs(client.at(i).getPacketList(), clientPacks); //creates a int vector with the elements of the packet list of client object
+            if (find(clientPacks.begin(), clientPacks.end(), packs.at(j).id) != clientPacks.end()) // if find inside that int vector the any ID present in the packet object it will go for it
+            {
+                cout << "Package ID: " << packs.at(j).id << endl;
+                cout << "Client owner:" << client.at(i).getName() << endl;
+                cont++;
+                istringstream prices(to_string(packs.at(j).pricePerPerson));
+                int price;
+                prices >> price;
+                value += price;
+            }
+            clientPacks.clear();
+        }
+    }
+    cout << "\nThe ammount of sold packages is: " << cont << endl;
+    cout << "The total value of those packages is: " << value << endl;
 }
 
 /*********************************
@@ -529,5 +563,3 @@ ostream &operator<<(ostream &out, const Packet &packet)
     out << packet.maxPlaces << endl;
     out << packet.soldPlaces << endl;
 }
-
-
