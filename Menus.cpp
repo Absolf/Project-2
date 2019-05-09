@@ -247,7 +247,7 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
   if (op == 4)
   {
     cout << "How would you like to search for Travel Packs?" << endl;
-    vector<string> packsVisualizationOptions = {"All Travel Packs", "Related to a destiny", "Between dates", "Related to a destiny and between dates", "Sold to a client", "Sold to all clients"};
+    vector<string> packsVisualizationOptions = {"All Travel Packs", "Related to a destiny", "Between dates", "Related to a destiny and between dates", "Sold to a client", "Sold to all clients","Most visited places"};
     op = readOptions(packsVisualizationOptions);
     if (op == 1)
     {
@@ -324,6 +324,19 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
         if (op > 0)
         {
           printPackageAllClients(packs, clients);
+        }
+      }
+    }
+     if (op == 7)
+    {
+      mostVisitedLocals(packs);
+      while (op > 0)
+      {
+        cout << "\nWould you like to verify another ammount of most visited packs? \n1 - Yes \n0 - No" << endl;
+        cin >> op;
+        if (op > 0)
+        {
+          mostVisitedLocals(packs);
         }
       }
     }

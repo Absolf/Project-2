@@ -2,7 +2,7 @@
 
 [![N|Solid](https://sigarra.up.pt/feup/pt/WEB_GESSI_DOCS.download_file?p_name=F-370784536/logo_cores_oficiais.jpg)](https://nodesource.com/products/nsolid)
 
-[![Build Status](https://github.com/Absolf/Project-1)](https://travis-ci.org/joemccann/dillinger)
+[![Build Status](https://github.com/Absolf/Project-1)]
 
 This is the first project of the Programming subject taught in FEUP in the academic year 2018/2019
 # Features:

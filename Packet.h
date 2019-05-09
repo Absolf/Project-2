@@ -8,7 +8,9 @@
 #include "Date.h"
 #include "Address.h"
 #include "Client.h"
-
+#include <map>
+#include <algorithm>
+#include <functional>
 using namespace std;
 class Client;
 
@@ -64,8 +66,12 @@ public:
     friend void printPackageAllClients(vector<Packet> &packs, vector<Client> &client);
     friend void sellToClient(vector<Packet> &packs, vector<Client> &client);
     friend void totalPackageSold(vector<Packet> &packs, vector<Client> &client);
+    friend void mostVisitedLocals(vector<Packet> &packs);
+    friend void createPlacesVector(vector<Packet> &packs, vector<string> &aux);
+    friend void createVisitMap(vector<Packet> &packs, vector<string> &aux, map<string, int> &map);
     //friend void clients_packs(string line, vector<int> &aux);
     //outputh method
     friend ostream &operator<<(ostream &out, const Packet &packet);
+    friend ostream &operator<<(ostream &out, const pair<string,int> &pares);
 };
 
