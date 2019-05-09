@@ -527,18 +527,27 @@ void createPlacesVector(vector<Packet> &packs, vector<string> &aux)
 {
     for (size_t i = 0; i < packs.size(); i++)
     {
+/*
+        std::size_t found = str.find_last_of("/\\");
+        std::cout << " path: " << str.substr(0, found) << '\n';
+        std::cout << " file: " << str.substr(found + 1) << '';
+        */
         string source = packs.at(i).getLocal(); //Takes the entire line of the places to visit of that holiday package
         //cout << source << endl;
-        vector<string> dest_vec;
-        tokenize(source, '-', dest_vec);
+        vector<string> dest_vec; // aux vector
+        tokenize(source, '-', dest_vec); // remove the main place from the secondary ones
         //cout << "this is a test: " << dest_vec.at(0) << endl;
         string mainDest = dest_vec.at(0);
+        size_t found = mainDest.find_last_of(" "); // encontra prosição do primeiro espaço vazio
+        mainDest =  mainDest.substr(0,found); // remove o último espaço vazio
         aux.push_back(mainDest);
         if (dest_vec.size() > 1)
         {
             source = dest_vec.at(1);
             dest_vec.clear();
-            tokenize(source, ',', dest_vec);
+            size_t found = source.find_first_of(" ");
+            if(source[found] == ' ') source[found] = NULL;
+            tokenize(source, ', ', dest_vec);
             for (size_t j = 0; j < dest_vec.size(); j++)
             {
                 aux.push_back(dest_vec.at(j));
@@ -553,7 +562,8 @@ void createVisitMap(vector<Packet> &packs, vector<string> &aux, map<string, int>
 {
     for (size_t i = 0; i < aux.size(); i++)
     {
-        cout << aux.at(i)<<endl;
+        aux.at(i)=regex_replace(aux.at(i), regex(","), "");
+        cout << aux.at(i) << endl;
         for (size_t j = 0; j < packs.size(); j++)
         {
 
@@ -567,8 +577,6 @@ void createVisitMap(vector<Packet> &packs, vector<string> &aux, map<string, int>
             }
         }
     }
-
-
 }
 
 //prints out the N most visited places of the Holiday Package
@@ -587,7 +595,7 @@ void mostVisitedLocals(vector<Packet> &packs)
     });*/
     for (size_t i = 0; i < n; i++)
     {
-        cout << pares.at(i).first << "-"<< pares.at(i).second<< endl;
+        cout << pares.at(i).first << "-" << pares.at(i).second << endl;
     }
 }
 
