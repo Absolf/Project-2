@@ -21,7 +21,7 @@ Packet::Packet(vector<string> pack_vec)
 }
 
 //metodos GET
-unsigned int Packet::getId() const
+int Packet::getId() const
 {
     return id;
 }

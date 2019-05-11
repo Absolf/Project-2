@@ -119,25 +119,27 @@ void createPlacesVector(vector<Packet> &packs, vector<string> &aux)
     vector<string> secondary;
     for (size_t i = 0; i < packs.size(); i++)
     {
-
-        string source = packs.at(i).getLocal(); //Takes the entire line of the places to visit of that holiday package
-        vector<string> dest_vec;                // aux vector
-        tokenize(source, '-', dest_vec);        // remove the main place from the secondary ones
-        string mainDest = dest_vec.at(0);
-        size_t found = mainDest.find_last_of(" "); // encontra prosição do primeiro espaço vazio
-        mainDest = mainDest.substr(0, found);      // remove o último espaço vazio
-        aux.push_back(mainDest);
-        if (dest_vec.size() > 1)
+        if (packs.at(i).getId() > 0)
         {
-            source = dest_vec.at(1);
-            dest_vec.clear();
-            tokenize(source, ',', dest_vec);
-            for (size_t j = 0; j < dest_vec.size(); j++)
+
+            string source = packs.at(i).getLocal(); //Takes the entire line of the places to visit of that holiday package
+            vector<string> dest_vec;                // aux vector
+            tokenize(source, '-', dest_vec);        // remove the main place from the secondary ones
+            string mainDest = dest_vec.at(0);
+            size_t found = mainDest.find_last_of(" "); // encontra prosição do primeiro espaço vazio
+            mainDest = mainDest.substr(0, found);      // remove o último espaço vazio
+            aux.push_back(mainDest);
+            if (dest_vec.size() > 1)
             {
-                aux.push_back(dest_vec.at(j));
+                source = dest_vec.at(1);
+                dest_vec.clear();
+                tokenize(source, ',', dest_vec);
+                for (size_t j = 0; j < dest_vec.size(); j++)
+                {
+                    aux.push_back(dest_vec.at(j));
+                }
             }
         }
-        //cout << "this is a 2nd test " << source <<endl;
     }
 }
 
@@ -166,14 +168,12 @@ void PackagePlaces(string line, vector<string> &aux)
 void createVisitMap(vector<Packet> &packs, vector<string> &aux, map<string, int> &map)
 {
     vector<string> packagePlaces;
-    createPlacesVector(packs, aux);
+    createPlacesVector(packs, aux); // make's a vector with the possible visiting places of a vector
     for (size_t i = 0; i < packs.size(); i++)
     {
         PackagePlaces(packs.at(i).getLocal(), packagePlaces);
-
         for (size_t j = 0; j < packagePlaces.size(); j++)
         {
-
             if (find(aux.begin(), aux.end(), packagePlaces.at(j)) != aux.end())
             {
 
@@ -226,31 +226,16 @@ void createClientsVisitations(vector<Client> &clients, vector<Packet> &packs, ve
     {
         vector<int> clientPacksId;                                   // aux vector that wil hold the id of all packages that a client have
         clients_packs(clients.at(i).getPacketList(), clientPacksId); // filling that vector with the ids
-        cout <<"i've created a vector with the id of the packages that a client have" << endl;
         for (size_t j = 0; j < packs.size(); j++)
         {
-            cout << "searching if our packages have any simmilar id" << endl;
-            if (find(clientPacksId.begin(), clientPacksId.end(), packs.at(j).getId()) != clientPacksId.end())
-            {           
-                cout << "I've found an id correpondent" << endl;
-                cout <<"NEW: function PackagePlaces test" << endl;                                          // if the client have one id that is present in the holiday packages enters here
-                PackagePlaces(packs.at(j).getLocal(), aux); // creates an auxiliar vector that will hold all possible visited places of that holiday package
-                cout <<" it passed!  at package [" << j << "] position of my package vector" << endl;
+            if (find(clientPacksId.begin(), clientPacksId.end(), packs.at(j).getId()) != clientPacksId.end()) // searching if our packages have any simmilar id
+            {
+                PackagePlaces(packs.at(j).getLocal(), aux); // if the client have one id that is present in the holiday packages enters here
                 for (size_t k = 0; k < aux.size(); k++)
-                {   
-
-                    cout << "Using the Visited place: "<< aux.at(k) << endl;
-                    cout <<" trying to puth previous data into the string vector clientsVisitedPlaces" << endl;
-                    clientsVisitedPlaces.push_back(aux.at(k));
-                    cout<<"It passed" << k << " times" << endl;
+                {
+                    clientsVisitedPlaces.push_back(aux.at(k)); // creates an auxiliar vector that will hold all possible visited places of that holiday package
                 }
                 aux.clear();
-            }
-            else
-            {
-                cout <<" i did'nt find the package apply 'Not aplicable' " << endl; 
-                clientsVisitedPlaces.push_back("Not aplicable");
-                cout << "it  added a 'Not aplicable' at: " << j << " position of my vector / client" << endl;
             }
         }
         vectorOfClientsPlaces.push_back(clientsVisitedPlaces);
@@ -261,75 +246,147 @@ void createClientsVisitations(vector<Client> &clients, vector<Packet> &packs, ve
 void createClientVisitSugestionList(vector<Packet> &packs, vector<Client> &clients, vector<vector<string>> &vectorSugestion)
 {
     vector<pair<string, int>> pares;
-    cout << "Client visited Sugestion List test" << endl;
-    cout <<"NEW: createMostVisitedLocals test: " << endl;
+    //cout << "Client visited Sugestion List test" << endl;
+    //cout << "NEW: createMostVisitedLocals test: " << endl;
     createMostVisitedLocals(packs, pares);
-    cout << " createMostVisitedLocals passed! :)" << endl;
-    vector<vector<string>> vectorOfClientsPlaces;                    // This will hold in each position visited places by each client (when aplicable)                         // This will hold the sugestion for each client (when aplicable).
-    vector<string> sugestion;  
-    cout << "NEW : createClientsVisitations test" << endl;                                      // this will be filled with sugestion for one client ( when aplicable)
+    // cout << " createMostVisitedLocals passed! :)" << endl;
+    vector<vector<string>> vectorOfClientsPlaces; // This will hold in each position visited places by each client (when aplicable)                         // This will hold the sugestion for each client (when aplicable).
+    vector<string> sugestion;
+    //cout << "NEW : createClientsVisitations test" << endl;           // this will be filled with sugestion for one client ( when aplicable)
     createClientsVisitations(clients, packs, vectorOfClientsPlaces); // fill my vector containing  in each position the places that each client has visited
-     cout << " createClientsVisitations  passed! :)" << endl;  
-    for (size_t i = 0; i < pares.max_size(); i++)                    // look each of the most visited places
+                                                                     // cout << " createClientsVisitations  passed! :)" << endl;
+    for (size_t i = 0; i < vectorOfClientsPlaces.size(); i++)        // look up the vector that contains a vector with the visited places by each client (when aplicable)
     {
-        for (size_t j = 0; j < vectorOfClientsPlaces.max_size(); j++) // look up the vector that contains a vector with the visited places by each client (when aplicable)
+        //cout << "client [" << i << "] " << clients.at(i).getName() << endl;
+        for (size_t k = 0; k < pares.size(); k++) // look each of the most visited places
         {
-            for (size_t k = 0; k < vectorOfClientsPlaces.at(j).max_size(); k++) //look up now for the visited places by the client at postion j
+            if (find(vectorOfClientsPlaces.at(i).begin(), vectorOfClientsPlaces.at(i).end(), pares.at(k).first) != vectorOfClientsPlaces.at(i).end()) // if one of the most visited places, has already been visited by the client
             {
-                if (find(vectorOfClientsPlaces.at(j).begin(), vectorOfClientsPlaces.at(j).end(), pares.at(i).first) != vectorOfClientsPlaces.at(j).end()) // if one of the most visited places, has already been visited by the client
+                //cout << "[" << i << "]if i find the place add visited! he has been there place: " << endl;
+                //cout << pares.at(k).first << " like here " << endl;
+                //sugestion.push_back("visited!");
+                continue;
+            }
+            else if (find(vectorOfClientsPlaces.at(i).begin(), vectorOfClientsPlaces.at(i).end(), "Not aplicable") != vectorOfClientsPlaces.at(i).end())
+            {
+                //cout << "[" << i << "]if i find  not Aplicable i'll add the same shit to it " << endl;
+                //sugestion.push_back("Not aplicable"); //if it have not aplicable it means 1 the client has no package 2 the client has visited all places
+                continue;
+            }
+            else
+            {
+                //cout << "[" << i << "] After many searches the sugestion : " << pares.at(k).first << " will be added " << endl;
+                sugestion.push_back(pares.at(k).first); // add in the single vector sugestion the name of a place that client hasn't visited yet;
+            }
+        }
+        // cout << "finally add a fucking vector with fully sugestions (or not) to my vector of sugestiosn" << endl;
+        vectorSugestion.push_back(sugestion);
+        sugestion.clear();
+    }
+}
+
+/*
+void createPacketSugestion(vector<Packet> &packs, vector<Client> &clients, vector<int> sugestion)
+{
+    vector<string> packPlaces;
+    vector<vector<string>> vectorOfClientsPlaces;                    // This will hold in each position visited places by each client (when aplicable)                         // This will hold the sugestion for each client (when aplicable).
+    //vector<int> sugestion;                                           // this will be filled with sugestion for one client ( when aplicable)
+    createClientsVisitations(clients, packs, vectorOfClientsPlaces); // fill my vector containing  in each position the places that each client has visited
+                                                                     // cout << " createClientsVisitations  passed! :)" << endl;
+    for (size_t i = 0; i < vectorOfClientsPlaces.size(); i++)        // look up the vector that contains a vector with the visited places by each client (when aplicable)
+    {
+        for (size_t j = 0; j < packs.size(); j++)
+        {
+            if (packs.at(j).getId() > 0)
+            {
+                //cout << "client [" << i << "] " << clients.at(i).getName() << endl;
+                PackagePlaces(packs.at(j).getLocal(), packPlaces);
+                for (size_t k = 0; k < packPlaces.size(); k++)
                 {
-                    sugestion.push_back("visited!");
-                }
-                else if (find(vectorOfClientsPlaces.at(j).begin(), vectorOfClientsPlaces.at(j).end(), "Not aplicable") != vectorOfClientsPlaces.at(j).end())
-                {
-                    sugestion.push_back("Not aplicable"); //if it have not aplicable it means 1 the client has no package 2 the client has visited all places
-                }
-                else
-                {
-                    sugestion.push_back(pares.at(i).first); // add in the single vector sugestion the name of a place that client hasn't visited yet;
+                    if(find(vectorOfClientsPlaces.at(i).begin(), vectorOfClientsPlaces.at(i).end(), packPlaces.at(k)) != vectorOfClientsPlaces.at(i).end()) // if one of the most visited places, has already been visited by the client
+                    {
+                        //cout << "[" << i << "]if i find the place add visited! he has been there place: " << endl;
+                        //cout << pares.at(k).first << " like here " << endl;
+                        //sugestion.push_back("visited!");
+                        continue;
+                    }
+                    else
+                    {
+                        //cout << "[" << i << "] After many searches the sugestion : " << pares.at(k).first << " will be added " << endl;
+                        sugestion.push_back(packs.at(j).getId()); // add in the single vector sugestion the name of a place that client hasn't visited yet;
+                    }
                 }
             }
-            vectorSugestion.push_back(sugestion);
-            sugestion.clear();
+        }
+        // cout << "finally add a fucking vector with fully sugestions (or not) to my vector of sugestiosn" << endl;
+        //vectorSugestion.push_back(sugestion);
+        //sugestion.clear();
+    }
+}
+*/
+
+//
+void createClientSugestion(vector<Packet> &packs, vector<Client> &clients, map<int, int> &myMap)
+{
+    vector<string> packPlaces;
+    vector<vector<string>> vectorSugestion;
+    createClientVisitSugestionList(packs, clients, vectorSugestion);
+
+    for (size_t i = 0; i < packs.size(); i++)
+    {
+        for (size_t j = 0; j < vectorSugestion.size(); j++)
+        {
+            for (size_t k = 0; k < vectorSugestion.at(j).size(); k++)
+            {
+                //cout << vectorSugestion.at(j).at(k) << endl;
+                if (packs.at(i).getId() > 0)
+                {
+                    PackagePlaces(packs.at(i).getLocal(), packPlaces);
+                    if (!(find(packPlaces.begin(), packPlaces.end(), vectorSugestion.at(j).at(k)) != packPlaces.end()))
+                    {
+                        //cout << "client: " << clients.at(j).getName() << " sugestion: holiday pack id [" << packs.at(i).getId() << "]" << endl;
+                        myMap[packs.at(i).getId()] += 1;
+                    }
+                }
+            }
         }
     }
 }
 
 void printClientSugestion(vector<Client> &clients, vector<Packet> &packs)
 {
-    
-    vector<vector<string>> vectorSugestion;
-    /*
-    int n;
-    cout << "How many holiday destination sugestions is aplicable? " << endl;
-    cin >> n;
-    */
-    createClientVisitSugestionList(packs, clients, vectorSugestion);
+    map<int, int> myMap;
+    createClientSugestion(packs, clients, myMap);
+    auto it = myMap.begin();
+    vector<int> lastChance;
+    for (it; it != myMap.end(); it++)
+    {
+        lastChance.push_back(it->first);
+    }
     for (size_t i = 0; i < clients.size(); i++)
     {
-        cout << "For client: " << clients.at(i).getName() << endl;
-        for (size_t j = 0; j < vectorSugestion.at(i).max_size(); j++)
+        for (size_t j = 0; j < packs.size(); j++)
         {
-            vector<string>::iterator it;
-            it = find_if_not(vectorSugestion.at(i).begin(), vectorSugestion.at(i).end(), [](string word) {return (word == "visited!" || word == "Not aplicable"); });
-            //int sugs = vectorSugestion.at(i).at(j).find(*it) + n; // from the first item that is aplicable + N more items
-            if (vectorSugestion.at(i).at(j).find(*it) != vectorSugestion.at(i).at(j).back())
+            if (packs.at(j).getId() > 0)
             {
-                for (it; it != vectorSugestion.at(i).end(); it++)
+                vector<int> clientPacks;
+                clients_packs(clients.at(i).getPacketList(), clientPacks);                                  //creates a int vector with the elements of the packet list of client object
+                if (!(find(clientPacks.begin(), clientPacks.end(), lastChance.at(i)) != clientPacks.end())) // if find inside that int vector any ID present in the sugestion
                 {
-                    if ((vectorSugestion.at(i).at(j) != "visited!") || (vectorSugestion.at(i).at(j) != "Not aplicable"))
+                    if (packs.at(j).getId() == lastChance.at(i))
                     {
-                        cout << *it << endl;
+                        cout << "client: " << clients.at(i).getName() << " Pack sugestion: " << packs.at(j) << endl;
                     }
-                    else if (vectorSugestion.at(i).at(j) == "Not aplicable")
-                    {
-                        cout << "No Sugestion! That client has none of our packages" << endl;
-                    }
+                }
+                else
+                {
+                    cout << "client:  " << clients.at(i).getName() << " No sugestion";
                 }
             }
         }
     }
 }
+
 // mostra o conteudo de uma agencia
 ostream &operator<<(ostream &out, const Agency &agency)
 {

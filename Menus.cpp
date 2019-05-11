@@ -100,7 +100,7 @@ void statistics_operations(Agency &agency, vector<Client> &client, vector<Packet
       }
     }
   }
-   if (op == 3)
+  if (op == 3)
   {
     printClientSugestion(client, packs);
     while (op > 0)
@@ -109,7 +109,7 @@ void statistics_operations(Agency &agency, vector<Client> &client, vector<Packet
       cin >> op;
       if (op > 0)
       {
-       printClientSugestion(client, packs);
+        printClientSugestion(client, packs);
       }
     }
   }

@@ -31,7 +31,7 @@ public:
     Packet(int id, string local, Date startDate, Date endDate, double pricePerPerson, int startPlaces, int SoldPlaces);
     Packet(vector<string> pack_vec);
     // GET methods
-    unsigned getId() const;
+    int getId() const;
     string getLocal() const;
     Date getBeginDate() const;
     Date getEndDate() const;

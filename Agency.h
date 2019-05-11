@@ -56,6 +56,7 @@ public:
   friend void printMostVisitedLocals(vector<Packet> &packs);
   friend void createClientsVisitations(vector<Client> &clients, vector<Packet> &packs, vector<vector<string>> &vectorOfClientsPlaces);
   friend void createClientVisitSugestionList(vector<Packet> &packs, vector<Client> &clients);
+  friend void createClientSugestion(vector<Packet> &packs, vector<Client> &clients, map<int, int> &myMap);
   friend void printClientSugestion(vector<Client> &clients, vector<Packet> &packs);
 
   //friend ostream& operator<<(ostream& out, const Agency & agency);
