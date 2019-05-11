@@ -432,6 +432,7 @@ void sellToClient(vector<Packet> &packs, vector<Client> &client)
                         string substitute = newPacks.str();
                         substitute = substitute.substr(0, substitute.length() - 1);
                         client.at(i).setPacketList(substitute);
+                        client.at(i).setTotalPurchased(client.at(i).getTotalPurchased() + packs.at(j).pricePerPerson);
                         cout << "\nSold!\n";
                     }
                     if (packs.at(j).id == (id * -1) && (packs.at(j).getMaxPlaces() == packs.at(j).getSoldPlaces()))
@@ -490,114 +491,15 @@ void remove_packs(vector<Packet> &vec)
     }
 }
 
-//Calculates and visualize the number and the total value of sold packages
-void totalPackageSold(vector<Packet> &packs, vector<Client> &client)
-{
-    int cont = 0, value = 0;
-
+/*
+ vector<int> clientPacks;
     for (size_t i = 0; i < client.size(); i++)
     {
-
+        clients_packs(client.at(i).getPacketList(), clientPacks);
         for (size_t j = 0; j < packs.size(); j++)
         {
-            vector<int> clientPacks;
-            clients_packs(client.at(i).getPacketList(), clientPacks);                              //creates a int vector with the elements of the packet list of client object
-            if (find(clientPacks.begin(), clientPacks.end(), packs.at(j).id) != clientPacks.end()) // if find inside that int vector the any ID present in the packet object it will go for it
-            {
-                cout << "Package ID: " << packs.at(j).id << endl;
-                cout << "Client owner:" << client.at(i).getName() << endl;
-                cont++;
-                istringstream prices(to_string(packs.at(j).pricePerPerson));
-                int price;
-                prices >> price;
-                value += price;
-            }
-            clientPacks.clear();
-        }
-    }
-    cout << "\nThe ammount of sold packages is: " << cont << endl;
-    cout << "The total value of those packages is: " << value << endl;
-}
-//Creates a vector string with all places visited by a travel pack
-vector<string> createPlacesVector(vector<Packet> &packs)
-{
-}
-//makes me a vector with all the places to visit a holiday package can offer
-void createPlacesVector(vector<Packet> &packs, vector<string> &aux)
-{
-    for (size_t i = 0; i < packs.size(); i++)
-    {
-/*
-        std::size_t found = str.find_last_of("/\\");
-        std::cout << " path: " << str.substr(0, found) << '\n';
-        std::cout << " file: " << str.substr(found + 1) << '';
-        */
-        string source = packs.at(i).getLocal(); //Takes the entire line of the places to visit of that holiday package
-        //cout << source << endl;
-        vector<string> dest_vec; // aux vector
-        tokenize(source, '-', dest_vec); // remove the main place from the secondary ones
-        //cout << "this is a test: " << dest_vec.at(0) << endl;
-        string mainDest = dest_vec.at(0);
-        size_t found = mainDest.find_last_of(" "); // encontra prosição do primeiro espaço vazio
-        mainDest =  mainDest.substr(0,found); // remove o último espaço vazio
-        aux.push_back(mainDest);
-        if (dest_vec.size() > 1)
-        {
-            source = dest_vec.at(1);
-            dest_vec.clear();
-            size_t found = source.find_first_of(" ");
-            if(source[found] == ' ') source[found] = NULL;
-            tokenize(source, ', ', dest_vec);
-            for (size_t j = 0; j < dest_vec.size(); j++)
-            {
-                aux.push_back(dest_vec.at(j));
-            }
-        }
-        //cout << "this is a 2nd test " << source <<endl;
-    }
-}
-
-//makes me the map<string,int> i'll need to use
-void createVisitMap(vector<Packet> &packs, vector<string> &aux, map<string, int> &map)
-{
-    for (size_t i = 0; i < aux.size(); i++)
-    {
-        aux.at(i)=regex_replace(aux.at(i), regex(","), "");
-        cout << aux.at(i) << endl;
-        for (size_t j = 0; j < packs.size(); j++)
-        {
-
-            if (packs.at(j).local.find(aux.at(i)) != string::npos) //if the visited place exist into the local of the holiday package
-            {
-                map[aux.at(i)] += packs.at(j).soldPlaces; //add to the value of te key the sold places
-            }
-            else
-            {
-                map.insert(pair<string, int>(aux.at(i), packs.at(j).soldPlaces)); // if dont, create that new<key, value>
-            }
-        }
-    }
-}
-
-//prints out the N most visited places of the Holiday Package
-void mostVisitedLocals(vector<Packet> &packs)
-{
-    vector<string> aux;
-    map<string, int> visitedPlaces;
-    int n;
-    cout << "How many Holiday Packages do you want to see ?" << endl;
-    cin >> n;
-    createPlacesVector(packs, aux);
-    createVisitMap(packs, aux, visitedPlaces);
-    vector<pair<string, int>> pares = vector<pair<string, int>>(visitedPlaces.begin(), visitedPlaces.end());
-    /*sort(pares.begin(), pares.end(), [](auto &left, auto &right) {
-        return left.second < right.second;
-    });*/
-    for (size_t i = 0; i < n; i++)
-    {
-        cout << pares.at(i).first << "-" << pares.at(i).second << endl;
-    }
-}
+            if (find(clientPacks.begin(), clientPacks.end(), packs.at(j).getId()) != clientPacks.end())
+            */
 
 /*********************************
  * Show Packet information

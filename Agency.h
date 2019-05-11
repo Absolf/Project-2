@@ -5,8 +5,8 @@
 #include "Address.h"
 #include "Date.h"
 #include "defs.h"
-//#include "Client.h"
-
+#include "Client.h"
+#include "Packet.h"
 
 using namespace std;
 
@@ -48,6 +48,15 @@ public:
 
   // other methods */
   friend vector<string> openAgency(string fileName);
-  
+  friend void totalPackageSold(vector<Packet> &packs, vector<Client> &client);
+  friend void mostVisitedLocals(vector<Packet> &packs);
+  friend void createPlacesVector(vector<Packet> &packs, vector<string> &aux);
+  friend void createVisitMap(vector<Packet> &packs, vector<string> &aux, map<string, int> &map);
+  friend void createMostVisitedLocals(vector<Packet> &packs, vector<pair<string, int>> &pares);
+  friend void printMostVisitedLocals(vector<Packet> &packs);
+  friend void createClientsVisitations(vector<Client> &clients, vector<Packet> &packs, vector<vector<string>> &vectorOfClientsPlaces);
+  friend void createClientVisitSugestionList(vector<Packet> &packs, vector<Client> &clients);
+  friend void printClientSugestion(vector<Client> &clients, vector<Packet> &packs);
+
   //friend ostream& operator<<(ostream& out, const Agency & agency);
 };

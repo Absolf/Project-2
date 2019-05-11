@@ -2,6 +2,7 @@
 #include "Menus.h"
 #include "Packet.cpp"
 #include "Client.cpp"
+#include "Agency.cpp"
 
 //function that will read all my integers instead of a simple cin
 
@@ -56,11 +57,62 @@ int agency_operations(Agency &agency)
   cout << endl;
   int op;
   cout << "What would you like to manage?: " << endl;
-  vector<string> menu = {"Clients", "Package"};
+  vector<string> menu = {"Clients", "Package", "Statistics"};
   op = readOptions(menu);
   //attempt to fill the  services & clients structs with data from the files.
   cout << endl;
   return op;
+}
+
+void statistics_operations(Agency &agency, vector<Client> &client, vector<Packet> &packs)
+{
+  cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
+  cout << "                 Agency " << agency.getName() << " statistics         " << endl;
+  cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
+  cout << endl;
+  vector<string> menu = {"Agency statistics", "Most visited Places ", "Clients Sugestion"};
+  int op = readOptions(menu);
+
+  //Total Value and number of sold packages
+  if (op == 1)
+  {
+    totalPackageSold(packs, client);
+    while (op > 0)
+    {
+      cout << "\nWould you like to verify again? \n1 - Yes \n0 - No" << endl;
+      cin >> op;
+      if (op > 0)
+      {
+        totalPackageSold(packs, client);
+      }
+    }
+  }
+  if (op == 2)
+  {
+    printMostVisitedLocals(packs);
+    while (op > 0)
+    {
+      cout << "\nWould you like to verify another ammount of most visited packs? \n1 - Yes \n0 - No" << endl;
+      cin >> op;
+      if (op > 0)
+      {
+        printMostVisitedLocals(packs);
+      }
+    }
+  }
+   if (op == 3)
+  {
+    printClientSugestion(client, packs);
+    while (op > 0)
+    {
+      cout << "\nWould you like to sugest another ammount of most visited packs? \n1 - Yes \n0 - No" << endl;
+      cin >> op;
+      if (op > 0)
+      {
+       printClientSugestion(client, packs);
+      }
+    }
+  }
 }
 
 //To implement the operations with my clients
@@ -183,7 +235,7 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
   cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
   cout << endl;
 
-  vector<string> menu = {"Create new Package", "Remove existing Package", "Update Package Information", "Visualize Travel Packs", "Sell a package to a client", "Nº of sold Packages and total value"};
+  vector<string> menu = {"Create new Package", "Remove existing Package", "Update Package Information", "Visualize Travel Packs", "Sell a package to a client"};
   int op = readOptions(menu);
   //It means the agency manager wants to add a new package.
   if (op == 1)
@@ -247,7 +299,7 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
   if (op == 4)
   {
     cout << "How would you like to search for Travel Packs?" << endl;
-    vector<string> packsVisualizationOptions = {"All Travel Packs", "Related to a destiny", "Between dates", "Related to a destiny and between dates", "Sold to a client", "Sold to all clients","Most visited places"};
+    vector<string> packsVisualizationOptions = {"All Travel Packs", "Related to a destiny", "Between dates", "Related to a destiny and between dates", "Sold to a client", "Sold to all clients", "Most visited places"};
     op = readOptions(packsVisualizationOptions);
     if (op == 1)
     {
@@ -327,19 +379,6 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
         }
       }
     }
-     if (op == 7)
-    {
-      mostVisitedLocals(packs);
-      while (op > 0)
-      {
-        cout << "\nWould you like to verify another ammount of most visited packs? \n1 - Yes \n0 - No" << endl;
-        cin >> op;
-        if (op > 0)
-        {
-          mostVisitedLocals(packs);
-        }
-      }
-    }
   }
   //Sell a package to a client
   if (op == 5)
@@ -355,21 +394,6 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
       }
     }
   }
-  //Total Value and number of sold packages
-  if (op == 6)
-  {
-    totalPackageSold(packs, clients);
-    while (op > 0)
-    {
-      cout << "\nWould you like to verify again? \n1 - Yes \n0 - No" << endl;
-      cin >> op;
-      if (op > 0)
-      {
-        totalPackageSold(packs, clients);
-      }
-    }
-  }
-
   packsFile.close();
 }
 
@@ -403,6 +427,18 @@ unsigned mainMenu(Agency agency)
       {
         packs_operation(agency, packages, clients);
         cout << "\nWould you like to keep managing the Packages? \n1-Yes \n0-No" << endl;
+        cin >> op;
+      }
+    }
+    if (op == 3)
+    {
+      statistics_operations(agency, clients, packages);
+      cout << "\nWould you like to keep acessing the statistics? \n1-Yes \n0-No" << endl;
+      cin >> op;
+      while (op != 0)
+      {
+        statistics_operations(agency, clients, packages);
+        cout << "\nWould you like to keep acessing the statistics? \n1-Yes \n0-No" << endl;
         cin >> op;
       }
     }
