@@ -89,28 +89,16 @@ void Agency::setPackets(string packets)
 //Calculates and visualize the number and the total value of sold packages
 void totalPackageSold(vector<Packet> &packs, vector<Client> &client)
 {
-    int cont = 0, value = 0;
-    for (size_t i = 0; i < client.size(); i++)
+    int total = 0;
+    double revenue = 0;
+    for (size_t i = 0; i < packs.size(); i++)
     {
-        for (size_t j = 0; j < packs.size(); j++)
-        {
-            vector<int> clientPacks;
-            clients_packs(client.at(i).getPacketList(), clientPacks);                                   //creates a int vector with the elements of the packet list of client object
-            if (find(clientPacks.begin(), clientPacks.end(), packs.at(j).getId()) != clientPacks.end()) // if find inside that int vector the any ID present in the packet object it will go for it
-            {
-                cout << "Package ID: " << packs.at(j).getId() << endl;
-                cout << "Client owner:" << client.at(i).getName() << endl;
-                cont++;
-                istringstream prices(to_string(packs.at(j).getPricePerPerson()));
-                int price;
-                prices >> price;
-                value += price;
-            }
-            clientPacks.clear();
-        }
+
+        revenue += packs.at(i).getSoldPlaces() * packs.at(i).getPricePerPerson();
+        total += packs.at(i).getSoldPlaces();
     }
-    cout << "\nThe ammount of sold packages is: " << cont << endl;
-    cout << "The total value of those packages is: " << value << endl;
+    cout << "\nThe ammount of sold packages is: " << total << endl;
+    cout << "The total value of those packages is: " << revenue << endl;
 }
 
 //makes me a vector with all the places to visit a holiday package can offer
@@ -210,9 +198,10 @@ void printMostVisitedLocals(vector<Packet> &packs)
     vector<pair<string, int>> pares;
     createMostVisitedLocals(packs, pares);
     auto it = pares.begin();
+    cout << "Destinations: " << endl;
     for (size_t i = 0; i < n; i++)
     {
-        cout << it->first << "-" << it->second << endl;
+        cout <<"["<< it->first << "] had a total of " << it->second  << " visits " << endl;
         ++it;
         assert(it != pares.end());
     }

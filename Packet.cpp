@@ -368,6 +368,7 @@ void printToClient(vector<Packet> &vec, vector<Client> &client)
     cout << "What's the nif of the client you want to verify?" << endl;
     getline(cin, clientNif);
     vector<int> clientPacks;
+    int cont = 0;
     for (size_t i = 0; i < client.size(); i++)
     {
         if (to_string(client.at(i).getNifNumber()) == clientNif)
@@ -377,11 +378,13 @@ void printToClient(vector<Packet> &vec, vector<Client> &client)
             {
                 if (find(clientPacks.begin(), clientPacks.end(), vec.at(j).getId()) != clientPacks.end())
                 {
-                    cout << "\nClient: " << client.at(i).getName() << endl;
-                    cout << "Has the packages:" << endl;
-                    cout << "Unique id: " << vec.at(j).getId() << "\nLocal: " << vec.at(j).getLocal() << "\nDate of start: " << vec.at(j).getBeginDate().getDateString() << "\nDate of end: " << vec.at(j).getEndDate().getDateString()
-                         << "\nPrice per person: " << vec.at(j).getPricePerPerson() << "\nAmmount of places: " << vec.at(j).getMaxPlaces() << "\nSold places: " << vec.at(j).getSoldPlaces() << endl;
-                    cout << ":::::::::::::" << endl;
+                    cout << endl;
+                    cout << vec.at(j);
+                    cont++;
+                    if (cont > 1 && i < (vec.size() - 1))
+                    {
+                        cout << "::::::::::" << endl;
+                    }
                 }
             }
         }
@@ -448,6 +451,7 @@ void sellToClient(vector<Packet> &packs, vector<Client> &client)
 void printPackageAllClients(vector<Packet> &packs, vector<Client> &client)
 {
     vector<int> clientPacks;
+    int cont = 0;
     for (size_t i = 0; i < client.size(); i++)
     {
         clients_packs(client.at(i).getPacketList(), clientPacks);
@@ -455,11 +459,13 @@ void printPackageAllClients(vector<Packet> &packs, vector<Client> &client)
         {
             if (find(clientPacks.begin(), clientPacks.end(), packs.at(j).getId()) != clientPacks.end())
             {
-                cout << "\nClient: " << client.at(i).getName() << endl;
-                cout << "Has the packages:" << endl;
-                cout << "Unique id: " << packs.at(j).getId() << "\nLocal: " << packs.at(j).getLocal() << "\nDate of start: " << packs.at(j).getBeginDate().getDateString() << "\nDate of end: " << packs.at(j).getEndDate().getDateString()
-                     << "\nPrice per person: " << packs.at(j).getPricePerPerson() << "\nAmmount of places: " << packs.at(j).getMaxPlaces() << "\nSold places: " << packs.at(j).getSoldPlaces() << endl;
-                cout << ":::::::::::::" << endl;
+                cout<<endl;
+                cout << packs.at(j) << endl;
+                cont++;
+                if (cont > 1 && i < (packs.size() - 1))
+                {
+                    cout << "::::::::::" << endl;
+                }
             }
         }
     }
@@ -491,25 +497,14 @@ void remove_packs(vector<Packet> &vec)
     }
 }
 
-/*
- vector<int> clientPacks;
-    for (size_t i = 0; i < client.size(); i++)
-    {
-        clients_packs(client.at(i).getPacketList(), clientPacks);
-        for (size_t j = 0; j < packs.size(); j++)
-        {
-            if (find(clientPacks.begin(), clientPacks.end(), packs.at(j).getId()) != clientPacks.end())
-            */
-
 /*********************************
  * Show Packet information
  ********************************/
 
 // shows a packet content
-/*
+
 void writePacks(string file_name, vector<Packet> &vec)
 {
-    //makeCopy(file_name);
     ofstream file;
     file.open(file_name);
     file << vec.back().getId() << endl;
@@ -526,7 +521,6 @@ void writePacks(string file_name, vector<Packet> &vec)
     }
     file.close();
 }
-*/
 ostream &operator<<(ostream &out, const Packet &packet)
 {
     out << packet.id << endl;
@@ -538,8 +532,5 @@ ostream &operator<<(ostream &out, const Packet &packet)
     out << packet.soldPlaces << endl;
 }
 /*
-ostream &operator<<(ostream &out, const pair<string, int> &pares)
-{
-   ostream &operator<<(ostream &out, const pair<string,int> &pares){ out << pares;
-}
+
 */

@@ -66,6 +66,7 @@ public:
     friend void printToClient(vector<Packet> &vec, vector<Client> &client);
     friend void printPackageAllClients(vector<Packet> &packs, vector<Client> &client);
     friend void sellToClient(vector<Packet> &packs, vector<Client> &client);
+    friend void writePacks(string file_name, vector<Packet> &vec);
     //outputh method
     friend ostream &operator<<(ostream &out, const Packet &packet);
     friend ostream &operator<<(ostream &out, const pair<string,int> &pares);

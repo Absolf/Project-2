@@ -99,7 +99,19 @@ void Address::setLocation(string location)
 }
 
 //other functions
-//function that process my addresses removing the '/', making a plan line with spaces, so i can use it with my stringstream
+
+string Address::getAddressString() const
+{
+	string street = getStreet();   
+	int doorNumber = getDoorNumber(); 
+	string floor = getFloor();    
+	string zipCode = getZipCode(); 
+	string location = getLocation(); 
+
+	string oneLine = street + " / " + to_string(doorNumber) + " / " + floor + " / " + zipCode + " / " + location;
+
+	return oneLine;
+}
 
 //fill a string vector with informations separated by a certain delimiter
 void Address::tokenize(string const &str, const char delim, vector<string> &out)

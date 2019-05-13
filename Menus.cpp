@@ -31,6 +31,27 @@
 }
 */
 
+//makes a copy of the file so i can user in case sth goes wrong
+void makeCopy(string filename)
+{
+  ifstream ifile;
+  string line;
+  vector<string> file;
+  tokenize(filename, '.', file);
+
+  ifile.open(filename);
+  string outname = file.at(0) + "_copy.txt";
+  ofstream ofile;
+  ofile.open(outname);
+  while (getline(ifile, line))
+  {
+    ofile << line << endl;
+  }
+  //cout << "Ponto na posição : " << pos;
+  ifile.close();
+  ofile.close();
+}
+
 //Function that will represent all my menus options;
 int readOptions(const vector<string> &menu)
 {
@@ -135,81 +156,90 @@ void clients_operations(Agency &agency, vector<Client> &clients)
   cout << endl;
   vector<string> menu = {"Create new Client", "Remove existing Client", "Update Client Information", "Print a specif client", "Print agency clients"};
   int op = readOptions(menu);
-  /*
-    if (op == 1)
-    {
-        add_client(clients);
-        while (op == 1)
-        {
-            cout << "Do you want to add another client? \n1 - Yes \n0 - No \n"
-                 << endl;
-            op = readInteger();
-            if (op == 0)
-            {
-                print_all_clients(clients);
-            }
-            else
-            {
-                add_client(clients);
-            }
-        }
-    }
 
-    if (op == 2)
+  if (op == 1)
+  {
+    add_client(clients);
+    while (op == 1)
     {
-        remove_client(clients);
-        while (op > 0)
-        {
-            cout << "Do you want to remove another client? \n1 - Yes \n0 - No \n"
-                 << endl;
-            op = readInteger();
-            if (op == 0)
-            {
-                print_all_clients(clients);
-            }
-            else
-            {
-                remove_client(clients);
-            }
-        }
-    }
-    if (op == 3)
-    {
-        update_client(clients);
-        while (op > 0)
-        {
-            cout << "Do you want to update another client? \n1 - Yes \n0 - No \n"
-                 << endl;
-            op = readInteger();
-            if (op == 0)
-            {
-                print_all_clients(clients);
-            }
-            else
-            {
-                update_client(clients);
-            }
-        }
-    }
-    if (op == 4)
-    {
-        printClient(clients);
-        while (op > 0)
-        {
-            cout << "Do you want to see the information of other client? \n1 - Yes \n0 - No \n"
-                 << endl;
-            op = readInteger();
-            if (op == 1)
-            {
-                printClient(clients);
-            }
-        }
-    }
-    if (op == 5)
-    {
+      cout << "Do you want to add another client? \n1 - Yes \n0 - No \n"
+           << endl;
+      cin >> op;
+      if (op == 0)
+      {
         print_all_clients(clients);
+      }
+      else
+      {
+        add_client(clients);
+      }
     }
-    */
+  }
+  if (op == 2)
+  {
+    remove_client(clients);
+    while (op > 0)
+    {
+      cout << "Do you want to remove another client? \n1 - Yes \n0 - No \n"
+           << endl;
+      cin >> op;
+      if (op == 0)
+      {
+        print_all_clients(clients);
+      }
+      else
+      {
+        remove_client(clients);
+      }
+    }
+  }
+  if (op == 3)
+  {
+    update_client(clients);
+    while (op > 0)
+    {
+      cout << "Do you want to update another client? \n1 - Yes \n0 - No \n"
+           << endl;
+      cin >> op;
+      if (op == 0)
+      {
+        print_all_clients(clients);
+      }
+      else
+      {
+        update_client(clients);
+      }
+    }
+  }
+  if (op == 4)
+  {
+    printClient(clients);
+    while (op > 0)
+    {
+      cout << "Do you want to see the information of other client? \n1 - Yes \n0 - No \n"
+           << endl;
+      cin >> op;
+      if (op == 1)
+      {
+        printClient(clients);
+      }
+    }
+  }
+  if (op == 5)
+  {
+    print_all_clients(clients);
+    while (op > 0)
+    {
+      cout << "Do you want to see the information of clients again? \n1 - Yes \n0 - No \n"
+           << endl;
+      cin >> op;
+      if (op == 1)
+      {
+        print_all_clients(clients);
+      }
+    }
+  }
+  writeClients(agency.getClients(), clients);
   clientsFile.close();
 }
 
@@ -394,6 +424,8 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
       }
     }
   }
+  makeCopy(agency.getPackets());
+  writePacks(agency.getClients(), packs);
   packsFile.close();
 }
 

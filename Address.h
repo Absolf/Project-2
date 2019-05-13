@@ -29,7 +29,7 @@ public:
   string getFloor() const;
   string getZipCode() const;
   string getLocation() const;
-  string getAddress() const;
+  string getAddressString() const;
 
   // metodos SET
   void setStreet(string street);
