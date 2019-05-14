@@ -1,5 +1,6 @@
 #pragma once
 #include "Client.h"
+#include "defs.h"
 
 Client::Client() {}
 Client::Client(vector<string> clients)

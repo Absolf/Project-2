@@ -39,9 +39,7 @@ public:
   void setLocation(string location);
   void setAddress(string address);
 
-
   // outros
-  void tokenize(string const &str, const char delim, vector<string> &out);
   friend ostream &operator<<(ostream &out, const Address &address);
 };
 

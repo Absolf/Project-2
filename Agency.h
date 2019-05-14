@@ -7,6 +7,7 @@
 #include "defs.h"
 #include "Client.h"
 #include "Packet.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -28,7 +29,7 @@ private:
   */
 public:
   Agency();
-  Agency(string fileName);
+  Agency(vector<string> agency);
 
   // methods GET
   string getName() const;
@@ -48,16 +49,17 @@ public:
 
   // other methods */
   friend vector<string> openAgency(string fileName);
-  friend void totalPackageSold(vector<Packet> &packs, vector<Client> &client);
   friend void mostVisitedLocals(vector<Packet> &packs);
   friend void createPlacesVector(vector<Packet> &packs, vector<string> &aux);
   friend void createVisitMap(vector<Packet> &packs, vector<string> &aux, map<string, int> &map);
   friend void createMostVisitedLocals(vector<Packet> &packs, vector<pair<string, int>> &pares);
-  friend void printMostVisitedLocals(vector<Packet> &packs);
   friend void createClientsVisitations(vector<Client> &clients, vector<Packet> &packs, vector<vector<string>> &vectorOfClientsPlaces);
   friend void createClientVisitSugestionList(vector<Packet> &packs, vector<Client> &clients);
   friend void createClientSugestion(vector<Packet> &packs, vector<Client> &clients, map<int, int> &myMap);
   friend void printClientSugestion(vector<Client> &clients, vector<Packet> &packs);
-
   //friend ostream& operator<<(ostream& out, const Agency & agency);
 };
+vector<string> agencyData(string fileName);
+void totalPackageSold(vector<Packet> &packs, vector<Client> &client);
+void printMostVisitedLocals(vector<Packet> &packs);
+void printClientSugestion(vector<Client> &clients, vector<Packet> &packs);

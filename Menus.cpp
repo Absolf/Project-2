@@ -1,11 +1,12 @@
 #pragma once
 #include "Menus.h"
-#include "Packet.cpp"
-#include "Client.cpp"
-#include "Agency.cpp"
+#include "Agency.h"
+#include "Packet.h"
+#include "Client.h"
+#include "Address.h"
+#include "defs.h"
 
 //function that will read all my integers instead of a simple cin
-
 /*int readInteger()
 {
   int x;
@@ -429,7 +430,7 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
   packsFile.close();
 }
 
-unsigned mainMenu(Agency agency)
+int mainMenu(Agency agency)
 {
   int op;
   op = agency_operations(agency);

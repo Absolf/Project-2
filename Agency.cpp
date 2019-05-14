@@ -1,33 +1,18 @@
 #pragma once
 #include "Agency.h"
 #include "Address.cpp"
+#include "defs.h"
 //construtor da classe
 Agency::Agency() {}
-Agency::Agency(string fileName)
+Agency::Agency(vector<string> agency)
 {
-    vector<string> linesInfo;
-    ifstream agencyFile;
-    agencyFile.open(fileName);
-    if (agencyFile.good())
-    {
-        cout << "                Sucefully opened the file: " << fileName << endl;
-    }
-    else
-    {
-        cout << "                Can't open the file: " << fileName << endl;
-    }
-    string lines;
-    while (getline(agencyFile, lines))
-    {
-        linesInfo.push_back(lines);
-    }
-    setName(linesInfo.at(0));
-    setNif(linesInfo.at(1));
-    setUrl(linesInfo.at(2));
-    Address address(linesInfo.at(3));
+    setName(agency.at(0));
+    setNif(agency.at(1));
+    setUrl(agency.at(2));
+    Address address(agency.at(3));
     this->address = address;
-    setClients(linesInfo.at(4));
-    setPackets(linesInfo.at(5));
+    setClients(agency.at(4));
+    setPackets(agency.at(5));
 }
 
 // metodos GET
@@ -80,6 +65,28 @@ void Agency::setClients(string clients)
 void Agency::setPackets(string packets)
 {
     this->packets = packets;
+}
+
+//other functions
+
+vector<string> agencyData(string fileName){
+vector<string> linesInfo;
+    ifstream agencyFile;
+    agencyFile.open(fileName);
+    if (agencyFile.good())
+    {
+        cout << "                Sucefully opened the file: " << fileName << endl;
+    }
+    else
+    {
+        cout << "                Can't open the file: " << fileName << endl;
+    }
+    string lines;
+    while (getline(agencyFile, lines))
+    {
+        linesInfo.push_back(lines);
+    }
+    return linesInfo;
 }
 
 /*********************************

@@ -5,6 +5,7 @@
 #include "defs.h"
 #include "Packet.h"
 #include "Address.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -42,10 +43,10 @@ public:
   unsigned setTotalPurchased(unsigned totalPurchased);
 
   // other methods
-  friend vector<Client> clientData(string clientFile);
+  
   friend ostream &operator<<(ostream &out, const Client &client);
-
   friend void update_client(vector<Client> &vec);
+  friend void remove_client(vector<Client> &vec);
   friend vector<Client> add_client(vector<Client> &vec);
   friend void printClient(vector<Client> &vec);
   friend void print_all_clients(vector<Client> &vec);
@@ -55,3 +56,4 @@ public:
 void clients_packs(string line, vector<int> &aux);
 vector<string> clientQuestionHandler(vector<string> vec);
 vector<string> clients_questions();
+vector<Client> clientData(string clientFile);

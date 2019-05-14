@@ -1,5 +1,5 @@
 #pragma once
-
+#include "utils.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -51,7 +51,7 @@ public:
     //void setPackage(vector<string> &pack_vec);
 
     // other methods
-    friend vector<Packet> packData(string packFile);
+    
     friend int lastID(vector<Packet> &vec);
     friend vector<string> packQuestionHandler(vector<string> vec);
     friend vector<string> packs_questions(vector<Packet> &vec);
@@ -59,7 +59,6 @@ public:
     friend void print_all_packs(vector<Packet> &vec);
     friend void remove_packs(vector<Packet> &vec);
     friend void update_packs(vector<Packet> &vec);
-    friend void Address::tokenize(string const &str, const char delim, vector<string> &out);
     friend void printDestinyPack(vector<Packet> &vec);
     friend void printFromDates(vector<Packet> &vec);
     friend void printDestinyAndDates(vector<Packet> &vec);
@@ -71,4 +70,4 @@ public:
     friend ostream &operator<<(ostream &out, const Packet &packet);
     friend ostream &operator<<(ostream &out, const pair<string,int> &pares);
 };
-
+vector<Packet> packData(string packFile);
