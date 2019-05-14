@@ -1,8 +1,6 @@
-#pragma once
-#include <iostream>
-#include <string>
-#include <vector>
-#include "defs.h"
+#ifndef __CLIENT_H_INCLUDED__
+#define __CLIENT_H_INCLUDED__
+
 #include "Packet.h"
 #include "Address.h"
 #include "utils.h"
@@ -19,10 +17,8 @@ private:
   string packets;            // vector to store client's packets bought
   unsigned totalPurchased;   // total value spent by the client
 
-public:
-  Client();                                                                                                               // empty constructor
+public:     // empty constructor
   Client(vector<string> clients);                                                                                         // for a new client
-  Client(string name, unsigned nif, unsigned short familySize, Address address, string packets, unsigned totalPurchased); // client read from file
 
   // GET methods
 
@@ -57,3 +53,4 @@ void clients_packs(string line, vector<int> &aux);
 vector<string> clientQuestionHandler(vector<string> vec);
 vector<string> clients_questions();
 vector<Client> clientData(string clientFile);
+#endif

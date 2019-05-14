@@ -1,3 +1,6 @@
 .vscode/
-.Packet
-.main
+.cmake-build-debug/
+.idea/
+CMakeLists.txt
+Client
+cmake-build-debug/

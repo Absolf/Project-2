@@ -1,14 +1,6 @@
-#pragma once
-
-#include <iostream>
-#include <string>
-#include <vector>
-#include <regex>
-#include <iomanip>
-#include <sstream>
-#include <fstream>
-#include "defs.h"
-
+#ifndef __DATE_H_INCLUDED__
+#define __DATE_H_INCLUDED__
+#include "utils.h"
 using namespace std;
 
 class Date
@@ -39,3 +31,5 @@ public:
     string returnDate(Date date); //returns the date in format "yyyy/mm/dd"
     friend ostream &operator<<(ostream &out, const Date &date);
 };
+
+#endif

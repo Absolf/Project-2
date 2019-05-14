@@ -1,15 +1,22 @@
 
-#pragma once
-#include <iostream>
+#ifndef __UTILS_H_INCLUDED__
+#define __UTILS_H_INCLUDED__
+
 #include <string>
 #include <vector>
 #include <fstream>
 #include <sstream>
 #include <algorithm>
 #include <regex>
-using namespace std;
+#include <iomanip>
+#include <map>
+#include <algorithm>
+#include <functional>
+#include <cassert>
+#include <iostream>
 using namespace std;
 
-void tokenize(string const &str, const char delim, vector<string> &out);
+void tokenize(string const &str, char delim, vector<string> &out);
 int readOptions(const vector<string> &menu);
 
+#endif

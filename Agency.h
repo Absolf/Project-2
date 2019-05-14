@@ -1,13 +1,12 @@
-#pragma once
-#include <iostream>
-#include <iomanip>
-#include <vector>
+#ifndef __AGENCY_H_INCLUDED__
+#define __AGENCY_H_INCLUDED__
+
 #include "Address.h"
 #include "Date.h"
-#include "defs.h"
 #include "Client.h"
 #include "Packet.h"
 #include "utils.h"
+#include "defs.h"
 
 using namespace std;
 
@@ -29,7 +28,7 @@ private:
   */
 public:
   Agency();
-  Agency(vector<string> agency);
+  Agency(string filename);
 
   // methods GET
   string getName() const;
@@ -48,18 +47,19 @@ public:
   void setPackets(string packets);
 
   // other methods */
-  friend vector<string> openAgency(string fileName);
-  friend void mostVisitedLocals(vector<Packet> &packs);
   friend void createPlacesVector(vector<Packet> &packs, vector<string> &aux);
   friend void createVisitMap(vector<Packet> &packs, vector<string> &aux, map<string, int> &map);
   friend void createMostVisitedLocals(vector<Packet> &packs, vector<pair<string, int>> &pares);
   friend void createClientsVisitations(vector<Client> &clients, vector<Packet> &packs, vector<vector<string>> &vectorOfClientsPlaces);
-  friend void createClientVisitSugestionList(vector<Packet> &packs, vector<Client> &clients);
+  friend void createClientVisitSugestionList(vector<Packet> &packs, vector<Client> &clients, vector<vector<string>> &vectorSugestion);
   friend void createClientSugestion(vector<Packet> &packs, vector<Client> &clients, map<int, int> &myMap);
   friend void printClientSugestion(vector<Client> &clients, vector<Packet> &packs);
+
   //friend ostream& operator<<(ostream& out, const Agency & agency);
 };
-vector<string> agencyData(string fileName);
+
 void totalPackageSold(vector<Packet> &packs, vector<Client> &client);
 void printMostVisitedLocals(vector<Packet> &packs);
 void printClientSugestion(vector<Client> &clients, vector<Packet> &packs);
+vector<string> agencyData(vector<string> &linesInfo);
+#endif

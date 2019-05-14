@@ -1,36 +1,20 @@
-#pragma once
 #include "Menus.h"
-#include "Agency.h"
-#include "Packet.h"
-#include "Client.h"
-#include "Address.h"
-#include "defs.h"
+
+#include <string>
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+#include <regex>
+#include <iomanip>
+#include <map>
+#include <algorithm>
+#include <functional>
+#include <cassert>
+#include <iostream>
+
 
 //function that will read all my integers instead of a simple cin
-/*int readInteger()
-{
-  int x;
-  cin >> x;
-  while (cin.fail())
-  {
-
-    cout << "Please type a integer number\n";
-    cin >> x;
-    if (cin.fail())
-    {
-      cin.clear();
-      cin.ignore();
-      cout << "You have entered a wrong input \n";
-      cin >> x;
-    }
-    if (!cin.fail())
-    {
-      return x;
-    }
-  }
-  return x;
-}
-*/
 
 //makes a copy of the file so i can user in case sth goes wrong
 void makeCopy(string filename)
@@ -53,22 +37,6 @@ void makeCopy(string filename)
   ofile.close();
 }
 
-//Function that will represent all my menus options;
-int readOptions(const vector<string> &menu)
-{
-  int option;
-  cout << ":::::::::::::::::::::::::::::::::::" << endl;
-  cout << "             options             " << endl;
-  cout << ":::::::::::::::::::::::::::::::::::" << endl;
-  for (size_t i = 0; i < menu.size(); i++)
-  {
-    cout << i + 1 << " - " << menu.at(i) << endl;
-  }
-  cout << "0 - Quit\nAnswer: ";
-  cin >> option;
-  return option;
-}
-
 //"Menu for agency"
 int agency_operations(Agency &agency)
 {
@@ -88,6 +56,7 @@ int agency_operations(Agency &agency)
 
 void statistics_operations(Agency &agency, vector<Client> &client, vector<Packet> &packs)
 {
+
   cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
   cout << "                 Agency " << agency.getName() << " statistics         " << endl;
   cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
@@ -240,7 +209,7 @@ void clients_operations(Agency &agency, vector<Client> &clients)
       }
     }
   }
-  writeClients(agency.getClients(), clients);
+  //writeClients(agency.getClients(), clients);
   clientsFile.close();
 }
 
@@ -425,12 +394,12 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
       }
     }
   }
-  makeCopy(agency.getPackets());
-  writePacks(agency.getClients(), packs);
+  //makeCopy(agency.getPackets());
+  //writePacks(agency.getClients(), packs);
   packsFile.close();
 }
 
-int mainMenu(Agency agency)
+void mainMenu(Agency agency)
 {
   int op;
   op = agency_operations(agency);
@@ -484,5 +453,4 @@ int mainMenu(Agency agency)
   }
 
   cout << "\n Exit sucefull! " << endl;
-  return 0;
 }

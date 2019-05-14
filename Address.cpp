@@ -1,4 +1,4 @@
-#pragma once
+
 #include "Address.h"
 
 Address::Address() {}
@@ -32,9 +32,6 @@ Address::Address(string line)
     }
 }
 
-Address::Address(string street, int doorNumber, string floor, string zipCode, string location) : street(street), doorNumber(doorNumber), floor(floor), zipCode(zipCode), location(location)
-{
-}
 
 // metodos GET
 
@@ -108,21 +105,11 @@ string Address::getAddressString() const
 	string zipCode = getZipCode(); 
 	string location = getLocation(); 
 
-	string oneLine = street + " / " + to_string(doorNumber) + " / " + floor + " / " + zipCode + " / " + location;
+	string oneLine = street + "/ " + to_string(doorNumber) + " /" + floor + "/" + zipCode + "/" + location;
 
 	return oneLine;
 }
 
-//fill a string vector with informations separated by a certain delimiter
-void Address::tokenize(string const &str, const char delim, vector<string> &out)
-{
-    stringstream ss(str);
-    string s;
-    while (getline(ss, s, delim))
-    {
-        out.push_back(s);
-    }
-}
 
 /*********************************
  * Mostrar Address

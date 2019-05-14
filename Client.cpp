@@ -1,8 +1,6 @@
-#pragma once
-#include "Client.h"
-#include "defs.h"
 
-Client::Client() {}
+#include "Client.h"
+
 Client::Client(vector<string> clients)
 {
   this->name = clients.at(0);
@@ -17,9 +15,6 @@ Client::Client(vector<string> clients)
   totPurch >> this->totalPurchased;
 }
 
-Client::Client(string name, unsigned nif, unsigned short familySize, Address address, string packets, unsigned totalPurchased) : name(name), nif(nif), familySize(familySize), address(address), packets(packets), totalPurchased(totalPurchased)
-{
-}
 
 // GET methods
 

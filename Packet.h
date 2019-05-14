@@ -1,23 +1,16 @@
-#pragma once
+#ifndef __PACKET_H_INCLUDED__
+#define __PACKET_H_INCLUDED__
 #include "utils.h"
-#include <iostream>
-#include <string>
-#include <vector>
-#include <sstream>
-#include "defs.h"
 #include "Date.h"
-#include "Address.h"
 #include "Client.h"
-#include <map>
-#include <algorithm>
-#include <functional>
-#include <cassert>
+
 using namespace std;
 class Client;
 
 class Packet
 {
     friend class Address;
+
 private:
     int id;                // packet unique identifier
     string local;          // touristic places to visit
@@ -51,7 +44,7 @@ public:
     //void setPackage(vector<string> &pack_vec);
 
     // other methods
-    
+
     friend int lastID(vector<Packet> &vec);
     friend vector<string> packQuestionHandler(vector<string> vec);
     friend vector<string> packs_questions(vector<Packet> &vec);
@@ -66,8 +59,11 @@ public:
     friend void printPackageAllClients(vector<Packet> &packs, vector<Client> &client);
     friend void sellToClient(vector<Packet> &packs, vector<Client> &client);
     friend void writePacks(string file_name, vector<Packet> &vec);
+
     //outputh method
     friend ostream &operator<<(ostream &out, const Packet &packet);
-    friend ostream &operator<<(ostream &out, const pair<string,int> &pares);
+    friend ostream &operator<<(ostream &out, const pair<string, int> &pares);
 };
+
 vector<Packet> packData(string packFile);
+#endif

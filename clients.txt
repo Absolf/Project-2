@@ -1,20 +1,11 @@
 Rui Manuel
 234987156
 4
-Rua Sem Fim    / 200 /    5Esq    /   1200‐001    /    Lisboa
-10 ; 36 ; 3
-504
+Rua Sem Fim / 200 / 5Esq /1200‐001 / Lisboa
+10 ; 36 ; 2
 ::::::::::
 Belmiro Miguel
 111987666
 2
-Avenida dos Grilos    / 100 /    ‐    /   2300‐101    /    Coimbra
-1 ; 126 ; 50
-1600
-::::::::::
-Josephine Victoria Annette Irving
-256468
-5
-Dr. Aires de Gouveia    / 5 /    4    /    4555-555    /    Porto
-0;3;2
-1000
+Avenida dos Grilos / 100 / ‐ /2300‐101 / Coimbra
+100 ; 136 ; 20

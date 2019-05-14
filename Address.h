@@ -1,11 +1,6 @@
-#pragma once
-#include <iostream>
-#include <string>
-#include <vector>
-#include <fstream>
-#include <sstream>
-#include <algorithm>
-#include <regex>
+#ifndef __ADDRESS_H_INCLUDED__
+#define __ADDRESS_H_INCLUDED__
+#include "utils.h"
 
 using namespace std;
 
@@ -19,9 +14,10 @@ private:
   string location; // site
 
 public:
+
   Address();
   Address(string line);
-  Address(string street, int doorNumber, string floor, string postalCode, string location);
+  //Address(string street, int doorNumber, string floor, string postalCode, string location);
 
   // metodos GET
   string getStreet() const;
@@ -43,3 +39,4 @@ public:
   friend ostream &operator<<(ostream &out, const Address &address);
 };
 
+#endif

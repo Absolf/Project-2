@@ -1,19 +1,38 @@
-#pragma once
+
 #include "Agency.h"
-#include "Address.cpp"
-#include "defs.h"
+
 //construtor da classe
-Agency::Agency() {}
-Agency::Agency(vector<string> agency)
+
+Agency::Agency(string filename)
 {
-    setName(agency.at(0));
-    setNif(agency.at(1));
-    setUrl(agency.at(2));
-    Address address(agency.at(3));
+    vector<string> linesInfo;
+    ifstream agencyFile;
+    agencyFile.open(filename);
+    //ifs.is_open()
+    if (agencyFile.is_open())
+    {
+        cout << "Successfully opened the file: " << filename << endl;
+    }
+    else
+    {
+        cout << "Can't open the file: " << filename<< endl;
+    }
+    string lines;
+    while (getline(agencyFile, lines))
+    {
+        linesInfo.push_back(lines);
+    }
+    setName(linesInfo.at(0));
+    setNif(linesInfo.at(1));
+    setUrl(linesInfo.at(2));
+    Address address(linesInfo.at(3));
     this->address = address;
-    setClients(agency.at(4));
-    setPackets(agency.at(5));
+    setClients(linesInfo.at(4));
+    setPackets(linesInfo.at(5));
+    agencyFile.close();
 }
+
+Agency::Agency(){}
 
 // metodos GET
 string Agency::getName() const
@@ -69,24 +88,9 @@ void Agency::setPackets(string packets)
 
 //other functions
 
-vector<string> agencyData(string fileName){
-vector<string> linesInfo;
-    ifstream agencyFile;
-    agencyFile.open(fileName);
-    if (agencyFile.good())
-    {
-        cout << "                Sucefully opened the file: " << fileName << endl;
-    }
-    else
-    {
-        cout << "                Can't open the file: " << fileName << endl;
-    }
-    string lines;
-    while (getline(agencyFile, lines))
-    {
-        linesInfo.push_back(lines);
-    }
-    return linesInfo;
+vector<string> agencyData(vector<string> &linesInfo)
+{
+
 }
 
 /*********************************
@@ -208,7 +212,7 @@ void printMostVisitedLocals(vector<Packet> &packs)
     cout << "Destinations: " << endl;
     for (size_t i = 0; i < n; i++)
     {
-        cout <<"["<< it->first << "] had a total of " << it->second  << " visits " << endl;
+        cout << "[" << it->first << "] had a total of " << it->second << " visits " << endl;
         ++it;
         assert(it != pares.end());
     }

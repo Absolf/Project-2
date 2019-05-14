@@ -1,7 +1,7 @@
-#pragma once
+
 #include "utils.h"
 
-void tokenize(string const &str, const char delim, vector<string> &out)
+void tokenize(string const &str, char delim, vector<string> &out)
 {
     stringstream ss(str);
     string s;

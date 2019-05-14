@@ -1,6 +1,6 @@
-#pragma once
 #include "Packet.h"
-#include "Address.h"
+#include "Date.h"
+#include "Client.h"
 
 Packet::Packet() {}
 Packet::Packet(int id, string local, Date startDate, Date endDate, double pricePerPerson, int maxPlaces, int soldPlaces) : id(id), local(local), startDate(startDate), endDate(endDate), pricePerPerson(pricePerPerson), maxPlaces(maxPlaces), soldPlaces(soldPlaces)
@@ -198,9 +198,9 @@ void update_packs(vector<Packet> &vec)
     string line;
     for (auto it = vec.begin(); it != vec.end(); it++)
     {
-        if (vec.at(i).id == update_id)
+        if (vec.at(i).getId() == update_id)
         {
-            cout << "The id[" << vec.at(i).id << "] have been found" << endl;
+            cout << "The id[" << vec.at(i).getId() << "] have been found" << endl;
             cout << "proceeding to update into my package " << endl;
             cout << "::::::::::::::::::::" << endl;
             cout << "options: " << endl;
@@ -212,58 +212,45 @@ void update_packs(vector<Packet> &vec)
                 cout << "New data?: " << endl;
                 cin.ignore();
                 getline(cin, line);
-                vec.at(i).local = line;
+                vec.at(i).setLocal(line);
             }
             if (op == 2)
             {
                 cout << "New data?: " << endl;
                 cin.ignore();
                 getline(cin, line);
-                vec.at(i).startDate.setDateString(line);
+                vec.at(i).getBeginDate().setDateString(line);
             }
             if (op == 3)
             {
                 cout << "New data?: " << endl;
                 cin.ignore();
                 getline(cin, line);
-                vec.at(i).endDate.setDateString(line);
+                vec.at(i).getEndDate().setDateString(line);
             }
             if (op == 4)
             {
                 cout << "New data?: " << endl;
                 cin.ignore();
                 getline(cin, line);
-                istringstream price_converter(line);
-                price_converter >> vec.at(i).pricePerPerson;
+                vec.at(i).setPricePerPerson(stod(line));
             }
             if (op == 5)
             {
                 cout << "New data?: " << endl;
                 cin.ignore();
                 getline(cin, line);
-                istringstream start_place_converter(line);
-                start_place_converter >> vec.at(i).maxPlaces;
+                vec.at(i).setMaxPlaces(stoi(line));
             }
             if (op == 6)
             {
                 cout << "New data?: " << endl;
                 cin.ignore();
                 getline(cin, line);
-                istringstream sold_places_converter(line);
-                sold_places_converter >> vec.at(i).soldPlaces;
+                vec.at(i).setSoldPlaces(stoi(line));
             }
         }
         i++;
-    }
-}
-//fill a string vector with informations separated by a certain delimiter
-void tokenize(string const &str, char delim, vector<string> &out)
-{
-    stringstream ss(str);
-    string s;
-    while (getline(ss, s, delim))
-    {
-        out.push_back(s);
     }
 }
 
