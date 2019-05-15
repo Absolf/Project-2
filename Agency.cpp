@@ -15,7 +15,7 @@ Agency::Agency(string filename)
     }
     else
     {
-        cout << "Can't open the file: " << filename<< endl;
+        cout << "Can't open the file: " << filename << endl;
     }
     string lines;
     while (getline(agencyFile, lines))
@@ -32,7 +32,7 @@ Agency::Agency(string filename)
     agencyFile.close();
 }
 
-Agency::Agency(){}
+Agency::Agency() {}
 
 // metodos GET
 string Agency::getName() const
@@ -88,11 +88,6 @@ void Agency::setPackets(string packets)
 
 //other functions
 
-vector<string> agencyData(vector<string> &linesInfo)
-{
-
-}
-
 /*********************************
  * Mostrar Loja
  ********************************/
@@ -109,7 +104,7 @@ void totalPackageSold(vector<Packet> &packs, vector<Client> &client)
         total += packs.at(i).getSoldPlaces();
     }
     cout << "\nThe ammount of sold packages is: " << total << endl;
-    cout << "The total value of those packages is: " << revenue << endl;
+    cout << "The agency revenue is: " << revenue << endl;
 }
 
 //makes me a vector with all the places to visit a holiday package can offer
@@ -203,18 +198,27 @@ void createMostVisitedLocals(vector<Packet> &packs, vector<pair<string, int>> &p
 //prints out the N most visited places of the Holiday Package
 void printMostVisitedLocals(vector<Packet> &packs)
 {
-    int n;
+
+    vector<pair<string, int>> pares;
+
+    createMostVisitedLocals(packs, pares);
+    cout << "We have a total of " << pares.size() << " destinations " << endl;
+    int n = 0;
+    auto it = pares.begin();
+
     cout << "How many Holiday Destinations would you like to see ?" << endl;
     cin >> n;
-    vector<pair<string, int>> pares;
-    createMostVisitedLocals(packs, pares);
-    auto it = pares.begin();
+    while ((unsigned) n > pares.size() || n <= 0)
+    {
+        cout << "Please do not exceed " << pares.size() << " destinations provided or type null or negative numbers\n Type again: \n";
+        cin >> n;
+    }
     cout << "Destinations: " << endl;
-    for (size_t i = 0; i < n; i++)
+    for (size_t i = 0; i < (unsigned) n; i++)
     {
         cout << "[" << it->first << "] had a total of " << it->second << " visits " << endl;
         ++it;
-        assert(it != pares.end());
+        //assert(it != pares.end());
     }
 }
 //creates a list with the visited places by the client
@@ -386,9 +390,20 @@ void printClientSugestion(vector<Client> &clients, vector<Packet> &packs)
         }
     }
 }
-
-// mostra o conteudo de uma agencia
-ostream &operator<<(ostream &out, const Agency &agency)
-{
-    // A IMPLEMENTATION REQUIRED
+void showAgency(Agency agency){
+    //simple user interface
+    cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
+    cout << "                          Welcome to the agency " << endl;
+    cout << agency;
+    cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
+    cout << endl;
+}
+//shows an agency content
+ostream &operator<<(ostream &out, const Agency &agency) {
+    out << agency.getName() << endl;
+    out << agency.getNif() << endl;
+    out << agency.getURL() << endl;
+    out << agency.getAddress().getAddressString() <<endl;
+    out << agency.getClients()<<endl;
+    out << agency.getPackets()<<endl;
 }

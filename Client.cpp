@@ -1,11 +1,13 @@
 
 #include "Client.h"
 
+Client::Client()
+{
+}
 Client::Client(vector<string> clients)
 {
   this->name = clients.at(0);
-  stringstream nif(clients.at(1));
-  nif >> this->nif;
+  this->nif = stoi(clients.at(1));
   stringstream famSize(clients.at(2));
   famSize >> this->familySize;
   Address address(clients.at(3));
@@ -14,7 +16,6 @@ Client::Client(vector<string> clients)
   stringstream totPurch(clients.at(5));
   totPurch >> this->totalPurchased;
 }
-
 
 // GET methods
 
@@ -47,7 +48,7 @@ string Client::getPacketList() const
   return packets;
 }
 
-unsigned Client::getTotalPurchased() const
+double Client::getTotalPurchased() const
 {
 
   return totalPurchased;
@@ -81,7 +82,7 @@ void Client::setPacketList(string packets)
 {
   this->packets = packets;
 }
-unsigned Client::setTotalPurchased(unsigned totalPurchased)
+void Client::setTotalPurchased(double totalPurchased)
 {
   this->totalPurchased = totalPurchased;
 }
@@ -185,7 +186,7 @@ void remove_client(vector<Client> &vec)
 void update_client(vector<Client> &vec)
 {
   int op;
-  string line;
+  string line, text;
   unsigned int nif;
   cout << "What's the nif of the client you want to update? " << endl;
   cin >> nif;
@@ -205,18 +206,13 @@ void update_client(vector<Client> &vec)
       }
       if (op == 2)
       {
-        cout << "New NIF: ";
-        cin.ignore();
-        getline(cin, line);
-        vec.at(i).setNifNumber(stoi(line));
+        text = "New NIF: ";
+        vec.at(i).setNifNumber(readInteger(text));
       }
       if (op == 3)
       {
-        cout << "New family number: ";
-        cin.ignore();
-        getline(cin, line);
-        //istringstream transform(line);  //-----------
-        vec.at(i).setFamilySize(stoi(line));
+        text = "New family number: ";
+        vec.at(i).setFamilySize(readInteger(text));
       }
       if (op == 4)
       {
@@ -320,7 +316,6 @@ void Insert_valid()
 
 void writeClients(string file_name, vector<Client> &vec)
 {
-  cout << "A copy of the previous file have been made in case of data lost!";
   ofstream file;
   file.open(file_name);
   if (file.is_open())

@@ -145,13 +145,68 @@ vector<string> packQuestionHandler(vector<string> vec)
 {
     string line;
     vector<string> new_pack;
+
     cout << "::::::::::::::" << endl;
     cin.ignore();
     for (size_t i = 0; i < vec.size(); i++)
     {
-        cout << vec.at(i);
-        getline(cin, line);
-        new_pack.push_back(line);
+        if(i==0){
+            cout.clear();
+            cout << vec.at(i);
+            getline(cin, line);
+            new_pack.push_back(line);
+        }
+        if(i==1) {
+            string startData;
+            cin.clear();
+            cout << vec.at(i);
+            cin >> startData;
+            bool isDate = verifyDate(startData);
+            cout <<"Is date 1?"<< isDate <<endl;
+            while (isDate == false) {
+                cin.clear();
+                cout << vec.at(i);
+                cin >> startData;
+                isDate = verifyDate(startData);
+                cout<<"Is date 2? "<< isDate<<endl;
+            }
+            cin.clear();
+            new_pack.push_back(startData);
+        }
+        else if(i==2){
+            string endData;
+            cin.clear();
+            cout << vec.at(i);
+            cin >> endData;
+            bool isDate = verifyDate(endData);
+            cout <<"Is date 3?"<<isDate<<endl;
+            while(isDate == false){
+                cin.clear();
+                cout << vec.at(i);
+                cin >> endData;
+                isDate = verifyDate(endData);
+                cout <<"Is date 4?"<<isDate<<endl;
+            }
+            cout.clear();
+            cin.clear();
+            new_pack.push_back(endData);
+        }
+        else if(i==3)//When the question about price per person be made, it will verify if it's a valid input (of double type)
+        {
+            double pricePerson = readDouble(vec.at(i));
+            new_pack.push_back(to_string(pricePerson));
+        }
+        else if(i == 4)//When the question about maximum amount of places be made, it will verify if it's a valid input (of int type)
+        {
+            int maxPlaces = readInteger(vec.at(i));
+            new_pack.push_back(to_string(maxPlaces));
+        }
+        else if(i == 5)//When the question about sold places be made, it will verify if it's a valid input (of int type)
+        {
+            int soldPlaces = readInteger(vec.at(i));
+            new_pack.push_back(to_string(soldPlaces));
+        }
+        cin.clear();
     }
     cout << ":::::::::::::";
     return new_pack;
@@ -162,10 +217,10 @@ vector<string> packs_questions(vector<Packet> &vec)
 {
     int id = lastID(vec);
     vector<string> nPacks_questions = {"Location: ", "Start Date: ", "End Date: ", "Price per person: ", "Max places: ", "Sold Places: "};
-    cout << endl;
     vector<string> new_pack;
     new_pack.push_back(to_string(id));
     vector<string> aux = packQuestionHandler(nPacks_questions);
+    cout << "i've a new pack"<< endl;
     for (size_t i = 0; i < aux.size(); i++)
     {
         new_pack.push_back(aux.at(i));
@@ -176,12 +231,19 @@ vector<string> packs_questions(vector<Packet> &vec)
 //print all the packs i have in my vector of packets
 void print_all_packs(vector<Packet> &vec)
 {
+    int cont = 0 ;
     for (size_t i = 0; i < vec.size(); i++)
     {
         cout << "::::::::::::::::::::::::::::::::" << endl;
         cout << vec.at(i) << endl;
-        cout << ":::::::::::::::::::::::::::::::" << endl;
+        cont++;
+        if(cont < vec.size()-1){
+            cout << ":::::::::::::::::::::::::::::::" << endl;
+        }
+
+
     }
+
 }
 
 //atualize the data inside a packet
@@ -196,6 +258,7 @@ void update_packs(vector<Packet> &vec)
     int op;
 
     string line;
+    string text;
     for (auto it = vec.begin(); it != vec.end(); it++)
     {
         if (vec.at(i).getId() == update_id)
@@ -209,45 +272,39 @@ void update_packs(vector<Packet> &vec)
 
             if (op == 1)
             {
-                cout << "New data?: " << endl;
+                cout << "New Local: " << endl;
                 cin.ignore();
                 getline(cin, line);
                 vec.at(i).setLocal(line);
             }
             if (op == 2)
             {
-                cout << "New data?: " << endl;
+                cout << "New start date: " << endl;
                 cin.ignore();
                 getline(cin, line);
                 vec.at(i).getBeginDate().setDateString(line);
             }
             if (op == 3)
             {
-                cout << "New data?: " << endl;
+                cout << "New end date: " << endl;
                 cin.ignore();
                 getline(cin, line);
                 vec.at(i).getEndDate().setDateString(line);
             }
             if (op == 4)
             {
-                cout << "New data?: " << endl;
-                cin.ignore();
-                getline(cin, line);
-                vec.at(i).setPricePerPerson(stod(line));
+                text = "New price per person: ";
+                vec.at(i).setPricePerPerson(readDouble(text));
             }
             if (op == 5)
             {
-                cout << "New data?: " << endl;
-                cin.ignore();
-                getline(cin, line);
-                vec.at(i).setMaxPlaces(stoi(line));
+                text = "New max places: ";
+                vec.at(i).setMaxPlaces(readInteger(text));
             }
             if (op == 6)
             {
-                cout << "New data?: " << endl;
-                cin.ignore();
-                getline(cin, line);
-                vec.at(i).setSoldPlaces(stoi(line));
+                text = "New sold places: ";
+                vec.at(i).setSoldPlaces(readInteger(text));
             }
         }
         i++;
@@ -384,7 +441,7 @@ void sellToClient(vector<Packet> &packs, vector<Client> &client)
     string clientNif;
     int id;
     vector<int> clientPacks;
-    cout << "Type the NIF of the client you would like to sel the package" << endl;
+    cout << "Type the NIF of the client you would like to sell the package" << endl;
     cin.ignore();
     getline(cin, clientNif);
     cout << "Type the ID of the package you would like to sell to the client" << endl;
@@ -434,18 +491,23 @@ void sellToClient(vector<Packet> &packs, vector<Client> &client)
         }
     }
 }
+
 //print packages sold to all clients
 void printPackageAllClients(vector<Packet> &packs, vector<Client> &client)
 {
-    vector<int> clientPacks;
+
     int cont = 0;
+
     for (size_t i = 0; i < client.size(); i++)
     {
+        vector<int> clientPacks;
+        cout << "client name: " << client.at(i).getName()<<endl;
         clients_packs(client.at(i).getPacketList(), clientPacks);
         for (size_t j = 0; j < packs.size(); j++)
         {
             if (find(clientPacks.begin(), clientPacks.end(), packs.at(j).getId()) != clientPacks.end())
             {
+                cout << "client : " << client.at(i).getName() << " has the package: " << endl;
                 cout<<endl;
                 cout << packs.at(j) << endl;
                 cont++;
@@ -466,6 +528,7 @@ void add_packs(vector<Packet> &vec)
     vec.push_back(test);
     //return vec;
 }
+
 //Remove a pack from my vector.
 void remove_packs(vector<Packet> &vec)
 {

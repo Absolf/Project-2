@@ -40,12 +40,8 @@ void makeCopy(string filename)
 //"Menu for agency"
 int agency_operations(Agency &agency)
 {
-  //simple user interface
-  cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
-  cout << "                          Welcome to the agency " << agency.getName() << endl;
-  cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
-  cout << endl;
   int op;
+  showAgency(agency);
   cout << "What would you like to manage?: " << endl;
   vector<string> menu = {"Clients", "Package", "Statistics"};
   op = readOptions(menu);
@@ -70,9 +66,8 @@ void statistics_operations(Agency &agency, vector<Client> &client, vector<Packet
     totalPackageSold(packs, client);
     while (op > 0)
     {
-      cout << "\nWould you like to verify again? \n1 - Yes \n0 - No" << endl;
-      cin >> op;
-      if (op > 0)
+        op = readInteger("\nWould you like to verify again? \n1 - Yes \n0 - No");
+        if (op > 0)
       {
         totalPackageSold(packs, client);
       }
@@ -83,9 +78,8 @@ void statistics_operations(Agency &agency, vector<Client> &client, vector<Packet
     printMostVisitedLocals(packs);
     while (op > 0)
     {
-      cout << "\nWould you like to verify another ammount of most visited packs? \n1 - Yes \n0 - No" << endl;
-      cin >> op;
-      if (op > 0)
+        op = readInteger("\nWould you like to verify another ammount of most visited packs? \n1 - Yes \n0 - No");
+        if (op > 0)
       {
         printMostVisitedLocals(packs);
       }
@@ -96,8 +90,7 @@ void statistics_operations(Agency &agency, vector<Client> &client, vector<Packet
     printClientSugestion(client, packs);
     while (op > 0)
     {
-      cout << "\nWould you like to sugest another ammount of most visited packs? \n1 - Yes \n0 - No" << endl;
-      cin >> op;
+        op = readInteger("\nWould you like to suggest another ammount of most visited packs? \n1 - Yes \n0 - No");
       if (op > 0)
       {
         printClientSugestion(client, packs);
@@ -130,11 +123,9 @@ void clients_operations(Agency &agency, vector<Client> &clients)
   if (op == 1)
   {
     add_client(clients);
-    while (op == 1)
+    while (op > 0)
     {
-      cout << "Do you want to add another client? \n1 - Yes \n0 - No \n"
-           << endl;
-      cin >> op;
+        op = readInteger("Do you want to add another client? \n1 - Yes \n0 - No \n");
       if (op == 0)
       {
         print_all_clients(clients);
@@ -150,9 +141,7 @@ void clients_operations(Agency &agency, vector<Client> &clients)
     remove_client(clients);
     while (op > 0)
     {
-      cout << "Do you want to remove another client? \n1 - Yes \n0 - No \n"
-           << endl;
-      cin >> op;
+        op = readInteger("Do you want to remove another client? \n1 - Yes \n0 - No \n");
       if (op == 0)
       {
         print_all_clients(clients);
@@ -168,9 +157,7 @@ void clients_operations(Agency &agency, vector<Client> &clients)
     update_client(clients);
     while (op > 0)
     {
-      cout << "Do you want to update another client? \n1 - Yes \n0 - No \n"
-           << endl;
-      cin >> op;
+        op = readInteger("Do you want to update another client? \n1 - Yes \n0 - No \n");
       if (op == 0)
       {
         print_all_clients(clients);
@@ -186,10 +173,8 @@ void clients_operations(Agency &agency, vector<Client> &clients)
     printClient(clients);
     while (op > 0)
     {
-      cout << "Do you want to see the information of other client? \n1 - Yes \n0 - No \n"
-           << endl;
-      cin >> op;
-      if (op == 1)
+        op = readInteger("Do you want to see the information of other client? \n1 - Yes \n0 - No \n");
+        if (op == 1)
       {
         printClient(clients);
       }
@@ -200,16 +185,14 @@ void clients_operations(Agency &agency, vector<Client> &clients)
     print_all_clients(clients);
     while (op > 0)
     {
-      cout << "Do you want to see the information of clients again? \n1 - Yes \n0 - No \n"
-           << endl;
-      cin >> op;
+        op = readInteger("Do you want to see the information of clients again? \n1 - Yes \n0 - No \n");
       if (op == 1)
       {
         print_all_clients(clients);
       }
     }
   }
-  //writeClients(agency.getClients(), clients);
+  writeClients(agency.getClients(), clients);
   clientsFile.close();
 }
 
@@ -243,9 +226,7 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
     add_packs(packs);
     while (op > 0)
     {
-      cout << "Do you want to add another travel pack? \n1 - Yes \n0 - No \n"
-           << endl;
-      cin >> op;
+        op = readInteger("Do you want to add another travel pack? \n1 - Yes \n0 - No \n");
       if (op == 0)
       {
         print_all_packs(packs);
@@ -299,7 +280,7 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
   if (op == 4)
   {
     cout << "How would you like to search for Travel Packs?" << endl;
-    vector<string> packsVisualizationOptions = {"All Travel Packs", "Related to a destiny", "Between dates", "Related to a destiny and between dates", "Sold to a client", "Sold to all clients", "Most visited places"};
+    vector<string> packsVisualizationOptions = {"All Travel Packs", "Related to a destiny", "Between dates", "Related to a destiny and between dates", "Sold to a client", "Sold to all clients"};
     op = readOptions(packsVisualizationOptions);
     if (op == 1)
     {
@@ -368,7 +349,7 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
     }
     if (op == 6)
     {
-      printPackageAllClients(packs, clients);
+        printPackageAllClients(packs,clients);
       while (op > 0)
       {
         cout << "\nWould you like to verify the packs sold to the Clients? \n1 - Yes \n0 - No" << endl;
@@ -395,7 +376,7 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
     }
   }
   //makeCopy(agency.getPackets());
-  //writePacks(agency.getClients(), packs);
+  writePacks(agency.getPackets(), packs);
   packsFile.close();
 }
 
@@ -412,11 +393,10 @@ void mainMenu(Agency agency)
       clients_operations(agency, clients);
       cout << "\nWould you like to keep managing the clients? \n1-Yes \n0-No" << endl;
       cin >> op;
-      while (op != 0)
-      {
-        clients_operations(agency, clients);
-        cout << "\nWould you like to keep managing the clients? \n1-Yes \n0-No" << endl;
-        cin >> op;
+      while (op != 0) {
+          clients_operations(agency, clients);
+          cout << "\nWould you like to keep managing the clients? \n1-Yes \n0-No" << endl;
+          cin >> op;
       }
     }
 
