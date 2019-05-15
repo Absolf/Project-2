@@ -14,9 +14,19 @@
 #include <functional>
 #include <cassert>
 #include <iostream>
+#include "Date.h"
+
 using namespace std;
 
 void tokenize(string const &str, char delim, vector<string> &out);
 int readOptions(const vector<string> &menu);
+template <typename T>
+istream &getInput(string prompt, T &input);
+template <typename T>
+istream &getInput(T &input);
+int readInteger(string prompt);
+int &readInteger();
+double readDouble(string prompt);
+//Date readDate(string prompt);
 
 #endif

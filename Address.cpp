@@ -105,7 +105,7 @@ string Address::getAddressString() const
 	string zipCode = getZipCode(); 
 	string location = getLocation(); 
 
-	string oneLine = street + "/ " + to_string(doorNumber) + " /" + floor + "/" + zipCode + "/" + location;
+	string oneLine = street + " / " + to_string(doorNumber) + " / " + floor + " / " + zipCode + " / " + location;
 
 	return oneLine;
 }

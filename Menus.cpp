@@ -130,7 +130,7 @@ void clients_operations(Agency &agency, vector<Client> &clients)
   if (op == 1)
   {
     add_client(clients);
-    while (op == 1)
+    while (op > 0)
     {
       cout << "Do you want to add another client? \n1 - Yes \n0 - No \n"
            << endl;
@@ -209,7 +209,7 @@ void clients_operations(Agency &agency, vector<Client> &clients)
       }
     }
   }
-  //writeClients(agency.getClients(), clients);
+  writeClients(agency.getClients(), clients);
   clientsFile.close();
 }
 
@@ -299,7 +299,7 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
   if (op == 4)
   {
     cout << "How would you like to search for Travel Packs?" << endl;
-    vector<string> packsVisualizationOptions = {"All Travel Packs", "Related to a destiny", "Between dates", "Related to a destiny and between dates", "Sold to a client", "Sold to all clients", "Most visited places"};
+    vector<string> packsVisualizationOptions = {"All Travel Packs", "Related to a destiny", "Between dates", "Related to a destiny and between dates", "Sold to a client", "Sold to all clients"};
     op = readOptions(packsVisualizationOptions);
     if (op == 1)
     {
@@ -368,7 +368,7 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
     }
     if (op == 6)
     {
-      printPackageAllClients(packs, clients);
+        printPackageAllClients(packs,clients);
       while (op > 0)
       {
         cout << "\nWould you like to verify the packs sold to the Clients? \n1 - Yes \n0 - No" << endl;
@@ -395,7 +395,7 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
     }
   }
   //makeCopy(agency.getPackets());
-  //writePacks(agency.getClients(), packs);
+  writePacks(agency.getPackets(), packs);
   packsFile.close();
 }
 
@@ -412,11 +412,10 @@ void mainMenu(Agency agency)
       clients_operations(agency, clients);
       cout << "\nWould you like to keep managing the clients? \n1-Yes \n0-No" << endl;
       cin >> op;
-      while (op != 0)
-      {
-        clients_operations(agency, clients);
-        cout << "\nWould you like to keep managing the clients? \n1-Yes \n0-No" << endl;
-        cin >> op;
+      while (op != 0) {
+          clients_operations(agency, clients);
+          cout << "\nWould you like to keep managing the clients? \n1-Yes \n0-No" << endl;
+          cin >> op;
       }
     }
 

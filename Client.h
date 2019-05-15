@@ -10,15 +10,17 @@ using namespace std;
 class Client
 {
 private:
-  string name;               // name of the client
-  unsigned nif;              // VAT number of client
-  unsigned short familySize; // number of family members
-  Address address;           // client's address
-  string packets;            // vector to store client's packets bought
-  unsigned totalPurchased;   // total value spent by the client
+  string name;                 // name of the client
+  unsigned nif{};              // VAT number of client
+  unsigned short familySize{}; // number of family members
+  Address address;             // client's address
+  string packets;              // vector to store client's packets bought
+  double totalPurchased;       // total value spent by the client
 
-public:     // empty constructor
-  Client(vector<string> clients);                                                                                         // for a new client
+public:
+  Client(); // empty constructor
+  Client(vector<string> clients);
+  //Client(){}// for a new client
 
   // GET methods
 
@@ -27,7 +29,7 @@ public:     // empty constructor
   unsigned short getFamilySize() const;
   Address getAddress() const;
   string getPacketList() const;
-  unsigned getTotalPurchased() const;
+  double getTotalPurchased() const;
 
   // SET methods
 
@@ -36,10 +38,10 @@ public:     // empty constructor
   void setFamilySize(unsigned short familySize);
   void setAddress(Address address);
   void setPacketList(string packets);
-  unsigned setTotalPurchased(unsigned totalPurchased);
+  void setTotalPurchased(double totalPurchased);
 
   // other methods
-  
+
   friend ostream &operator<<(ostream &out, const Client &client);
   friend void update_client(vector<Client> &vec);
   friend void remove_client(vector<Client> &vec);

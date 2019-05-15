@@ -1,6 +1,7 @@
 #ifndef __DATE_H_INCLUDED__
 #define __DATE_H_INCLUDED__
 #include "utils.h"
+#include <time.h>
 using namespace std;
 
 class Date
@@ -28,8 +29,13 @@ public:
     void setDateString(string yearMonthDay);
 
     // outhet methods */
-    string returnDate(Date date); //returns the date in format "yyyy/mm/dd"
+
+
+    static string returnDate(Date date); //returns the date in format "yyyy/mm/dd"
     friend ostream &operator<<(ostream &out, const Date &date);
 };
+bool isBissexto(int year);
+int daysMonth(int month, int year);
+bool verifyDate(string date);
 
 #endif

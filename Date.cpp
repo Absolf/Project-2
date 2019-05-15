@@ -56,10 +56,14 @@ void Date::setDateString(string linha)
     unsigned int year;
     unsigned short month;
     unsigned short day;
-    linha = regex_replace(linha, regex("/"), " ");
-    istringstream teste(linha);
-    teste >> year >> month >> day;
-    setDate(year, month, day);
+    bool dateValidation = verifyDate(linha);
+    if (dateValidation)
+    {
+        linha = regex_replace(linha, regex("/"), " ");
+        istringstream teste(linha);
+        teste >> year >> month >> day;
+        setDate(year, month, day);
+    }
 }
 
 //Verify if this is needed as i have return date function
@@ -74,6 +78,60 @@ string Date::getDateString()
     return returnDate(date);
 }
 
+bool isBissexto(int year)
+{
+    if (year % 4 == 0 && year % 100 != 0)
+        return true;
+    else if (year % 400 == 0)
+        return true;
+    else
+        return false;
+
+}
+
+int daysMonth(int month, int year)
+{
+    if (month == 2)
+    {
+        if (isBissexto(year) == true)
+            return 29;
+        else
+            return 28;
+    }
+    else if (month == 4 || month == 6 || month == 9 || month == 11)
+        return 30;
+    else
+        return 31;
+}
+
+bool verifyDate(string date)
+{
+    unsigned int year;
+    unsigned short month;
+    unsigned short day;
+    date = regex_replace(date, regex("/"), " ");
+    istringstream teste(date);
+    teste >> year >> month >> day;
+    time_t theTime = time(NULL);
+    struct tm *aTime = localtime(&theTime);
+    bool isDate = false;
+    int thisYear = aTime->tm_year + 1900;
+    int limit = thisYear + 10;
+    unsigned short maxDay = daysMonth(month, year);
+    if((year >= thisYear) && (year < limit) &&
+       (month <= 12 && month > 0) &&
+       (day <= maxDay && day > 0))
+    {
+        isDate = true;
+    }
+    else
+    {
+        cout << "Date limits for year(" << thisYear << "-"<<limit << ") month (1-12) day (1-"<<maxDay<<")"<<endl;
+        isDate = false;
+    }
+    return isDate;
+}
+
 string Date::returnDate(Date date)
 {
     stringstream ss;
@@ -83,12 +141,12 @@ string Date::returnDate(Date date)
         ss << date.getYear() << "/0" << date.getMonth() << "/0" << date.getDay();
         date_output = ss.str();
     }
-    else if (date.getMonth() < 10 && date.getDay() > 10)
+    else if (date.getMonth() < 10 && date.getDay() >= 10)
     {
         ss << date.getYear() << "/0" << date.getMonth() << "/" << date.getDay();
         date_output = ss.str();
     }
-    else if (date.getMonth() > 10 && date.getDay() < 10)
+    else if (date.getMonth() >= 10 && date.getDay() < 10)
     {
         ss << date.getYear() << "/" << date.getMonth() << "/0" << date.getDay();
         date_output = ss.str();
