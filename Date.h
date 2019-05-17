@@ -31,7 +31,7 @@ public:
     // outhet methods */
 
     static string returnDate(Date date); //returns the date in format "yyyy/mm/dd"
-    friend ostream &operator<<(ostream &out, const Date &date);
+    friend ostream &operator<<(ostream &out, const Date &date); //operator that displays the date in a nice order
 };
 bool isBissexto(int year);
 int daysMonth(int month, int year);
