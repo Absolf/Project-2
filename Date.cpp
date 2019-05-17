@@ -1,5 +1,7 @@
 #include "Date.h"
 #pragma warning(disable : 4996) //Erro associated with localtime error
+
+//Construtors of the class objects Date
 Date::Date()
 {
 }
