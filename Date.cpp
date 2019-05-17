@@ -120,7 +120,7 @@ bool verifyDate(string date)
     int limit = thisYear + 10;
     unsigned short maxDay = daysMonth(month, year);
 
-    if((unsigned) thisYear) && (year < (unsigned) limit) &&
+    if(((unsigned) thisYear) && (year < (unsigned) limit) &&
        (month <= 12 && month > 0) &&
        (day <= maxDay && day > 0))
     {
