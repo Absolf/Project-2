@@ -6,7 +6,7 @@ Address::Address(string line)
 {
     vector<string> addres_vec;
     tokenize(line, '/', addres_vec);
-    for (int i = 0; (unsigned) i < addres_vec.size(); i++)
+    for (int i = 0; (unsigned)i < addres_vec.size(); i++)
     {
         if (i == 0)
         {
@@ -31,7 +31,6 @@ Address::Address(string line)
         }
     }
 }
-
 
 // metodos GET
 
@@ -99,13 +98,13 @@ void Address::setLocation(string location)
 
 string Address::getAddressString() const
 {
-	string street = getStreet();   
-	int doorNumber = getDoorNumber(); 
-	string floor = getFloor();    
-	string zipCode = getZipCode(); 
-	string location = getLocation(); 
+    string street = getStreet();
+    int doorNumber = getDoorNumber();
+    string floor = getFloor();
+    string zipCode = getZipCode();
+    string location = getLocation();
 
-	string oneLine = street + " / " + to_string(doorNumber) + " / " + floor + " / " + zipCode + " / " + location;
+    string oneLine = street + " / " + to_string(doorNumber) + " / " + floor + " / " + zipCode + " / " + location;
 
-	return oneLine;
+    return oneLine;
 }

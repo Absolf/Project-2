@@ -150,58 +150,63 @@ vector<string> packQuestionHandler(vector<string> vec)
     cin.ignore();
     for (size_t i = 0; i < vec.size(); i++)
     {
-        if(i==0){
+        if (i == 0)
+        {
             cout.clear();
             cout << vec.at(i);
             getline(cin, line);
             new_pack.push_back(line);
         }
-        if(i==1) {
+        if (i == 1)
+        {
             string startData;
             cin.clear();
             cout << vec.at(i);
             cin >> startData;
             bool isDate = verifyDate(startData);
-            cout <<"Is date 1?"<< isDate <<endl;
-            while (isDate == false) {
+            cout << "Is date 1?" << isDate << endl;
+            while (isDate == false)
+            {
                 cin.clear();
                 cout << vec.at(i);
                 cin >> startData;
                 isDate = verifyDate(startData);
-                cout<<"Is date 2? "<< isDate<<endl;
+                cout << "Is date 2? " << isDate << endl;
             }
             cin.clear();
             new_pack.push_back(startData);
         }
-        else if(i==2){
+        else if (i == 2)
+        {
             string endData;
             cin.clear();
             cout << vec.at(i);
             cin >> endData;
             bool isDate = verifyDate(endData);
-            cout <<"Is date 3?"<<isDate<<endl;
-            while(isDate == false){
+            cout << "Is date 3?" << isDate << endl;
+            while (isDate == false)
+            {
                 cin.clear();
                 cout << vec.at(i);
                 cin >> endData;
                 isDate = verifyDate(endData);
-                cout <<"Is date 4?"<<isDate<<endl;
+                cout << "Is date 4?" << isDate << endl;
             }
             cout.clear();
             cin.clear();
             new_pack.push_back(endData);
         }
-        else if(i==3)//When the question about price per person be made, it will verify if it's a valid input (of double type)
+        else if (i == 3) //When the question about price per person be made, it will verify if it's a valid input (of double type)
         {
             double pricePerson = readDouble(vec.at(i));
             new_pack.push_back(to_string(pricePerson));
         }
-        else if(i == 4)//When the question about maximum amount of places be made, it will verify if it's a valid input (of int type)
+        else if (i == 4) //When the question about maximum amount of places be made, it will verify if it's a valid input (of int type)
         {
             int maxPlaces = readInteger(vec.at(i));
             new_pack.push_back(to_string(maxPlaces));
         }
-        else if(i == 5)//When the question about sold places be made, it will verify if it's a valid input (of int type)
+        else if (i == 5) //When the question about sold places be made, it will verify if it's a valid input (of int type)
         {
             int soldPlaces = readInteger(vec.at(i));
             new_pack.push_back(to_string(soldPlaces));
@@ -220,7 +225,7 @@ vector<string> packs_questions(vector<Packet> &vec)
     vector<string> new_pack;
     new_pack.push_back(to_string(id));
     vector<string> aux = packQuestionHandler(nPacks_questions);
-    cout << "i've a new pack"<< endl;
+    cout << "i've a new pack" << endl;
     for (size_t i = 0; i < aux.size(); i++)
     {
         new_pack.push_back(aux.at(i));
@@ -231,19 +236,17 @@ vector<string> packs_questions(vector<Packet> &vec)
 //print all the packs i have in my vector of packets
 void print_all_packs(vector<Packet> &vec)
 {
-    int cont = 0 ;
+    int cont = 0;
     for (size_t i = 0; i < vec.size(); i++)
     {
         cout << "::::::::::::::::::::::::::::::::" << endl;
         cout << vec.at(i) << endl;
         cont++;
-        if((unsigned) cont < vec.size()-1){
+        if ((unsigned)cont < vec.size() - 1)
+        {
             cout << ":::::::::::::::::::::::::::::::" << endl;
         }
-
-
     }
-
 }
 
 //atualize the data inside a packet
@@ -501,14 +504,14 @@ void printPackageAllClients(vector<Packet> &packs, vector<Client> &client)
     for (size_t i = 0; i < client.size(); i++)
     {
         vector<int> clientPacks;
-        cout << "client name: " << client.at(i).getName()<<endl;
+        cout << "client name: " << client.at(i).getName() << endl;
         clients_packs(client.at(i).getPacketList(), clientPacks);
         for (size_t j = 0; j < packs.size(); j++)
         {
             if (find(clientPacks.begin(), clientPacks.end(), packs.at(j).getId()) != clientPacks.end())
             {
                 cout << "client : " << client.at(i).getName() << " has the package: " << endl;
-                cout<<endl;
+                cout << endl;
                 cout << packs.at(j) << endl;
                 cont++;
                 if (cont > 1 && i < (packs.size() - 1))
@@ -565,7 +568,7 @@ void writePacks(string file_name, vector<Packet> &vec)
             file << vec.at(i);
             if (i < vec.size() - 1)
             {
-                file << "::::::::::"<<endl;
+                file << "::::::::::" << endl;
             }
         }
     }
@@ -580,5 +583,5 @@ ostream &operator<<(ostream &out, const Packet &packet)
     out << packet.pricePerPerson << endl;
     out << packet.maxPlaces << endl;
     out << packet.soldPlaces << endl;
-	return out;
+    return out;
 }
