@@ -140,14 +140,31 @@ vector<Client> add_client(vector<Client> &vec)
 vector<string> clientQuestionHandler(vector<string> vec)
 {
     string line;
+    string text;
     vector<string> new_client;
     cout << "::::::::::" << endl;
-    cin.ignore();
+    cin.clear();
     for (size_t i = 0; i < vec.size(); i++)
     {
-        cout << vec.at(i);
-        getline(cin, line);
-        new_client.push_back(line);
+        if((i == 0) || (i == 3) || (i == 4)){
+            cout << vec.at(i);
+            getline(cin, line);
+            new_client.push_back(line);
+            cout.clear();
+        }
+        else if(i == 1){
+            int nif = readInteger(vec.at(i));
+            new_client.push_back(to_string(nif));
+        }
+        else if(i == 2)
+        {
+            int famSize = readInteger(vec.at(i));
+            new_client.push_back(to_string(famSize));
+        }
+        else if(i == 5){
+            int totlPurch = readInteger(vec.at(i));
+            new_client.push_back(to_string(totlPurch));
+        }
     }
     cout << "::::::::::" << endl;
     return new_client;

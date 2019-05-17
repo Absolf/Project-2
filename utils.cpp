@@ -32,19 +32,18 @@ istream &getInput(string prompt, T &input)
 {
     cin.clear();
     cout << prompt;
-    return cin >> input;
+    return getline(cin, input);
 }
 
 //responsible to readIntData
 int readInteger(string prompt)
 {
     string input;
-    while (getInput(prompt, input))
-    {
+    while (getInput(prompt, input) || cin.eof()) {
         istringstream is(input);
         int inputAsInt;
-		if (is >> inputAsInt)
-			return inputAsInt;
+        if (is >> inputAsInt)
+            return inputAsInt;
         cout << '"' << input << "\" is not valid." << endl;
     }
     // A failure from getInput means something outside the normal realm of events
@@ -57,7 +56,7 @@ int readInteger(string prompt)
 double readDouble(string prompt)
 {
     string input;
-    while (getInput(prompt, input))
+    while (getInput(prompt, input) || cin.eof())
     {
         istringstream is(input);
         double inputAsDouble;
@@ -69,5 +68,22 @@ double readDouble(string prompt)
     // for console input has occurred -- possibly stdin was redirected to a file,
     // and we ran into eof, for example.  Let's consider it exceptional.
     throw runtime_error("Unexpected extraction error in readDouble function\n");
+}
+
+string readString(string prompt)
+{
+    string input;
+    while (getInput(prompt, input) || cin.eof())
+    {
+        istringstream is(input);
+        string inputAsString;
+        if (is >> inputAsString)
+            return inputAsString;
+        cout << '"' << input << "\" is not valid." << endl;
+    }
+    // A failure from getInput means something outside the normal realm of events
+    // for console input has occurred -- possibly stdin was redirected to a file,
+    // and we ran into eof, for example.  Let's consider it exceptional.
+    throw runtime_error("Unexpected extraction error in readString function\n");
 }
 

@@ -164,14 +164,12 @@ vector<string> packQuestionHandler(vector<string> vec)
             cout << vec.at(i);
             cin >> startData;
             bool isDate = verifyDate(startData);
-            cout << "Is date 1?" << isDate << endl;
             while (isDate == false)
             {
                 cin.clear();
                 cout << vec.at(i);
                 cin >> startData;
                 isDate = verifyDate(startData);
-                cout << "Is date 2? " << isDate << endl;
             }
             cin.clear();
             new_pack.push_back(startData);
@@ -183,14 +181,12 @@ vector<string> packQuestionHandler(vector<string> vec)
             cout << vec.at(i);
             cin >> endData;
             bool isDate = verifyDate(endData);
-            cout << "Is date 3?" << isDate << endl;
-            while (isDate == false)
+            while (isDate == false)// while the manager doesn't put a valid input for date, it will keep asking him
             {
                 cin.clear();
                 cout << vec.at(i);
                 cin >> endData;
                 isDate = verifyDate(endData);
-                cout << "Is date 4?" << isDate << endl;
             }
             cout.clear();
             cin.clear();

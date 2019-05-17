@@ -27,5 +27,6 @@ istream &getInput(T &input);
 int readInteger(string prompt);
 int &readInteger();
 double readDouble(string prompt);
+string readString(string input);
 
 #endif
