@@ -25,19 +25,34 @@ all customers).
 * c++ first contact with the language
 
 ### Guide
-first type the name of the file without ".txt" extension
-```sh
- agency
+
 ```
-A 'loading' screen will appear
-Then choose what you want to manage
+After start the current program this wil be the first menu
 
 ```sh
+Successfully opened the file: agency.txt
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+                          Welcome to the agency 
+NiceHolidays
+133331145
+http://www.niceholidays.pt
+Rua Sem Nome  / 100 /  ‐  /  4400‐345  /  Porto
+clients.txt
+packs.txt
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+What would you like to manage?: 
+:::::::::::::::::::::::::::::::::::
+             options             
+:::::::::::::::::::::::::::::::::::
 1 - Clients
 2 - Package
+3 - Statistics
 0 - Quit
+Answer: 
 ```
-Type your choice:
+Type your choice
+#Clients Option
 ```sh
 1 - Create new Client
 2 - Remove existing Client
@@ -54,6 +69,7 @@ NIF number: 2122232425
 Nº family members: 4
 Address: Rua qualquer/94/1ºDireita/4000-220/ Paranhos
 Package list: 2 ; 1 ; 5
+Spent ammount: 2500
 ```
 * Here, only the nº of the house/building after the street name has to be an integer. The rest of the data are of c++ string data type and will be managed to their proper position inside of the vector of clients by proper functions
 * After each interaction with the program you will be asked if you want to repeat the action or not, usually 1 means yes and 0 means no
@@ -67,40 +83,22 @@ Do you want to add another client?
 * As proof that a client has been added you can print a specific client using the previous NIF provided or just print all clients. Here I've printed all clients.
 
 ```sh
-Name: Rui Manuel
-NIF: 234987156
-Family members: 4
-----Address--- 
-Rua: Rua Sem Fim 
-Nº porta/prédio: 200
-Andar:  5Esq 
-Código postal: 1200‐001 
-Localidade:  Lisboa
-Packages: 10 ; 36 ; 2
-::::::::::
-Name: Belmiro Miguel
-NIF: 111987666
-Family members: 2
-----Address--- 
-Rua: Avenida dos Grilos 
-Nº porta/prédio: 100
-Andar:  ‐ 
-Código postal: 2300‐101 
-Localidade:  Coimbra
-Packages: 100 ; 136 ; 20
-::::::::::
-Name: User test
-NIF: 2122232425
-Family members: 4
-----Address--- 
-Rua: Rua qualquer
-Nº porta/prédio: 94
-Andar: 1º Direita
-Código postal:  Paranhos
-Localidade: 
-Packages: 2 ; 1 ; 5
+Rui Manuel
+234987156
+4
+Rua Sem Fim /200/ 5Esq /1200‐001 / Lisboa
+10 ; 36 ; 2
+504
+
+
+Belmiro Miguel
+111987666
+2
+Avenida dos Grilos /100/ ‐ /2300‐101 / Coimbra
+100 ; 136 ; 20
+1600
 ```
-* The proper input of the address is by using '/' after each piece of information.
+* The proper input of the address is by using '/' after each piece of information and spaces between the "/" as corresponding in the output of the clients
 * As for the packages use ';' to separate them.
 #### Managing the Travel Packages
 
@@ -169,16 +167,12 @@ Answer: 2
 Whats the NIF of the client?
 111987666
 ::::::::::
-Name: Belmiro Miguel
-NIF: 111987666
-Family members: 2
-----Address--- 
-Rua: Avenida dos Grilos 
-Nº porta/prédio: 100
-Andar:  ‐ 
-Código postal: 2300‐101 
-Localidade:  Coimbra
-Packages: 100;136;20;1 <- Here
+Belmiro Miguel
+111987666
+2
+Avenida dos Grilos /100/ ‐ /2300‐101 / Coimbra
+100 ; 136 ; 20 ; 1 <- Here
+1600
 ```
 * As the last function of managing packages is used to calculate and display the number and the total value of the sold packages, it only takes data from the vectors, there's no input needed.
 
@@ -203,6 +197,7 @@ User test
 2122232425
 4
 Rua qualquer / 94 / 1ºDireita / 4000-220 /  Paranhos
+2500
 ```
 * This is the main file of the packages created at the end of the program 'packs.txt'. For some reason in this case my negative id is not read and it became the id 0.
 ```sh 
@@ -240,7 +235,59 @@ Bahia - Salvador, Camaçari, Arembepe
 30
 0
 ```
+#### Agency statistics added
+
+if you choose the new Agency statistics menu this is what will be presented on screen:
+
+```sh
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+                 Agency NiceHolidays statistics         
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::
+             options             
+:::::::::::::::::::::::::::::::::::
+1 - Agency statistics
+2 - Most visited Places 
+3 - Clients Suggestion
+0 - Quit
+Answer: 
+```
+
+* Besides to see the Agency statistics (revenue) with option 1 wich was partialy implemented, now we can see Most visited Places and a sugestion to the clients. You need to be carefull with the maximum ammount of Holidays destinations the agency can provide.
+Option 2 exemple:
+```sh
+Answer: 2
+We have a total of 10 destinations 
+How many Holiday Destinations would you like to see ?
+8
+Destinations: 
+[America] had a total of 24 visits 
+[Veneza] had a total of 24 visits 
+[Douro vinhateiro] had a total of 12 visits 
+[Pinhão] had a total of 12 visits 
+[Porto] had a total of 12 visits 
+[Régua] had a total of 12 visits 
+[Vila Real] had a total of 12 visits 
+[Funchal] had a total of 10 visits 
+```
+
+Option 3 exemple: 
+
+* For the client Rui Manuel, he was suggested the pack 1, wich he have not aquired yet.
+```sh
+client: Rui Manuel Pack sugestion: 1
+Madeira - Funchal, Porto Santo
+2019/08/01
+2019/08/05
+300
+30
+10
+```
+
 # END
-This was a short summary of how the program is working so far, all 8 topics of the features were implemented. improvements will be made in Project 2.
+This was a short summary of how the program is working so far, all 10 topics of the features were implemented, 8 during project 1 (all of them have been improved) and the last 2 created during the project 2
+
+#### Agency statistics added
 
 # Project-2

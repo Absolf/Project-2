@@ -269,18 +269,22 @@ void update_packs(vector<Packet> &vec) //actualize the data inside a packet
                     startDate = readString("New start date: ");
                     isDate = verifyDate(startDate);
                 }
-                vec.at(i).getBeginDate().setDateString(startDate);
+                Date start_date(startDate);
+                vec.at(i).setBeginDate(start_date);
             }
             if (op == 3)
             {
                 string endDate = readString("New end date: ");
+                cout << endDate;
                 bool isDate = verifyDate(endDate);
                 while (isDate == false)// while the manager doesn't put a valid input for date, it will keep asking him for it
                 {
                     endDate = readString("New end date: ");
                     isDate = verifyDate(endDate);
                 }
-                vec.at(i).getBeginDate().setDateString(endDate);
+                cout << endDate;
+                Date end_date(endDate);
+                vec.at(i).setEndDate(end_date);
             }
             if (op == 4)
             {

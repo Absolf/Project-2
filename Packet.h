@@ -4,6 +4,7 @@
 #include "Date.h"
 #include "Client.h"
 using namespace std;
+class Client;
 class Packet
 {
     friend class Address;

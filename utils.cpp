@@ -11,7 +11,7 @@ void tokenize(string const &str, char delim, vector<string> &out)
     }
 }
 //Read options of all my menus/moment of choices
-int readOptions(const vector<string> &menu)
+int readOptions(const vector<string> &menu) // This functions take a string vector wich each position is an option then return this option
 {
     int option;
     cout << ":::::::::::::::::::::::::::::::::::" << endl;
@@ -28,15 +28,15 @@ int readOptions(const vector<string> &menu)
 
 
 template <typename T>
-istream &getInput(string prompt, T &input)
+istream &getInput(string prompt, T &input) // this template of function help's me to get the information that i want showing a certain string (usualy a question)
 {
     cin.clear();
     cout << prompt;
     return getline(cin, input);
 }
 
-//responsible to readIntData
-int readInteger(string prompt)
+
+int readInteger(string prompt) //responsible to readIntData
 {
     string input;
     while (getInput(prompt, input) || cin.eof()) {
@@ -52,8 +52,8 @@ int readInteger(string prompt)
     throw runtime_error("Unexpected extraction error in readInteger function\n");
 }
 
-//responsible to readDouble data
-double readDouble(string prompt)
+
+double readDouble(string prompt) //responsible to readDouble data
 {
     string input;
     while (getInput(prompt, input) || cin.eof())
@@ -70,7 +70,7 @@ double readDouble(string prompt)
     throw runtime_error("Unexpected extraction error in readDouble function\n");
 }
 
-string readString(string prompt)
+string readString(string prompt) // responsible for string data
 {
     string input;
     while (getInput(prompt, input) || cin.eof())
@@ -86,4 +86,5 @@ string readString(string prompt)
     // and we ran into eof, for example.  Let's consider it exceptional.
     throw runtime_error("Unexpected extraction error in readString function\n");
 }
+//ps* all of them help with the ctrl+z issue
 

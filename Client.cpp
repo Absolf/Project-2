@@ -183,9 +183,7 @@ vector<string> clients_questions()
 //Remove a client from the clients vector (remove all data of that client)
 void remove_client(vector<Client> &vec)
 {
-    unsigned int nif;
-    cout << "What's the nif of the client you want to remove?" << endl;
-    cin >> nif;
+    unsigned int nif = readInteger("What's the nif of the client you want to remove?");
     for (size_t i = 0; i < vec.size(); i++)
     {
         if (vec.at(i).getNifNumber() == nif)
@@ -203,21 +201,16 @@ void update_client(vector<Client> &vec)
 {
     int op;
     string line, text;
-    unsigned int nif;
-    cout << "What's the nif of the client you want to update? " << endl;
-    cin >> nif;
-    cin.ignore();
+    unsigned int nif = readInteger("What's the nif of the client you want to remove?");
     vector<string> menu = {"Name", "NIF", "Family Number", "Address", "Package"};
     for (size_t i = 0; i < vec.size(); i++)
     {
-        if (vec.at(i).getNifNumber() == nif) //Cicle that asks which client info to change (select the client through its nif)
+        if (vec.at(i).getNifNumber() == nif) //Cycle that asks which client info to change (select the client through its nif)
         {
             op = readOptions(menu);
             if (op == 1)
             {
-                cout << "New Name: ";
-                cin.ignore();
-                getline(cin, line);
+                line = readString("New Name: ");
                 vec.at(i).setName(line);
             }
             if (op == 2)
@@ -232,17 +225,13 @@ void update_client(vector<Client> &vec)
             }
             if (op == 4)
             {
-                cout << "New address: ";
-                cin.ignore();
-                getline(cin, line);
+                line = readString("New address: ");
                 Address aux(line);
                 vec.at(i).setAddress(aux); //Uses the constructor of the class with a string
             }
             if (op == 5)
             {
-                cout << "New package: ";
-                cin.ignore();
-                getline(cin, line);
+                line = readString("New package: ");
                 vec.at(i).setPacketList(line);
             }
         }
@@ -260,12 +249,10 @@ void printClient(vector<Client> &vec)
     int cont = 0;
     if (op == 1) //Name option
     {
-        cout << "Whats the name of the client?" << endl;
-        cin.ignore();
-        getline(cin, line);
+        line = readString("Whats the name of the client?");
         for (size_t i = 0; i < vec.size(); i++)
         {
-            if (line == vec.at(i).getName()) //Cicle through the client's atributes displaying them
+            if (line == vec.at(i).getName()) //Cycle through the client's attributes displaying them
             {
                 cout << endl;
                 cout << vec.at(i) << endl;
@@ -279,12 +266,10 @@ void printClient(vector<Client> &vec)
     }
     if (op == 2) //Nif option
     {
-        cin.ignore();
-        cout << "Whats the NIF of the client?" << endl;
-        getline(cin, line);
+        line = readString("Whats the NIF of the client?");
         for (size_t i = 0; i < vec.size(); i++)
         {
-            if (stoi(line) == vec.at(i).getNifNumber()) //Cicle through the client's atributes displaying them
+            if (stoi(line) == vec.at(i).getNifNumber()) //Cycle through the client's attributes displaying them
             {
                 cout << endl;
                 cout << vec.at(i) << endl;
@@ -299,8 +284,8 @@ void printClient(vector<Client> &vec)
     }
 }
 
-//Displays all clients in the screen
-void print_all_clients(vector<Client> &vec)
+
+void print_all_clients(vector<Client> &vec) //Displays all clients in the screen
 {
     cout << ":::::The current clients in our database are:::::";
     int cont = 0;

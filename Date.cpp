@@ -48,7 +48,7 @@ void Date::setDay(unsigned int day)
 }
 
 //Set all the Date atributes individually
-void Date::setDate(unsigned int year, unsigned int month, unsigned int day) /
+void Date::setDate(unsigned int year, unsigned int month, unsigned int day)
 {
     setYear(year);
     setMonth(month);
