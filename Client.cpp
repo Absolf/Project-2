@@ -264,7 +264,8 @@ void printClient(vector<Client> &vec)
   if (op == 2)
   {
     cin.clear();
-    line = readInteger("Whats the NIF of the client?") for (size_t i = 0; i < vec.size(); i++)
+    line = readInteger("Whats the NIF of the client?");
+    for (size_t i = 0; i < vec.size(); i++)
     {
       if (stoi(line) == vec.at(i).getNifNumber())
       {
