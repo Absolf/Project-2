@@ -119,7 +119,6 @@ bool verifyDate(string date)
     int thisYear = aTime->tm_year + 1900;
     int limit = thisYear + 10;
     unsigned short maxDay = daysMonth(month, year);
-
     if(((unsigned) thisYear) && (year < (unsigned) limit) &&
        (month <= 12 && month > 0) &&
        (day <= maxDay && day > 0))
