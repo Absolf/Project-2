@@ -1,5 +1,6 @@
 #include "Client.h"
 
+//Construtors of the class objects Client
 Client::Client()
 {
 }
@@ -88,7 +89,7 @@ void Client::setTotalPurchased(double totalPurchased)
 
 // outros metodos
 
-//Gerar o vetor de objetos da class a partir do client (FILE -> VECTOR<CLIENT>)
+//Creates a vector with all of the Objects of the Class Clients contained in the clients file
 vector<Client> clientData(string clientFile)
 {
     vector<Client> client_info;
@@ -96,17 +97,17 @@ vector<Client> clientData(string clientFile)
     string lines;
     vector<string> client_temp;
     file.open(clientFile);
-    while (getline(file, lines, '\n'))
+    while (getline(file, lines, '\n')) //Cicles through the client lines in the clients file
     {
         if (lines == "::::::::::")
         {
-            Client newClient(client_temp);
-            client_info.push_back(newClient);
+            Client newClient(client_temp); //Creats a temporary client
+            client_info.push_back(newClient); //Adds the temporary client to the clients vector
             client_temp.clear();
         }
         else
         {
-            client_temp.push_back(lines);
+            client_temp.push_back(lines); //adds client info to the temporary client
         }
     }
     Client newClient(client_temp);
@@ -115,10 +116,10 @@ vector<Client> clientData(string clientFile)
     return client_info;
 }
 
-//creates a vector of packets id
+//creates a vector of packets id (for a client)
 void clients_packs(string line, vector<int> &aux)
 {
-    line = regex_replace(line, regex(";"), " ");
+    line = regex_replace(line, regex(";"), " "); //Returns the clients packs as a string
     istringstream test(line);
     int i;
     while (test >> i)
@@ -127,7 +128,7 @@ void clients_packs(string line, vector<int> &aux)
     }
 }
 
-//Add new client (using QUESTIONS)
+//Add new client (using the function client_questions)
 vector<Client> add_client(vector<Client> &vec)
 {
     vector<string> new_client = clients_questions();
@@ -179,7 +180,7 @@ vector<string> clients_questions()
     return new_client;
 }
 
-//REMOVE - remove a client (remove all data of that client)
+//Remove a client from the clients vector (remove all data of that client)
 void remove_client(vector<Client> &vec)
 {
     unsigned int nif;
@@ -197,7 +198,7 @@ void remove_client(vector<Client> &vec)
     }
 }
 
-//update/change the information of a client; (NOTA: Adicionei como função da class)
+//Update/change the information of a client;
 void update_client(vector<Client> &vec)
 {
     int op;
@@ -209,7 +210,7 @@ void update_client(vector<Client> &vec)
     vector<string> menu = {"Name", "NIF", "Family Number", "Address", "Package"};
     for (size_t i = 0; i < vec.size(); i++)
     {
-        if (vec.at(i).getNifNumber() == nif)
+        if (vec.at(i).getNifNumber() == nif) //Cicle that asks which client info to change (select the client through its nif)
         {
             op = readOptions(menu);
             if (op == 1)
@@ -235,7 +236,7 @@ void update_client(vector<Client> &vec)
                 cin.ignore();
                 getline(cin, line);
                 Address aux(line);
-                vec.at(i).setAddress(aux); //Usa o construtor da class Address com string como parametro
+                vec.at(i).setAddress(aux); //Uses the constructor of the class with a string
             }
             if (op == 5)
             {
@@ -248,23 +249,23 @@ void update_client(vector<Client> &vec)
     }
 }
 
-//print a specific client
+//Displays a specific client in the screen
 void printClient(vector<Client> &vec)
 {
     cout << ":::::Please provide us with the client Name or NIF:::::";
     cout << "Wich information suits you?  ";
-    vector<string> menu = {"Name", "NIF"};
+    vector<string> menu = {"Name", "NIF"}; //Select how to search the client (Name or Nif)
     int op = readOptions(menu);
     string line;
     int cont = 0;
-    if (op == 1)
+    if (op == 1) //Name option
     {
         cout << "Whats the name of the client?" << endl;
         cin.ignore();
         getline(cin, line);
         for (size_t i = 0; i < vec.size(); i++)
         {
-            if (line == vec.at(i).getName())
+            if (line == vec.at(i).getName()) //Cicle through the client's atributes displaying them
             {
                 cout << endl;
                 cout << vec.at(i) << endl;
@@ -276,14 +277,14 @@ void printClient(vector<Client> &vec)
             }
         }
     }
-    if (op == 2)
+    if (op == 2) //Nif option
     {
         cin.ignore();
         cout << "Whats the NIF of the client?" << endl;
         getline(cin, line);
         for (size_t i = 0; i < vec.size(); i++)
         {
-            if (stoi(line) == vec.at(i).getNifNumber())
+            if (stoi(line) == vec.at(i).getNifNumber()) //Cicle through the client's atributes displaying them
             {
                 cout << endl;
                 cout << vec.at(i) << endl;
@@ -298,7 +299,7 @@ void printClient(vector<Client> &vec)
     }
 }
 
-//Print all my clients.
+//Displays all clients in the screen
 void print_all_clients(vector<Client> &vec)
 {
     cout << ":::::The current clients in our database are:::::";
@@ -315,19 +316,7 @@ void print_all_clients(vector<Client> &vec)
     }
 }
 
-/*
-//Função que verifica a validade do input
-void Insert_valid()
-{
-	if (cin.fail())
-	{
-		cin.clear();
-		cin.ignore(1000, '/n');
-		cout << "Invalid input!" << endl;
-	}
-}
-*/
-
+//Saves the clients vector in the client file
 void writeClients(string file_name, vector<Client> &vec)
 {
     ofstream file;
@@ -346,7 +335,7 @@ void writeClients(string file_name, vector<Client> &vec)
     file.close();
 }
 
-//MODIFICADO - Overload of "<<" operator
+//Overload of "<<" operator to display all client's info
 ostream &operator<<(ostream &out, const Client &client)
 {
     out << client.name << endl;

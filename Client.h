@@ -42,17 +42,17 @@ public:
 
   // other methods
 
-  friend ostream &operator<<(ostream &out, const Client &client);
-  friend void update_client(vector<Client> &vec);
-  friend void remove_client(vector<Client> &vec);
-  friend vector<Client> add_client(vector<Client> &vec);
-  friend void printClient(vector<Client> &vec);
-  friend void print_all_clients(vector<Client> &vec);
-  friend void writeClients(string file_name, vector<Client> &vec);
+  friend ostream &operator<<(ostream &out, const Client &client); //Overload of "<<" operator to display all client's info
+  friend void update_client(vector<Client> &vec); //Update/change the information of a client;
+  friend void remove_client(vector<Client> &vec); //Remove a client from the clients vector (remove all data of that client)
+  friend vector<Client> add_client(vector<Client> &vec); //Add new client (using the function client_questions)
+  friend void printClient(vector<Client> &vec); //Displays a specific client in the screen
+  friend void print_all_clients(vector<Client> &vec); //Displays all clients in the screen
+  friend void writeClients(string file_name, vector<Client> &vec); //Saves the clients vector in the client file
 };
 
-void clients_packs(string line, vector<int> &aux);
-vector<string> clientQuestionHandler(vector<string> vec);
-vector<string> clients_questions();
-vector<Client> clientData(string clientFile);
+void clients_packs(string line, vector<int> &aux); //creates a vector of packets id (for a client)
+vector<string> clientQuestionHandler(vector<string> vec); //it will automate de clients_question job
+vector<string> clients_questions(); //creates a new vector<string> with the data needed to create my new client
+vector<Client> clientData(string clientFile); //Creates a vector with all of the Objects of the Class Clients contained in the clients file
 #endif

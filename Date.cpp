@@ -18,15 +18,15 @@ Date::Date(unsigned short day, unsigned short month, unsigned year) : day(day), 
 /*********************************
  * GET Methods
  ********************************/
-unsigned int Date::getYear() const
+unsigned int Date::getYear() const //retrives Year from Date
 {
     return year;
 }
-unsigned int Date::getMonth() const
+unsigned int Date::getMonth() const //retrives Month from Date
 {
     return month;
 }
-unsigned int Date::getDay() const
+unsigned int Date::getDay() const //retrives Day from Date
 {
     return day;
 }
@@ -47,13 +47,15 @@ void Date::setDay(unsigned int day)
     this->day = day;
 }
 
-void Date::setDate(unsigned int year, unsigned int month, unsigned int day)
+//Set all the Date atributes individually
+void Date::setDate(unsigned int year, unsigned int month, unsigned int day) /
 {
     setYear(year);
     setMonth(month);
     setDay(day);
 }
 
+//Set all the Date atributes through a string
 void Date::setDateString(string linha)
 {
     unsigned int year;
@@ -69,18 +71,18 @@ void Date::setDateString(string linha)
     }
 }
 
-//Verify if this is needed as i have return date function
-
+//Retrives the Date in a form of a string
 string Date::getDateString()
 {
     string year = to_string(getYear());
     string month = to_string(getMonth());
     string day = to_string(getDay());
-    string oneLine = year + "/" + month + "/" + day;
+    string oneLine = year + "/" + month + "/" + day; //Creates a string with all the atributes of Date
     Date date(oneLine);
     return returnDate(date);
 }
 
+//Determines if the input year is a leap year or not
 bool isBissexto(int year)
 {
     if (year % 4 == 0 && year % 100 != 0)
@@ -91,6 +93,7 @@ bool isBissexto(int year)
         return false;
 }
 
+//Retrives the number of days in the input month (takes into account leap years)
 int daysMonth(int month, int year)
 {
     if (month == 2)
@@ -106,21 +109,22 @@ int daysMonth(int month, int year)
         return 31;
 }
 
+//Verifies if the date given is valid or not (taking into account days in a month, leap years and current date)
 bool verifyDate(string date)
 {
     unsigned int year;
     unsigned short month;
     unsigned short day;
-    date = regex_replace(date, regex("/"), " ");
+    date = regex_replace(date, regex("/"), " "); //Transforms the date into a string
     istringstream teste(date);
     teste >> year >> month >> day;
     time_t theTime = time(NULL);
-    struct tm *aTime = localtime(&theTime);
+    struct tm *aTime = localtime(&theTime); //Determines the current date
     bool isDate = false;
     int thisYear = aTime->tm_year + 1900;
     int limit = thisYear + 10;
     unsigned short maxDay = daysMonth(month, year);
-    if((year >= (unsigned) thisYear) && (year < (unsigned) limit) &&
+    if((year >= (unsigned) thisYear) && (year < (unsigned) limit) && //Conditions for date validation
        (month <= 12 && month > 0) &&
        (day <= maxDay && day > 0))
     {
@@ -134,6 +138,7 @@ bool verifyDate(string date)
     return isDate;
 }
 
+//Return the date in a form of a string
 string Date::returnDate(Date date)
 {
     stringstream ss;
