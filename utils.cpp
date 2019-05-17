@@ -10,6 +10,21 @@ void tokenize(string const &str, char delim, vector<string> &out)
         out.push_back(s);
     }
 }
+//Read options of all my menus/moment of choices
+int readOptions(const vector<string> &menu)
+{
+    int option;
+    cout << ":::::::::::::::::::::::::::::::::::" << endl;
+    cout << "             options             " << endl;
+    cout << ":::::::::::::::::::::::::::::::::::" << endl;
+    for (size_t i = 0; i < menu.size(); i++)
+    {
+        cout << i + 1 << " - " << menu.at(i) << endl;
+    }
+    cout << "0 - Quit" << endl;
+    option = readInteger("Answer: ");
+    return option;
+}
 
 
 template <typename T>
@@ -17,8 +32,7 @@ istream &getInput(string prompt, T &input)
 {
     cin.clear();
     cout << prompt;
-    //return cin >> input;
-	return getline(cin, input);
+    return cin >> input;
 }
 
 //responsible to readIntData
@@ -27,14 +41,10 @@ int readInteger(string prompt)
     string input;
     while (getInput(prompt, input))
     {
-		getInput(prompt, input);
         istringstream is(input);
         int inputAsInt;
 		if (is >> inputAsInt)
-		{
 			return inputAsInt;
-		}
-            
         cout << '"' << input << "\" is not valid." << endl;
     }
     // A failure from getInput means something outside the normal realm of events
@@ -61,18 +71,3 @@ double readDouble(string prompt)
     throw runtime_error("Unexpected extraction error in readDouble function\n");
 }
 
-//Read options of all my menus/moment of choices
-int readOptions(const vector<string> &menu)
-{
-	int option;
-	cout << ":::::::::::::::::::::::::::::::::::" << endl;
-	cout << "             options             " << endl;
-	cout << ":::::::::::::::::::::::::::::::::::" << endl;
-	for (size_t i = 0; i < menu.size(); i++)
-	{
-		cout << i + 1 << " - " << menu.at(i) << endl;
-	}
-	cout << "0 - Quit" << endl;
-	option = readInteger("Answer: ");
-	return option;
-}
