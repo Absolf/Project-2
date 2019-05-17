@@ -109,8 +109,3 @@ string Address::getAddressString() const
 
 	return oneLine;
 }
-
-
-/*********************************
- * Mostrar Address
- ********************************/

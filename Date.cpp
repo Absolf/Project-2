@@ -1,5 +1,5 @@
 #include "Date.h"
-#pragma warning(disable:4996) //Erro associado com o uso do localtime
+#pragma warning(disable:4996) //Erro associated with localtime error
 Date::Date()
 {
 }

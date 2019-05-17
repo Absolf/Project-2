@@ -40,12 +40,8 @@ void makeCopy(string filename)
 //"Menu for agency"
 int agency_operations(Agency &agency)
 {
-  //simple user interface
-  cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
-  cout << "                          Welcome to the agency " << agency.getName() << endl;
-  cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
-  cout << endl;
   int op;
+  showAgency(agency);
   cout << "What would you like to manage?: " << endl;
   vector<string> menu = {"Clients", "Package", "Statistics"};
   op = readOptions(menu);
@@ -70,7 +66,6 @@ void statistics_operations(Agency &agency, vector<Client> &client, vector<Packet
     totalPackageSold(packs, client);
     while (op > 0)
     {
-		op = readInteger("\nWould you like to verify again? \n1 - Yes \n0 - No");
       if (op > 0)
       {
         totalPackageSold(packs, client);
@@ -231,7 +226,7 @@ void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clie
     add_packs(packs);
     while (op > 0)
     {
-		op = readInteger("Do you want to add another travel pack? \n1 - Yes \n0 - No \n");
+        op = readInteger("Do you want to add another travel pack? \n1 - Yes \n0 - No \n");
       if (op == 0)
       {
         print_all_packs(packs);
