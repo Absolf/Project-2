@@ -30,7 +30,6 @@ public:
 
     // outhet methods */
 
-
     static string returnDate(Date date); //returns the date in format "yyyy/mm/dd"
     friend ostream &operator<<(ostream &out, const Date &date);
 };

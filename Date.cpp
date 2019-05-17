@@ -1,5 +1,5 @@
 #include "Date.h"
-#pragma warning(disable:4996) //Erro associated with localtime error
+#pragma warning(disable : 4996) //Erro associated with localtime error
 Date::Date()
 {
 }
@@ -87,7 +87,6 @@ bool isBissexto(int year)
         return true;
     else
         return false;
-
 }
 
 int daysMonth(int month, int year)
@@ -119,15 +118,15 @@ bool verifyDate(string date)
     int thisYear = aTime->tm_year + 1900;
     int limit = thisYear + 10;
     unsigned short maxDay = daysMonth(month, year);
-    if(((unsigned) thisYear) && (year < (unsigned) limit) &&
-       (month <= 12 && month > 0) &&
-       (day <= maxDay && day > 0))
+    if (((unsigned)thisYear) && (year < (unsigned)limit) &&
+        (month <= 12 && month > 0) &&
+        (day <= maxDay && day > 0))
     {
         isDate = true;
     }
     else
     {
-        cout << "Date limits for year(" << thisYear << "-"<<limit << ") month (1-12) day (1-"<<maxDay<<")"<<endl;
+        cout << "Date limits for year(" << thisYear << "-" << limit << ") month (1-12) day (1-" << maxDay << ")" << endl;
         isDate = false;
     }
     return isDate;
