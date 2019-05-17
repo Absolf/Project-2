@@ -8,10 +8,10 @@
 #include "Date.h"
 #include "utils.h"
 
-int agency_operations(Agency &agency);
-void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clients);
-void clients_operations(Agency &agency, vector<Client> &clients);
+int agency_operations(Agency &agency); // Presents the agency
+void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clients); // for the packets management
+void clients_operations(Agency &agency, vector<Client> &clients); // for the client management
 void makeCopy(string filename);
-void mainMenu(Agency agency);
+void mainMenu(Agency agency); // for the proper usage of the agency options and management the other management functions
 
 #endif

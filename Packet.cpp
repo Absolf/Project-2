@@ -2,10 +2,8 @@
 #include "Date.h"
 #include "Client.h"
 
+//Constructors of the Packet class
 Packet::Packet() {}
-Packet::Packet(int id, string local, Date startDate, Date endDate, double pricePerPerson, int maxPlaces, int soldPlaces) : id(id), local(local), startDate(startDate), endDate(endDate), pricePerPerson(pricePerPerson), maxPlaces(maxPlaces), soldPlaces(soldPlaces)
-{
-}
 Packet::Packet(vector<string> pack_vec)
 {
 
@@ -20,7 +18,7 @@ Packet::Packet(vector<string> pack_vec)
     this->soldPlaces = stoul(pack_vec.at(6));
 }
 
-//metodos GET
+//GET methods
 int Packet::getId() const
 {
     return id;
@@ -56,7 +54,7 @@ int Packet::getSoldPlaces() const
     return soldPlaces;
 }
 
-//metodos SET
+//SET methods
 void Packet::setId(int id)
 {
     this->id = id;
@@ -95,8 +93,7 @@ void Packet::setSoldPlaces(int soldPlaces)
  * Other functions
  ********************************/
 
-//function that creates a vector containing all the multiple Travel Packages provided by the agency.
-vector<Packet> packData(string packFile)
+vector<Packet> packData(string packFile) //function that creates a vector containing all the multiple Travel Packages provided by the agency.
 {
     vector<Packet> data_of_pack;
     ifstream data;
@@ -106,7 +103,7 @@ vector<Packet> packData(string packFile)
     getline(data, lines); // Eliminates the first line;
     while (getline(data, lines, '\n'))
     {
-        if (lines == "::::::::::")
+        if (lines == "::::::::::") // when find's it will create a new Packet object to be insert into the vector of Packets
         {
             Packet newPack(pack_temp);
             data_of_pack.push_back(newPack);
@@ -114,12 +111,12 @@ vector<Packet> packData(string packFile)
         }
         else
         {
-            pack_temp.push_back(lines);
+            pack_temp.push_back(lines); // while "::::::::::" not found, will keep adding each line to the string vector (each position of the string vector is releted to a Packet data)
         }
     }
-    Packet newPack(pack_temp);
+    Packet newPack(pack_temp); // creates the last Packet object
     data_of_pack.push_back(newPack);
-    data.close();
+    data.close(); // closes the file
 
     return data_of_pack;
 }
@@ -128,14 +125,14 @@ vector<Packet> packData(string packFile)
 int lastID(vector<Packet> &vec)
 {
     int id = vec.back().id;
-    if (id < 0)
+    if (id < 0) // if the last ID is negative, it will still get it, but the new one will be positive (as long as is has places)
     {
         id *= -1;
         id++;
     }
     else
     {
-        id++;
+        id++; // add +1 to the id of the last packet of the agency
     }
     return id;
 }
@@ -150,19 +147,19 @@ vector<string> packQuestionHandler(vector<string> vec)
     cin.ignore();
     for (size_t i = 0; i < vec.size(); i++)
     {
-        if (i == 0) //
+        if (i == 0) //For the local
         {
-            lina = vec.at(i);
+            line = vec.at(i);
             getline(cin, line);
             new_pack.push_back(line);
         }
-        if (i == 1)
+        if (i == 1) // for the start date
         {
             string startData;
             cin.clear();
             cout << vec.at(i);
             cin >> startData;
-            bool isDate = verifyDate(startData);
+            bool isDate = verifyDate(startData); // verify if the input is actualy a date
             while (isDate == false)
             {
                 cin.clear();
@@ -173,14 +170,11 @@ vector<string> packQuestionHandler(vector<string> vec)
             cin.clear();
             new_pack.push_back(startData);
         }
-        else if (i == 2)
+        else if (i == 2) // for the end date
         {
-            string endData;
-            cin.clear();
-            cout << vec.at(i);
-            cin >> endData;
+            string endData = readString(vec.at(i));
             bool isDate = verifyDate(endData);
-            while (isDate == false)// while the manager doesn't put a valid input for date, it will keep asking him
+            while (isDate == false)// while the manager doesn't put a valid input for date, it will keep asking him for it
             {
                 cin.clear();
                 cout << vec.at(i);
@@ -212,8 +206,7 @@ vector<string> packQuestionHandler(vector<string> vec)
     return new_pack;
 }
 
-//Automates the input of information of new packages
-vector<string> packs_questions(vector<Packet> &vec)
+vector<string> packs_questions(vector<Packet> &vec) //Automates the input of information of new packages
 {
     int id = lastID(vec);
     vector<string> nPacks_questions = {"Location: ", "Start Date: ", "End Date: ", "Price per person: ", "Max places: ", "Sold Places: "}; //string vector containing my strings
@@ -228,8 +221,7 @@ vector<string> packs_questions(vector<Packet> &vec)
     return new_pack;
 }
 
-//print all the packs i have in my vector of packets
-void print_all_packs(vector<Packet> &vec)
+void print_all_packs(vector<Packet> &vec) //print all the packs i have in my vector of packets
 {
     int cont = 0;
     for (size_t i = 0; i < vec.size(); i++)
@@ -244,14 +236,11 @@ void print_all_packs(vector<Packet> &vec)
     }
 }
 
-//atualize the data inside a packet
-void update_packs(vector<Packet> &vec)
+void update_packs(vector<Packet> &vec) //actualize the data inside a packet
 {
     vector<Packet>::iterator it;
     it = vec.begin();
-    int update_id;
-    cout << "What's the ID of the package you would like to update?" << endl;
-    cin >> update_id;
+    int update_id = readInteger("What's the ID of the package you would like to update?");
     int i = 0;
     int op;
 
@@ -265,29 +254,33 @@ void update_packs(vector<Packet> &vec)
             cout << "proceeding to update into my package " << endl;
             cout << "::::::::::::::::::::" << endl;
             cout << "options: " << endl;
-            cout << "1 - Local \n2 - start date \n3 - End date \n4 - Price per person \n5 - Ammount of places \n6 - Sold places" << endl;
-            cin >> op;
-
+            op = readInteger("1 - Local \n2 - start date \n3 - End date \n4 - Price per person \n5 - Ammount of places \n6 - Sold places \n");
             if (op == 1)
             {
-                cout << "New Local: " << endl;
-                cin.ignore();
-                getline(cin, line);
+                line = readString("New local: ");
                 vec.at(i).setLocal(line);
             }
             if (op == 2)
             {
-                cout << "New start date: " << endl;
-                cin.ignore();
-                getline(cin, line);
-                vec.at(i).getBeginDate().setDateString(line);
+                string startDate = readString("New start date: ");
+                bool isDate = verifyDate(startDate);
+                while (isDate == false)// while the manager doesn't put a valid input for date, it will keep asking him for it
+                {
+                    startDate = readString("New start date: ");
+                    isDate = verifyDate(startDate);
+                }
+                vec.at(i).getBeginDate().setDateString(startDate);
             }
             if (op == 3)
             {
-                cout << "New end date: " << endl;
-                cin.ignore();
-                getline(cin, line);
-                vec.at(i).getEndDate().setDateString(line);
+                string endDate = readString("New end date: ");
+                bool isDate = verifyDate(endDate);
+                while (isDate == false)// while the manager doesn't put a valid input for date, it will keep asking him for it
+                {
+                    endDate = readString("New end date: ");
+                    isDate = verifyDate(endDate);
+                }
+                vec.at(i).getBeginDate().setDateString(endDate);
             }
             if (op == 4)
             {
@@ -312,9 +305,7 @@ void update_packs(vector<Packet> &vec)
 //Function to visualize packs data within a specific destiny
 void printDestinyPack(vector<Packet> &vec)
 {
-    string destiny;
-    cout << "What's the destiny you would like to access?" << endl;
-    cin >> destiny;
+    string destiny = readString("What's the destiny you would like to access?");
     int cont = 0;
     for (size_t i = 0; i < vec.size(); i++)
     {
@@ -337,15 +328,21 @@ void printDestinyPack(vector<Packet> &vec)
 //Visualize information of a pack between dates
 void printFromDates(vector<Packet> &vec)
 {
-    string start_date;
-    string end_date;
-    cin.clear();
-    cin.ignore();
-    cout << "What is the start date? \n*Input exemple '2019/05/21'" << endl;
-    getline(cin, start_date);
+    string start_date = readString("What is the start date? \n*Input example '2019/05/21'");
+    bool isDate = verifyDate(start_date);
+    while (isDate == false)// while the manager doesn't put a valid input for date, it will keep asking him for it
+    {
+        start_date = readString("New start date: ");
+        isDate = verifyDate(start_date);
+    }
     Date startDate(start_date);
-    cout << "What is the end date? \n*Input exemple '2019/05/26'" << endl;
-    getline(cin, end_date);
+    string end_date = readString("What is the end date? \n*Input example '2019/05/26'");
+    isDate = verifyDate(end_date);
+    while (isDate == false)// while the manager doesn't put a valid input for date, it will keep asking him for it
+    {
+        end_date = readString("New end date: ");
+        isDate = verifyDate(end_date);
+    }
     Date endDate(end_date);
     cout << endl;
     int cont = 0;
@@ -368,21 +365,24 @@ void printFromDates(vector<Packet> &vec)
 //Visualize information of a pack within a destiny and between dates
 void printDestinyAndDates(vector<Packet> &vec)
 {
-    string destiny;
-    cout << "What's the destiny you would like to access?\n"
-         << endl;
-    cin >> destiny;
     int cont = 0;
-    string start_date;
-    string end_date;
-    cin.clear();
-    cin.ignore();
-    cout << "What is the start date? \n*Input exemple '2019/05/21'" << endl;
-    getline(cin, start_date);
+    string start_date = readString("What is the start date? \n*Input example '2019/05/21'");
+    bool isDate = verifyDate(start_date);
+    while (isDate == false)// while the manager doesn't put a valid input for date, it will keep asking him for it
+    {
+        start_date = readString("New start date: ");
+        isDate = verifyDate(start_date);
+    }
     Date startDate(start_date);
-    cout << "What is the end date? \n*Input exemple '2019/05/26'" << endl;
-    getline(cin, end_date);
+    string end_date = readString("What is the end date? \n*Input example '2019/05/26'");
+    isDate = verifyDate(end_date);
+    while (isDate == false)// while the manager doesn't put a valid input for date, it will keep asking him for it
+    {
+        end_date = readString("New end date: ");
+        isDate = verifyDate(end_date);
+    }
     Date endDate(end_date);
+    string destiny = readString("What's the destiny you would like to access?");
     cout << endl;
     for (size_t i = 0; i < vec.size(); i++)
     {
@@ -405,10 +405,7 @@ void printDestinyAndDates(vector<Packet> &vec)
 //print a certain package sold to a client
 void printToClient(vector<Packet> &vec, vector<Client> &client)
 {
-    string clientNif;
-    cin.ignore();
-    cout << "What's the nif of the client you want to verify?" << endl;
-    getline(cin, clientNif);
+    string clientNif = readString("What's the nif of the client you want to verify?");
     vector<int> clientPacks;
     int cont = 0;
     for (size_t i = 0; i < client.size(); i++)
@@ -436,14 +433,9 @@ void printToClient(vector<Packet> &vec, vector<Client> &client)
 //Manage to sell a package to a certain client
 void sellToClient(vector<Packet> &packs, vector<Client> &client)
 {
-    string clientNif;
-    int id;
+    string clientNif = readString("What's the nif of the client you want to verify?");
+    int id = readInteger("Type the ID of the package you would like to sell to the client");
     vector<int> clientPacks;
-    cout << "Type the NIF of the client you would like to sell the package" << endl;
-    cin.ignore();
-    getline(cin, clientNif);
-    cout << "Type the ID of the package you would like to sell to the client" << endl;
-    cin >> id;
     for (size_t i = 0; i < client.size(); i++)
     {
         if (to_string(client.at(i).getNifNumber()) == clientNif)
@@ -471,14 +463,14 @@ void sellToClient(vector<Packet> &packs, vector<Client> &client)
                         {
                             packs.at(j).id *= -1;
                         }
-                        //this bit of the code will puth the new packs at the client packs parameter
+                        //this bit of the code will put the new packs at the client packs parameter
                         stringstream newPacks;
                         copy(clientPacks.begin(), clientPacks.end(), ostream_iterator<int>(newPacks, ";"));
                         string substitute = newPacks.str();
                         substitute = substitute.substr(0, substitute.length() - 1);
                         client.at(i).setPacketList(substitute);
                         client.at(i).setTotalPurchased(client.at(i).getTotalPurchased() + packs.at(j).pricePerPerson);
-                        cout << "\nSold!\n";
+                        cout << "\nSold!\n"; //just to check if ti was sold on screen
                     }
                     if (packs.at(j).id == (id * -1) && (packs.at(j).getMaxPlaces() == packs.at(j).getSoldPlaces()))
                     {
@@ -490,8 +482,8 @@ void sellToClient(vector<Packet> &packs, vector<Client> &client)
     }
 }
 
-//print packages sold to all clients
-void printPackageAllClients(vector<Packet> &packs, vector<Client> &client)
+
+void printPackageAllClients(vector<Packet> &packs, vector<Client> &client) //print packages sold to all clients
 {
 
     int cont = 0;
@@ -518,28 +510,25 @@ void printPackageAllClients(vector<Packet> &packs, vector<Client> &client)
     }
 }
 
-//Manage to add a new Packet to my current vector of packs
-void add_packs(vector<Packet> &vec)
+
+void add_packs(vector<Packet> &vec) //Manage to add a new Packet to my current vector of packs
 {
     vector<string> new_pack = packs_questions(vec);
     Packet test(new_pack);
     vec.push_back(test);
-    //return vec;
 }
 
-//Remove a pack from my vector.
-void remove_packs(vector<Packet> &vec)
+
+void remove_packs(vector<Packet> &vec) //Remove a pack from my vector.
 {
-    int id;
-    cout << "What's the ID of the package you would like to remove?" << endl;
-    cin >> id;
+    int id = readInteger("What's the ID of the package you would like to remove?");
     for (size_t i = 0; i < vec.size(); i++)
     {
         if (vec.at(i).id == id)
         {
             auto it = vec.begin() + i;
             rotate(it, it + 1, vec.end());
-            cout << "The Package of id[" << vec.back().id << "] it's being deleted!" << endl;
+            cout << "The Package of id[" << vec.back().id << "] it's being deleted!" << endl; // Shows on screen the packet id just for verification
             vec.pop_back();
         }
     }
@@ -549,9 +538,7 @@ void remove_packs(vector<Packet> &vec)
  * Show Packet information
  ********************************/
 
-// shows a packet content
-
-void writePacks(string file_name, vector<Packet> &vec)
+void writePacks(string file_name, vector<Packet> &vec) // writes the content of the vector packet to a file
 {
     ofstream file;
     file.open(file_name);
@@ -569,7 +556,8 @@ void writePacks(string file_name, vector<Packet> &vec)
     }
     file.close();
 }
-ostream &operator<<(ostream &out, const Packet &packet)
+
+ostream &operator<<(ostream &out, const Packet &packet) // this is where the magic happens and allows << operator receive an object ( of packet)
 {
     out << packet.id << endl;
     out << packet.local << endl;
