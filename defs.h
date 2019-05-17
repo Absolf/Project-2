@@ -3,5 +3,5 @@
 #include "utils.h"
 using namespace std;
 
-const string AGENCY_FILE_NAME = "agency.txt";
+const string AGENCY_FILE_NAME = "agency.txt"; // const string file that holds the agency file
 #endif

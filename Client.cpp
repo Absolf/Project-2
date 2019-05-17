@@ -146,23 +146,22 @@ vector<string> clientQuestionHandler(vector<string> vec)
     cin.clear();
     for (size_t i = 0; i < vec.size(); i++)
     {
-        if((i == 0) || (i == 3) || (i == 4)){
-            cout << vec.at(i);
-            getline(cin, line);
+        if((i == 0) || (i == 3) || (i == 4)){ // for all my "string" inputs "can be empty"
+            line = readString(vec.at(i));
             new_client.push_back(line);
             cout.clear();
         }
         else if(i == 1){
-            int nif = readInteger(vec.at(i));
+            int nif = readInteger(vec.at(i)); //verify the nif
             new_client.push_back(to_string(nif));
         }
         else if(i == 2)
         {
-            int famSize = readInteger(vec.at(i));
+            int famSize = readInteger(vec.at(i)); //verify the family size
             new_client.push_back(to_string(famSize));
         }
         else if(i == 5){
-            int totlPurch = readInteger(vec.at(i));
+            int totlPurch = readInteger(vec.at(i)); // verify the total purchased (can be 0)
             new_client.push_back(to_string(totlPurch));
         }
     }

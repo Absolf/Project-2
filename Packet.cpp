@@ -150,10 +150,9 @@ vector<string> packQuestionHandler(vector<string> vec)
     cin.ignore();
     for (size_t i = 0; i < vec.size(); i++)
     {
-        if (i == 0)
+        if (i == 0) //
         {
-            cout.clear();
-            cout << vec.at(i);
+            lina = vec.at(i);
             getline(cin, line);
             new_pack.push_back(line);
         }
@@ -217,7 +216,7 @@ vector<string> packQuestionHandler(vector<string> vec)
 vector<string> packs_questions(vector<Packet> &vec)
 {
     int id = lastID(vec);
-    vector<string> nPacks_questions = {"Location: ", "Start Date: ", "End Date: ", "Price per person: ", "Max places: ", "Sold Places: "};
+    vector<string> nPacks_questions = {"Location: ", "Start Date: ", "End Date: ", "Price per person: ", "Max places: ", "Sold Places: "}; //string vector containing my strings
     vector<string> new_pack;
     new_pack.push_back(to_string(id));
     vector<string> aux = packQuestionHandler(nPacks_questions);
