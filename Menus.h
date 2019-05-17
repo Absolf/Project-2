@@ -8,7 +8,7 @@
 #include "Date.h"
 #include "utils.h"
 
-int readOptions(const vector<string> &menu);
+//int readOptions(const vector<string> &menu);
 int agency_operations(Agency &agency);
 void packs_operation(Agency &agency, vector<Packet> &packs, vector<Client> &clients);
 void clients_operations(Agency &agency, vector<Client> &clients);

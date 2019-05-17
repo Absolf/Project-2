@@ -237,7 +237,7 @@ void print_all_packs(vector<Packet> &vec)
         cout << "::::::::::::::::::::::::::::::::" << endl;
         cout << vec.at(i) << endl;
         cont++;
-        if(cont < vec.size()-1){
+        if((unsigned) cont < vec.size()-1){
             cout << ":::::::::::::::::::::::::::::::" << endl;
         }
 
@@ -374,7 +374,7 @@ void printDestinyAndDates(vector<Packet> &vec)
     cout << "What's the destiny you would like to access?\n"
          << endl;
     cin >> destiny;
-    int cont;
+    int cont = 0;
     string start_date;
     string end_date;
     cin.clear();
@@ -580,7 +580,5 @@ ostream &operator<<(ostream &out, const Packet &packet)
     out << packet.pricePerPerson << endl;
     out << packet.maxPlaces << endl;
     out << packet.soldPlaces << endl;
+	return out;
 }
-/*
-
-*/

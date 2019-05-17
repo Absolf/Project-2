@@ -6,7 +6,7 @@ Address::Address(string line)
 {
     vector<string> addres_vec;
     tokenize(line, '/', addres_vec);
-    for (int i = 0; i < addres_vec.size(); i++)
+    for (int i = 0; (unsigned) i < addres_vec.size(); i++)
     {
         if (i == 0)
         {
@@ -111,13 +111,3 @@ string Address::getAddressString() const
 }
 
 
-/*********************************
- * Mostrar Address
- ********************************/
-
-// displayes an address in a nice format
-ostream &operator<<(ostream &out, const Address &address)
-{
-
-    // REQUIRES IMPLEMENTATION
-}

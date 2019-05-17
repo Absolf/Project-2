@@ -188,9 +188,7 @@ void update_client(vector<Client> &vec)
   int op;
   string line, text;
   unsigned int nif;
-  cout << "What's the nif of the client you want to update? " << endl;
-  cin >> nif;
-  cin.ignore();
+  nif = readInteger("What's the nif of the client you want to update? ");
   vector<string> menu = {"Name", "NIF", "Family Number", "Address", "Package"};
   for (size_t i = 0; i < vec.size(); i++)
   {
@@ -199,9 +197,8 @@ void update_client(vector<Client> &vec)
       op = readOptions(menu);
       if (op == 1)
       {
-        cout << "New Name: ";
-        cin.ignore();
-        getline(cin, line);
+		text = "New Name: ";
+		line = readString(text);
         vec.at(i).setName(line);
       }
       if (op == 2)
@@ -217,16 +214,14 @@ void update_client(vector<Client> &vec)
       if (op == 4)
       {
         cout << "New address: ";
-        cin.ignore();
-        getline(cin, line);
+		line = readString(text);
         Address aux(line);
         vec.at(i).setAddress(aux); //Usa o construtor da class Address com string como parametro
       }
       if (op == 5)
       {
-        cout << "New package: ";
-        cin.ignore();
-        getline(cin, line);
+        text = "New package: ";
+		line = readString(text);
         vec.at(i).setPacketList(line);
       }
     }
@@ -341,4 +336,5 @@ ostream &operator<<(ostream &out, const Client &client)
   out << client.address.getAddressString() << endl;
   out << client.packets << endl;
   out << client.totalPurchased << endl;
+  return out;
 }
