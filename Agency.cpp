@@ -226,7 +226,7 @@ void createClientsVisitations(vector<Client> &clients, vector<Packet> &packs, ve
 {
     vector<string> aux;
     vector<string> clientsVisitedPlaces; // aux vector that will hold all possible Places a clients could visit
-    for (size_t i = 0; i < clients.size(); i++)
+    for(size_t i = 0; i < clients.size(); i++)
     {
         vector<int> clientPacksId;                                   // aux vector that wil hold the id of all packages that a client have
         clients_packs(clients.at(i).getPacketList(), clientPacksId); // filling that vector with the ids
