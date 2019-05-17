@@ -1,8 +1,7 @@
 
 #include "Agency.h"
 
-//construtor da classe
-
+//Construtors of the class objects Agency
 Agency::Agency(string filename)
 {
     vector<string> linesInfo;
@@ -108,7 +107,7 @@ void totalPackageSold(vector<Packet> &packs, vector<Client> &client)
     cout << "The agency revenue is: " << revenue << endl;
 }
 
-//makes me a vector with all the places to visit a holiday package can offer
+//Makes a vector with all the places to visit a holiday package can offer
 void createPlacesVector(vector<Packet> &packs, vector<string> &aux)
 {
     vector<string> secondary;
@@ -121,7 +120,7 @@ void createPlacesVector(vector<Packet> &packs, vector<string> &aux)
             vector<string> dest_vec;                // aux vector
             tokenize(source, '-', dest_vec);        // remove the main place from the secondary ones
             string mainDest = dest_vec.at(0);
-            size_t found = mainDest.find_last_of(" "); // encontra prosição do primeiro espaço vazio
+            size_t found = mainDest.find_last_of(" "); // finds the position of the first space
             mainDest = mainDest.substr(0, found);      // remove o último espaço vazio
             aux.push_back(mainDest);
             if (dest_vec.size() > 1)
@@ -138,7 +137,7 @@ void createPlacesVector(vector<Packet> &packs, vector<string> &aux)
     }
 }
 
-//Makes me a string vector with only the elements of the package destiny
+//Makes a string vector with only the elements of the package destiny
 void PackagePlaces(string line, vector<string> &aux)
 {
     vector<string> dest_vec;       // aux vector
@@ -159,7 +158,7 @@ void PackagePlaces(string line, vector<string> &aux)
     }
 }
 
-//makes me the map<string,int> i'll need to use
+//Makes the map<string,int> i'll need to use
 void createVisitMap(vector<Packet> &packs, vector<string> &aux, map<string, int> &map)
 {
     vector<string> packagePlaces;
@@ -183,7 +182,7 @@ void createVisitMap(vector<Packet> &packs, vector<string> &aux, map<string, int>
     }
 }
 
-//create the most visited places of the Holiday Package in a decreasing order
+//Create the most visited places of the Holiday Package in a decreasing order
 void createMostVisitedLocals(vector<Packet> &packs, vector<pair<string, int>> &pares)
 {
     vector<string> aux;
@@ -196,7 +195,7 @@ void createMostVisitedLocals(vector<Packet> &packs, vector<pair<string, int>> &p
     });
 }
 
-//prints out the N most visited places of the Holiday Package
+//Prints out the N most visited places of the Holiday Package
 void printMostVisitedLocals(vector<Packet> &packs)
 {
 
@@ -215,14 +214,14 @@ void printMostVisitedLocals(vector<Packet> &packs)
         cin >> n;
     }
     cout << "Destinations: " << endl;
-    for (size_t i = 0; i < (unsigned) n; i++)
+    for (size_t i = 0; i < (unsigned) n; i++) //Cicle that displays the most visited locals
     {
         cout << "[" << it->first << "] had a total of " << it->second << " visits " << endl;
         ++it;
         //assert(it != pares.end());
     }
 }
-//creates a list with the visited places by the client
+//Creates a list with the visited places by the client
 void createClientsVisitations(vector<Client> &clients, vector<Packet> &packs, vector<vector<string>> &vectorOfClientsPlaces)
 {
     vector<string> aux;
@@ -248,6 +247,7 @@ void createClientsVisitations(vector<Client> &clients, vector<Packet> &packs, ve
     }
 }
 
+//Creates a 2D vector with the client pack sgestions
 void createClientVisitSugestionList(vector<Packet> &packs, vector<Client> &clients, vector<vector<string>> &vectorSugestion)
 {
     vector<pair<string, int>> pares;
@@ -290,47 +290,7 @@ void createClientVisitSugestionList(vector<Packet> &packs, vector<Client> &clien
     }
 }
 
-/*
-void createPacketSugestion(vector<Packet> &packs, vector<Client> &clients, vector<int> sugestion)
-{
-    vector<string> packPlaces;
-    vector<vector<string>> vectorOfClientsPlaces;                    // This will hold in each position visited places by each client (when aplicable)                         // This will hold the sugestion for each client (when aplicable).
-    //vector<int> sugestion;                                           // this will be filled with sugestion for one client ( when aplicable)
-    createClientsVisitations(clients, packs, vectorOfClientsPlaces); // fill my vector containing  in each position the places that each client has visited
-                                                                     // cout << " createClientsVisitations  passed! :)" << endl;
-    for (size_t i = 0; i < vectorOfClientsPlaces.size(); i++)        // look up the vector that contains a vector with the visited places by each client (when aplicable)
-    {
-        for (size_t j = 0; j < packs.size(); j++)
-        {
-            if (packs.at(j).getId() > 0)
-            {
-                //cout << "client [" << i << "] " << clients.at(i).getName() << endl;
-                PackagePlaces(packs.at(j).getLocal(), packPlaces);
-                for (size_t k = 0; k < packPlaces.size(); k++)
-                {
-                    if(find(vectorOfClientsPlaces.at(i).begin(), vectorOfClientsPlaces.at(i).end(), packPlaces.at(k)) != vectorOfClientsPlaces.at(i).end()) // if one of the most visited places, has already been visited by the client
-                    {
-                        //cout << "[" << i << "]if i find the place add visited! he has been there place: " << endl;
-                        //cout << pares.at(k).first << " like here " << endl;
-                        //sugestion.push_back("visited!");
-                        continue;
-                    }
-                    else
-                    {
-                        //cout << "[" << i << "] After many searches the sugestion : " << pares.at(k).first << " will be added " << endl;
-                        sugestion.push_back(packs.at(j).getId()); // add in the single vector sugestion the name of a place that client hasn't visited yet;
-                    }
-                }
-            }
-        }
-        // cout << "finally add a fucking vector with fully sugestions (or not) to my vector of sugestiosn" << endl;
-        //vectorSugestion.push_back(sugestion);
-        //sugestion.clear();
-    }
-}
-*/
-
-//
+//Creates a map with Packet sugestion for a certain client
 void createClientSugestion(vector<Packet> &packs, vector<Client> &clients, map<int, int> &myMap)
 {
     vector<string> packPlaces;
@@ -350,7 +310,7 @@ void createClientSugestion(vector<Packet> &packs, vector<Client> &clients, map<i
                     if (!(find(packPlaces.begin(), packPlaces.end(), vectorSugestion.at(j).at(k)) != packPlaces.end()))
                     {
                         //cout << "client: " << clients.at(j).getName() << " sugestion: holiday pack id [" << packs.at(i).getId() << "]" << endl;
-                        myMap[packs.at(i).getId()] += 1;
+                        myMap[packs.at(i).getId()] += 1; //Add the sugested pack to the map
                     }
                 }
             }
@@ -358,6 +318,7 @@ void createClientSugestion(vector<Packet> &packs, vector<Client> &clients, map<i
     }
 }
 
+//Displays the client pack sugestions 
 void printClientSugestion(vector<Client> &clients, vector<Packet> &packs)
 {
     map<int, int> myMap;
@@ -391,7 +352,7 @@ void printClientSugestion(vector<Client> &clients, vector<Packet> &packs)
         }
     }
 }
-//use the operator '<<' overload to show agency
+//Use the operator '<<' overload to show agency
 void showAgency(Agency agency){
     //simple user interface
     cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
@@ -400,7 +361,7 @@ void showAgency(Agency agency){
     cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
     cout << endl;
 }
-//shows an agency content
+//Shows an agency content
 ostream &operator<<(ostream &out, const Agency &agency) {
     out << agency.getName() << endl;
     out << agency.getNif() << endl;
@@ -408,4 +369,5 @@ ostream &operator<<(ostream &out, const Agency &agency) {
     out << agency.getAddress().getAddressString() <<endl;
     out << agency.getClients()<<endl;
     out << agency.getPackets()<<endl;
+    return out;
 }

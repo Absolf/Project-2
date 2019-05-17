@@ -1,11 +1,14 @@
 
 #include "Address.h"
 
+//Construtors of the class objects Address
 Address::Address() {}
+
+//Creates an object address using a string
 Address::Address(string line)
 {
     vector<string> addres_vec;
-    tokenize(line, '/', addres_vec);
+    tokenize(line, '/', addres_vec); //Creates a vector with the attributes of an address (through a string)
     for (int i = 0; (unsigned)i < addres_vec.size(); i++)
     {
         if (i == 0)
@@ -95,7 +98,7 @@ void Address::setLocation(string location)
 }
 
 //other functions
-
+//Returns the Address in the form of a string
 string Address::getAddressString() const
 {
     string street = getStreet();

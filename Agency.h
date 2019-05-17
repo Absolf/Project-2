@@ -47,18 +47,19 @@ public:
   void setPackets(string packets);
 
   // other methods */
-  friend void createPlacesVector(vector<Packet> &packs, vector<string> &aux);
-  friend void createVisitMap(vector<Packet> &packs, vector<string> &aux, map<string, int> &map);
-  friend void createMostVisitedLocals(vector<Packet> &packs, vector<pair<string, int>> &pares);
-  friend void createClientsVisitations(vector<Client> &clients, vector<Packet> &packs, vector<vector<string>> &vectorOfClientsPlaces);
-  friend void createClientVisitSugestionList(vector<Packet> &packs, vector<Client> &clients, vector<vector<string>> &vectorSugestion);
-  friend void createClientSugestion(vector<Packet> &packs, vector<Client> &clients, map<int, int> &myMap);
-  friend void printClientSugestion(vector<Client> &clients, vector<Packet> &packs);
+  friend void createPlacesVector(vector<Packet> &packs, vector<string> &aux); //Makes a vector with all the places to visit a holiday package can offer
+  friend void createVisitMap(vector<Packet> &packs, vector<string> &aux, map<string, int> &map); //Makes the map<string,int> i'll need to use
+  friend void createMostVisitedLocals(vector<Packet> &packs, vector<pair<string, int>> &pares); //Create the most visited places of the Holiday Package in a decreasing order
+  friend void createClientsVisitations(vector<Client> &clients, vector<Packet> &packs, vector<vector<string>> &vectorOfClientsPlaces); //Creates a list with the visited places by the client
+  friend void createClientVisitSugestionList(vector<Packet> &packs, vector<Client> &clients, vector<vector<string>> &vectorSugestion); //Creates a 2D vector with the client pack sgestions
+  friend void createClientSugestion(vector<Packet> &packs, vector<Client> &clients, map<int, int> &myMap); //Creates a map with Packet sugestion for a certain client
+  friend void printClientSugestion(vector<Client> &clients, vector<Packet> &packs);  //Displays the client pack sugestions 
 
-  friend ostream &operator<<(ostream &out, const Agency &agency);
+  friend ostream &operator<<(ostream &out, const Agency &agency); //Shows an agency content
 };
-void showAgency(Agency agency);
-void totalPackageSold(vector<Packet> &packs, vector<Client> &client);
-void printMostVisitedLocals(vector<Packet> &packs);
-void printClientSugestion(vector<Client> &clients, vector<Packet> &packs);
+void showAgency(Agency agency); //Use the operator '<<' overload to show agency
+void totalPackageSold(vector<Packet> &packs, vector<Client> &client); //Calculates and visualize the number and the total value of sold packages
+void PackagePlaces(string line, vector<string> &aux); //Makes a string vector with only the elements of the package destiny
+void printMostVisitedLocals(vector<Packet> &packs); //Prints out the N most visited places of the Holiday Package
+//void printClientSugestion(vector<Client> &clients, vector<Packet> &packs); //Displays the client pack sugestions 
 #endif

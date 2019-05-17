@@ -35,7 +35,7 @@ public:
   void setAddress(string address);
 
   // outros
-  friend ostream &operator<<(ostream &out, const Address &address);
-};
+  friend ostream &operator<<(ostream &out, const Address &address); //Returns the Address in the form of a string
+}; 
 
 #endif
