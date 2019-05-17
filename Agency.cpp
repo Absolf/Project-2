@@ -251,13 +251,10 @@ void createClientsVisitations(vector<Client> &clients, vector<Packet> &packs, ve
 void createClientVisitSugestionList(vector<Packet> &packs, vector<Client> &clients, vector<vector<string>> &vectorSugestion)
 {
     vector<pair<string, int>> pares;
-    //cout << "Client visited Sugestion List test" << endl;
-    //cout << "NEW: createMostVisitedLocals test: " << endl;
     createMostVisitedLocals(packs, pares);
-    // cout << " createMostVisitedLocals passed! :)" << endl;
     vector<vector<string>> vectorOfClientsPlaces; // This will hold in each position visited places by each client (when aplicable)                         // This will hold the sugestion for each client (when aplicable).
     vector<string> sugestion;
-    //cout << "NEW : createClientsVisitations test" << endl;           // this will be filled with sugestion for one client ( when aplicable)
+              // this will be filled with sugestion for one client ( when aplicable)
     createClientsVisitations(clients, packs, vectorOfClientsPlaces); // fill my vector containing  in each position the places that each client has visited
                                                                      // cout << " createClientsVisitations  passed! :)" << endl;
     for (size_t i = 0; i < vectorOfClientsPlaces.size(); i++)        // look up the vector that contains a vector with the visited places by each client (when aplicable)
