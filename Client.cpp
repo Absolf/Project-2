@@ -263,10 +263,8 @@ void printClient(vector<Client> &vec)
   }
   if (op == 2)
   {
-    cin.ignore();
-    cout << "Whats the NIF of the client?" << endl;
-    getline(cin, line);
-    for (size_t i = 0; i < vec.size(); i++)
+    cin.clear();
+    line = readInteger("Whats the NIF of the client?") for (size_t i = 0; i < vec.size(); i++)
     {
       if (stoi(line) == vec.at(i).getNifNumber())
       {
@@ -299,20 +297,6 @@ void print_all_clients(vector<Client> &vec)
     }
   }
 }
-
-/*
-//Função que verifica a validade do input
-void Insert_valid()
-{
-	if (cin.fail())
-	{
-		cin.clear();
-		cin.ignore(1000, '/n');
-
-		cout << "Invalid input!" << endl;
-	}
-}
-*/
 
 void writeClients(string file_name, vector<Client> &vec)
 {

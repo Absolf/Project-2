@@ -27,6 +27,5 @@ istream &getInput(T &input);
 int readInteger(string prompt);
 int &readInteger();
 double readDouble(string prompt);
-//Date readDate(string prompt);
 
 #endif

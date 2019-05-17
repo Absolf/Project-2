@@ -12,8 +12,8 @@ void tokenize(string const &str, char delim, vector<string> &out)
 }
 
 
-//template <typename T>
-istream &getInput(string prompt, string &input)
+template <typename T>
+istream &getInput(string prompt, T &input)
 {
     cin.clear();
     cout << prompt;
@@ -24,9 +24,8 @@ istream &getInput(string prompt, string &input)
 //responsible to readIntData
 int readInteger(string prompt)
 {
-	bool get = true;
     string input;
-    while ( cin.eof() || get == true)
+    while (getInput(prompt, input))
     {
 		getInput(prompt, input);
         istringstream is(input);
@@ -48,7 +47,7 @@ int readInteger(string prompt)
 double readDouble(string prompt)
 {
     string input;
-    while (getInput(prompt, input) || cin.eof())
+    while (getInput(prompt, input))
     {
         istringstream is(input);
         double inputAsDouble;
