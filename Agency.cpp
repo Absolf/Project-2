@@ -7,6 +7,7 @@ Agency::Agency(string filename)
 {
     vector<string> linesInfo;
     ifstream agencyFile;
+	agencyFile.clear();
     agencyFile.open(filename);
     //ifs.is_open()
     if (agencyFile.is_open())
@@ -87,10 +88,6 @@ void Agency::setPackets(string packets)
 }
 
 //other functions
-
-vector<string> agencyData(vector<string> &linesInfo)
-{
-}
 
 /*********************************
  * Mostrar Loja
@@ -212,13 +209,13 @@ void printMostVisitedLocals(vector<Packet> &packs)
 
     cout << "How many Holiday Destinations would you like to see ?" << endl;
     cin >> n;
-    while (n > pares.size() || n <= 0)
+    while ((unsigned) n > pares.size() || n <= 0)
     {
         cout << "Please do not exceed " << pares.size() << " destinations provided or type null or negative numbers\n Type again: \n";
         cin >> n;
     }
     cout << "Destinations: " << endl;
-    for (size_t i = 0; i < n; i++)
+    for (size_t i = 0; i < (unsigned) n; i++)
     {
         cout << "[" << it->first << "] had a total of " << it->second << " visits " << endl;
         ++it;
@@ -393,10 +390,4 @@ void printClientSugestion(vector<Client> &clients, vector<Packet> &packs)
             }
         }
     }
-}
-
-// mostra o conteudo de uma agencia
-ostream &operator<<(ostream &out, const Agency &agency)
-{
-    // A IMPLEMENTATION REQUIRED
 }

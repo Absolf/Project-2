@@ -61,5 +61,4 @@ public:
 void totalPackageSold(vector<Packet> &packs, vector<Client> &client);
 void printMostVisitedLocals(vector<Packet> &packs);
 void printClientSugestion(vector<Client> &clients, vector<Packet> &packs);
-vector<string> agencyData(vector<string> &linesInfo);
 #endif

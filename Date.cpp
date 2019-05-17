@@ -1,4 +1,5 @@
 #include "Date.h"
+#pragma warning(disable:4996) //Erro associado com o uso do localtime
 Date::Date()
 {
 }
@@ -118,7 +119,7 @@ bool verifyDate(string date)
     int thisYear = aTime->tm_year + 1900;
     int limit = thisYear + 10;
     unsigned short maxDay = daysMonth(month, year);
-    if((year >= thisYear) && (year < limit) &&
+    if((year >= (unsigned) thisYear) && (year < (unsigned) limit) &&
        (month <= 12 && month > 0) &&
        (day <= maxDay && day > 0))
     {
@@ -157,13 +158,4 @@ string Date::returnDate(Date date)
         date_output = ss.str();
     }
     return date_output;
-}
-
-/*********************************
- * Show Date
- ********************************/
-
-// display a Date in a nice format
-ostream &operator<<(ostream &out, const Date &date)
-{
 }

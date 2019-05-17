@@ -341,4 +341,5 @@ ostream &operator<<(ostream &out, const Client &client)
   out << client.address.getAddressString() << endl;
   out << client.packets << endl;
   out << client.totalPurchased << endl;
+  return out;
 }
