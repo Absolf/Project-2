@@ -242,7 +242,7 @@ void print_all_packs(vector<Packet> &vec)
         cout << "::::::::::::::::::::::::::::::::" << endl;
         cout << vec.at(i) << endl;
         cont++;
-        if ((unsigned)cont < vec.size() - 1)
+        if (cont < vec.size() - 1)
         {
             cout << ":::::::::::::::::::::::::::::::" << endl;
         }

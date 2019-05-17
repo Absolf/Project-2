@@ -89,7 +89,7 @@ void statistics_operations(Agency &agency, vector<Client> &client, vector<Packet
     printClientSugestion(client, packs);
     while (op > 0)
     {
-      op = readInteger("\nWould you like to sugest another ammount of most visited packs? \n1 - Yes \n0 - No");
+      op = readInteger("\nWould you like to suggest another ammount of most visited packs? \n1 - Yes \n0 - No");
       if (op > 0)
       {
         printClientSugestion(client, packs);
@@ -157,7 +157,6 @@ void clients_operations(Agency &agency, vector<Client> &clients)
     while (op > 0)
     {
       op = readInteger("Do you want to update another client? \n1 - Yes \n0 - No \n");
-      cin >> op;
       if (op == 0)
       {
         print_all_clients(clients);

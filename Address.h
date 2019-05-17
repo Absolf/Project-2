@@ -14,7 +14,6 @@ private:
   string location; // site
 
 public:
-
   Address();
   Address(string line);
   //Address(string street, int doorNumber, string floor, string postalCode, string location);
